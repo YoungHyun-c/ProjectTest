@@ -136,6 +136,8 @@
 
 // () {} []
 
+void TextColor(int font, int backGround);
+
 using namespace std; // using 지시자, namespace 이름공간, std를 사용하겠다.
 
 int main()
@@ -170,7 +172,62 @@ int main()
 
 	std::cout << "★" << std::endl;
 	std::cout << "■" << std::endl;
+
+
+	// 7/17
+	printf("지옥에 온걸 환영해 얘들아! \n");
+
+	/*
+	▶ printf() / scanf()의 서식 문자
+	- 서식 문자는 문자열을 출력 / 입력을 받을 때 해당 서식 문자의 자리를 다른 수로 대체하기 위한
+	자리 매김 역할을 하는 문자를 의미한다.
+
+	- 사용하는 이유는 고정되어 있지 않는 문자열을 출력 / 입력 받는 것이 가능하기 때문
+
+	▷ printf / scanf 서식문자
+	a. %d		-> int
+	b. %ld		-> long
+	c. %lld		-> long long
+	d. %c		-> char
+	e. %s		-> 문자열 (string)
+	f. %f		-> float
+	g. %lf		-> double
+
+	▷ printf 특수문자
+
+	- \n -> 개행
+	- \t -> 수평
+	- \v -> 수직
+	- \\ -> \
+	- \? -> ?
+	- \' -> '
+	- \" -> "
+
+	*/
+
+	// cout << "				■			" << endl;
+
+	std::cout << "오늘 날씨가 \"매우\" 안좋다" << std::endl;
+
+
+	TextColor(14, 15);
+	cout << "=================" << endl;
+
+	int a = 0;
 }
+
+void TextColor(int font, int backGround)
+{
+	int Color = font + backGround * 16;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), Color);
+
+
+}
+
+
+
+
+
 
 /*
 1. 취업을 위해서 지금부터 정리하는 습관을 들이면 아주 좋다.
