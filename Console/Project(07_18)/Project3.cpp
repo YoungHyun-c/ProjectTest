@@ -167,6 +167,36 @@ int main()
 			} while (i <= 20);
 
 		}*/
+
+		// for 20 ~ 1
+		/*{
+			for (int i = 20; i > 0; i--)
+			{
+				std::cout << i << " ";
+			}
+			std::cout << '\n';
+		}*/
+		//while 20 ~ 1
+		/*{
+			int A = 20;
+			while (A > 0)
+			{
+				std::cout << A << " ";
+				A--;
+			}
+			std::cout << '\n';
+		}*/
+
+		//do while 20 ~ 1
+		/*{
+			int A = 20;
+			do
+			{
+				std::cout << A << " ";
+				A--;
+			} while (A > 0);
+			std::cout << '\n';
+		}*/
 	}
 
 	// °úÁ¦ 4.
