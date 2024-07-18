@@ -336,51 +336,30 @@ int main()
 
 		// 마름모 그리기
 		{
-			int Num = 12;
-			int Mul = 0;
-			for (int i = 1; i <= 7; i++)
+			int Num = 0;
+			while (Value)
 			{
-				for (int j = 0; j < Num / 2; j++)
+				std::cout << "값 입력 : ";
+				std::cin >> Num;
+
+				int A = Num / 2;
+				for (int i = -A; i <= A; i++)
 				{
-					printf(" ");
+					int K = 0;
+					for (int j = 0; j < Num - abs(i); j++)
+					{
+						printf(K < abs(i) ? " " : "*");
+						K++;
+					}
+					printf("\n");
 				}
 
-				for (int j = 0; j < 2 * Mul; j++)
+				while (Num == 0)
 				{
-					printf("*");
+					Value = false;
 				}
-
-				for (int j = Num / 2; j < Num; j++)
-				{
-					printf(" ");
-				}
-
-				Num -= 2;
-				Mul++;
-				std::cout << "\n";
 			}
 
-			int SubValue = 10;
-			for (int i = 1; i <= 7; i++)
-			{
-				for (int j = 0; j < i; j++)
-				{
-					printf(" ");
-				}
-
-				for (int j = 0; j < SubValue; j++)
-				{
-					printf("*");
-				}
-
-				for (int j = 0; j < i; j++)
-				{
-					printf(" ");
-				}
-
-				SubValue -= 2;
-				std::cout << "\n";
-			}
 		}
 
 	}
