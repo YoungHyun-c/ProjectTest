@@ -11,6 +11,9 @@
     <Filter Include="Lesson\02. 자료형 + 변수 + 난수 C++">
       <UniqueIdentifier>{bcfaf96c-efdd-40d0-ac14-725dd776fa91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\03. 연산자 + 반복문">
+      <UniqueIdentifier>{afa57dc9-0838-4d36-8d99-c1bf6d3991a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -23,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="Example_02.cpp">
       <Filter>Lesson\02. 자료형 + 변수 + 난수 C++</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_03.cpp">
+      <Filter>Lesson\03. 연산자 + 반복문</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

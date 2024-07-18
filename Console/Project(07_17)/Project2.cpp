@@ -353,7 +353,7 @@ void Armor()
 	Rand = rand() % RandomDivide;
 	int HelmetShield = 67 + Rand, HelmetPrice = 500;
 
-	printf("========================방어구==============================================\n");
+	printf("========================방어구============================================\n");
 	printf("   종류		|	방어력 	 |	 가격	|	특성		 | \n");
 	printf("1. 방패		|	 %4d	 |	%5d원	| 공격을 막을 수 있다.   |\n", ShieldValue, ShieldPrice);
 	printf("2. 갑옷		|	 %4d	 |	%5d원	| 방어 능력이 띄어나다.  |\n", ArmorShield, ArmorPrice);
@@ -414,7 +414,7 @@ int main()
 	//Project1();
 
 	// 과제 2
-	Project2();
+	//Project2();
 
 
 	// 과제 3
