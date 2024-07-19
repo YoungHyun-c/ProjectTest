@@ -14,6 +14,9 @@
     <Filter Include="Lesson\03. 연산자 + 반복문">
       <UniqueIdentifier>{afa57dc9-0838-4d36-8d99-c1bf6d3991a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\04. 조건문">
+      <UniqueIdentifier>{1e1446d6-8f5d-48ca-886d-8d55ff0c4ed7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -29,6 +32,12 @@
     </ClCompile>
     <ClCompile Include="Example_03.cpp">
       <Filter>Lesson\03. 연산자 + 반복문</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_04.cpp">
+      <Filter>Lesson\04. 조건문</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_04_B.cpp">
+      <Filter>Lesson\04. 조건문</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

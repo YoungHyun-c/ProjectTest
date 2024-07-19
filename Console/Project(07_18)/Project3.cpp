@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 
 #pragma region 과제1
@@ -336,7 +337,7 @@ int main()
 
 		// 마름모 그리기
 		{
-			int Num = 0;
+			/*int Num = 0;
 			while (Value)
 			{
 				std::cout << "값 입력 : ";
@@ -358,8 +359,28 @@ int main()
 				{
 					Value = false;
 				}
-			}
+			}*/
 
+			int Num = 0;
+			while (Value)
+			{
+				std::cout << "값 입력 : ";
+				std::cin >> Num;
+				std::cout << std::endl;
+
+				int A = Num / 2;
+				int Even = 2;
+				std::string Enswer = "*";
+				for (int i = 0, int j = 0; i <= A, j < A; i++, j++)
+				{
+					std::cout << (Num % Even == 0 ? Enswer += "*" : " ") << std::endl;
+				}
+
+				while (Num == 0)
+				{
+					Value = false;
+				}
+			}
 		}
 
 	}
