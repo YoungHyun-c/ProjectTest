@@ -52,37 +52,82 @@ void SRPGame()
 void DayPrint()
 {
 	int PrintNum = 5;
-	int PlayerDay;
+	int PlayerValue;
+	int DayNum;
 
+	// if문
+	{
+		//for (int i = 0; i < PrintNum; i++)
+		//{
+		//	Sleep(200);
+		//	cout << "남은 출력 수 : " << PrintNum - i << endl;
+		//	cout << "일수 출력기 원하는 달을 선택하세요 (1월 ~ 12월) : ";
+		//	cin >> PlayerValue;
+
+		//	Sleep(100);
+		//	//1, 3, 5, 7, 8, 10, 12
+		//	cout << PlayerValue << "월 일 수 : ";
+		//	if (PlayerValue == 1 || PlayerValue == 3 || PlayerValue == 5 || PlayerValue == 7 || PlayerValue == 8 || PlayerValue == 10 || PlayerValue == 12)
+		//	{
+		//		cout << 31 << endl;
+		//	} // 2
+		//	else if (PlayerValue == 2)
+		//	{
+		//		cout << 28 << endl;
+		//	} // 4, 6, 9 ,11
+		//	else if (PlayerValue == 4 || PlayerValue == 6 || PlayerValue == 9 || PlayerValue == 11)
+		//	{
+		//		cout << 30 << endl;
+		//	}
+		//	else
+		//	{
+		//		cout << "이 외의 달을 선택하셨습니다. 범위 내 입력해주세요" << endl;
+		//	}
+
+		//	cout << endl;
+		//}
+	}
+
+	// switch문
 	for (int i = 0; i < PrintNum; i++)
 	{
 		Sleep(200);
 		cout << "남은 출력 수 : " << PrintNum - i << endl;
 		cout << "일수 출력기 원하는 달을 선택하세요 (1월 ~ 12월) : ";
-		cin >> PlayerDay;
+		cin >> PlayerValue;
 
 		Sleep(100);
-		//1, 5, 7, 8, 10, 12
-		cout << PlayerDay << "월 일 수 : ";
-		if (PlayerDay == 1 || PlayerDay == 3 || PlayerDay == 5 || PlayerDay == 7 || PlayerDay == 8 || PlayerDay == 10 || PlayerDay == 12)
+		cout << PlayerValue << "월 일 수 :";
+		switch (PlayerValue)
 		{
-			cout << 31 << endl;
-		} // 2
-		else if (PlayerDay == 2)
-		{
-			cout << 28 << endl;
-		} // 4, 6, 9 ,11
-		else if (PlayerDay == 4 || PlayerDay == 6 || PlayerDay == 9 || PlayerDay == 11)
-		{
-			cout << 30 << endl;
-		}
-		else
-		{
-			cout << "이 외의 달을 선택하셨습니다. 범위 내 입력해주세요" << endl;
+		case 1: //1, 5, 7, 8, 10, 12
+		case 3:
+		case 5:
+		case 7:
+		case 8:
+		case 10:
+		case 12:
+			DayNum = 31;
+			cout << DayNum << endl;
+			break;
+		case 2: 
+			DayNum = 28;
+			cout << DayNum << endl;
+			break;
+		case 4: // 4, 6, 9 ,11
+		case 6:
+		case 9:
+		case 11:
+			DayNum = 30;
+			cout << DayNum << endl;
+			break;
+		default:
+			cout << "X" << '\n';
+			cout << "이 외의 달을 선택하셨습니다.범위 내 입력해주세요!" << endl;
+			break;
 		}
 
-		cout << endl;
-
+		cout << '\n';
 	}
 }
 
@@ -151,10 +196,10 @@ int main()
 	//SRPGame();
 
 	// 2. 일수 출력기
-	//DayPrint();
+	DayPrint();
 
 	// 3. 가위바위보 함수 포인터 활용
-	SRPFunction(&A, &B, &C);
+	//SRPFunction(&A, &B, &C);
 
 
 
