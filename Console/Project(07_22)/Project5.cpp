@@ -14,7 +14,6 @@ using std::string;
 // 과제2. 가위바위보
 
 int PlayerMoney = 10000;
-int PlayerNumber = 0;
 int PlayerBatting = 0;
 const int LeastBatting = 1000;
 
@@ -95,9 +94,9 @@ int ComputerRanNum()
 int PlayerInputNum()
 {
 	cout << "숫자를 선택해 주세요 (1.가위, 2.바위, 3.보) : ";
-
+	int PlayerNumber;
 	cin >> PlayerNumber;
-	Draw <= PlayerNumber && PlayerNumber <= Win ? PlayerNumber : PlayerInputNum();
+	Draw <= PlayerNumber && PlayerNumber <= Win ? PlayerNumber : PlayerNumber = PlayerInputNum();
 
 	return PlayerNumber;
 }
