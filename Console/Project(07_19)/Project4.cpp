@@ -160,11 +160,13 @@ void* SRPFunction(int* _Siccor, int** _Rock, int*** _Paper)
 
 		if (PlayerNum == 2)
 		{
-			*B += 1;
+			//*B += 1;
+			*_Rock += 1;
 		}
 		if (PlayerNum == 3)
 		{
-			**C += 2;
+			//**C += 2;
+			**_Paper += 2;
 		}
 		Sleep(300);
 
@@ -196,12 +198,10 @@ int main()
 	//SRPGame();
 
 	// 2. 일수 출력기
-	DayPrint();
+	//DayPrint();
 
 	// 3. 가위바위보 함수 포인터 활용
-	//SRPFunction(&A, &B, &C);
-
-
+	SRPFunction(&A, &B, &C);
 
 	return 0;
 }
