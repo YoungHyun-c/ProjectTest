@@ -371,7 +371,7 @@ int main()
 				int A = Num / 2;
 				int Even = 2;
 				std::string Enswer = "*";
-				for (int i = 0, int j = 0; i <= A, j < A; i++, j++)
+				for (int i = 0, int j = 0; i <= A && j < A; i++, j++)
 				{
 					std::cout << (Num % Even == 0 ? Enswer += "*" : " ") << std::endl;
 				}
