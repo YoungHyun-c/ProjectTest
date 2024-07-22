@@ -32,7 +32,7 @@ constexpr;
 
  ▶readonly
  - C#에서 지원하는 상수화 키워드
- - consㅅ vs readonly C# 기준
+ - const vs readonly C# 기준
  const
   ㄴ 초기화 이후 값을 변경할 수 없다.
   ㄴ 선언하는 시점에만 초기화 가능.
