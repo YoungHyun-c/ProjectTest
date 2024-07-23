@@ -20,6 +20,9 @@
     <Filter Include="Lesson\05. 함수 + 변/상수 + 전처리기">
       <UniqueIdentifier>{2c7a2c1e-4dc6-48e7-b3d7-51905060e217}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\06. 배열">
+      <UniqueIdentifier>{47ae1ecb-97b0-4c9b-8016-803f87552d7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -47,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="Example_05_B.cpp">
       <Filter>Lesson\05. 함수 + 변/상수 + 전처리기</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_06.cpp">
+      <Filter>Lesson\06. 배열</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_06_B.cpp">
+      <Filter>Lesson\06. 배열</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,10 +7,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project5.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Challenge1.cpp">
+    <ClCompile Include="Project6.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
