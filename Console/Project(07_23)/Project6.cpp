@@ -129,6 +129,12 @@ void BaseBallGame()
 			{
 				std::cout << i + 1 << "번째 번호 : ";
 				std::cin >> Player[i];
+				while (Player[i] > 10 || Player[i] < 1)
+				{
+					std::cout << "범위 내 숫자를 입력해주세요. (1 ~ 10)\n";
+					std::cout << i + 1 << "번째 번호 : ";
+					std::cin >> Player[i];
+				}
 			}
 
 			for (size_t i = 0; i < BallNum; i++)
@@ -146,19 +152,21 @@ void BaseBallGame()
 				}
 			}
 
-			printf("%d 스트라이크 , %d 볼, %d 아웃\n", Strike, Ball, Out);
-
 			if (Strike == 3)
 			{
 				GameStart = false;
 				Out++;
 				std::cout << ("맞았습니다~ 축하합니다! \n");
 			}
+
+			printf("%d 스트라이크 , %d 볼, %d 아웃\n", Strike, Ball, Out);
 		}
 
 		Sleep(3000);
 		system("cls");
 	}
+
+	std::cout << "게임이 종료됩니다...";
 }
 
 int main()
