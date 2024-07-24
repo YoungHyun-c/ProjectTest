@@ -8,7 +8,7 @@ int Random(int _Num = 0);
 
 int SKillRange(std::string _SkillName, std::string _Skills[]);
 
-void Skill(std::string _SkillName, int _Damage, std::string _Skills[]);
+void Skill(std::string _SkillName, int _Damage, int _Index);
 
 void Skill(std::string _SkillName, int _Damage, int _Critical, int _Range);
 
@@ -25,11 +25,11 @@ int SumNum(int _Num)
 	return Answer;
 }
 
-#define 파이어볼 1
-#define 워터볼 2
-#define 콜드볼 3
-#define 전기볼 4
-#define 아니아니야 5
+#define 파이어볼 0
+#define 워터볼 1
+#define 콜드볼 2
+#define 전기볼 3
+#define 아니아니야 4
 
 
 int main()
@@ -42,6 +42,7 @@ int main()
 		int PlayerSkill = true;
 		std::string Skills[] = { "파이어볼", "워터볼" , "콜드볼", "전기볼", "아니아니야", "종료"};
 		int Len = sizeof(Skills)/ sizeof(std::string);
+		int Index = 0;
 		for (int i = 0; i < Len; i++)
 		{
 			std::cout << i + 1 << "." << Skills[i] << std::endl;
@@ -51,6 +52,7 @@ int main()
 			std::cout << "스킬을 골라주세요 ex)파이어볼 : ";
 			std::cin >> SkillNum;
 			auto it = std::find(std::begin(Skills), std::end(Skills), SkillNum);
+			Index = std::distance(std::begin(Skills), it);
 			if (it != std::end(Skills))
 			{
 				break;
@@ -63,7 +65,7 @@ int main()
 		}
 		std::cout << "데미지를 입력해주세요 : ";
 		std::cin >> Dam;
-		Skill(SkillNum, Dam, Skills);
+		Skill(SkillNum, Dam, Index);
 	}
 
 
@@ -87,42 +89,38 @@ int Random(int _Num)
 }
 
 
-int SKillRange(std::string _SkillName, std::string  _Skills[])
+int SKillRange(std::string _SkillName, int _Index)
 {
 	int Range = 0;
-	int Index = 0;
 
-	
-
-	switch (Index)
+	switch (_Index)
 	{
-	case 1:
+	case 파이어볼:
 		Range = 50;
 		break;
-	case 2:
+	case 워터볼:
 		Range = 60;
 		break;
-	case 3:
+	case 콜드볼:
 		Range = 70;
 		break;
-	case 4:
+	case 전기볼:
 		Range = 80;
 		break;
-	case 5:
+	case 아니아니야:
 		Range = 100;
 		break;
 	default:
 		break;
 	}
 
-
 	return Range;
 }
 
-void Skill(std::string _SkillName, int _Damage, std::string _Skills[])
+void Skill(std::string _SkillName, int _Damage, int _Index)
 {
 	int Critical = Random();
-	int Range = SKillRange(_SkillName, _Skills);
+	int Range = SKillRange(_SkillName, _Index);
 
 	Skill(_SkillName, _Damage, Critical, Range);
 }
