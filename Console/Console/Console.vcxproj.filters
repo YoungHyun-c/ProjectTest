@@ -23,6 +23,9 @@
     <Filter Include="Lesson\06. 배열">
       <UniqueIdentifier>{47ae1ecb-97b0-4c9b-8016-803f87552d7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\07.삼항 연산자">
+      <UniqueIdentifier>{9fa1cdb9-6a21-492d-873e-a680c5a39bba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -56,6 +59,18 @@
     </ClCompile>
     <ClCompile Include="Example_06_B.cpp">
       <Filter>Lesson\06. 배열</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_07.cpp">
+      <Filter>Lesson\07.삼항 연산자</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_07_B.cpp">
+      <Filter>Lesson\07.삼항 연산자</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_07_C.cpp">
+      <Filter>Lesson\07.삼항 연산자</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_07_D.cpp">
+      <Filter>Lesson\07.삼항 연산자</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

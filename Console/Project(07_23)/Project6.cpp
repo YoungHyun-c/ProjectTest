@@ -169,6 +169,90 @@ void BaseBallGame()
 	std::cout << "게임이 종료됩니다...";
 }
 
+void TeacherBaseBall()
+{
+	srand(time(NULL));
+
+	int number[10];
+	int comNumber[3];
+	int playerNumber[3];
+	int dest, sour, temp;
+	int ballCount;
+	int strikeCount;
+
+	for (size_t i = 0; i < 10; i++) // 초기화
+	{
+		number[i] = i;
+	}
+	for (size_t i = 0; i < 500; i++) // 섞고
+	{
+		dest = rand() % 10;
+		sour = rand() % 10;
+
+		temp = number[dest];
+		number[dest] = number[sour];
+		number[sour] = temp;
+	}
+	// 컴퓨터 숫자 받자.
+	for (size_t i = 0; i < 3; i++)
+	{
+		comNumber[i] = number[i];
+	}
+
+	std::cout << "컴퓨터가 낸 숫자 :";
+	for (size_t i = 0; i < 3; i++)
+	{
+		std::cout << comNumber[i] << " ";
+	}
+	std::cout << std::endl << std::endl;
+
+	// 게임이 돌아가는 루프
+	while (true)
+	{
+		std::cout << "0 ~ 9 까지 숫자를 입력해보시오☞ : " << std::endl;
+		// 플레이어의 숫자를 3개 입력해라.
+		for (size_t i = 0; i < 3; i++)
+		{
+			std::cout << i + 1 << "번째 숫자를 입력해라 ☞ ";
+			std::cin >> playerNumber[i];
+		}
+		// 0으로 초기화.
+		ballCount = 0;
+		strikeCount = 0;
+
+		//컴
+		for (size_t i = 0; i < 3; i++)
+		{
+			//플
+			for (size_t k = 0; k < 3; k++)
+			{
+				//컴퓨터 숫자와 내가 입력한 숫자가 같냐?
+				if (comNumber[i] == playerNumber[k])
+				{
+					// 자리까지 같냐?
+					if (i == k)
+					{
+						strikeCount++;
+					}
+					else
+					{
+						ballCount++;
+					}
+				}
+			}
+		}// end of for
+
+		std::cout << ballCount << "볼" << strikeCount << "스트라잌" << std::endl;
+
+		if (strikeCount == 3)
+		{
+			std::cout << "삼진 아웃" << std::endl;
+			break;
+		}
+	}
+
+}
+
 int main()
 {
 	// 1. 구구단.
@@ -178,7 +262,10 @@ int main()
 	//RandArr();
 
 	// 3. 숫자야구
-	BaseBallGame();
+	//BaseBallGame();
+
+	// 선생님풀이
+	TeacherBaseBall();
 
 	return 0;
 }
