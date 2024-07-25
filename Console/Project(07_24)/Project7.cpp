@@ -29,7 +29,7 @@ int SumNum(int _Num)
 #define 워터볼 1
 #define 콜드볼 2
 #define 전기볼 3
-#define 아니아니야 4
+#define 먼가먼가스킬 4
 
 
 int main()
@@ -53,11 +53,11 @@ int main()
 			std::cin >> SkillNum;
 			auto it = std::find(std::begin(Skills), std::end(Skills), SkillNum);
 			Index = std::distance(std::begin(Skills), it);
-			if (it != std::end(Skills))
-			{
-				break;
-			}
 			if (SkillNum == "종료")
+			{
+				exit(1);
+			}
+			if (it != std::end(Skills))
 			{
 				break;
 			}
@@ -107,8 +107,8 @@ int SKillRange(std::string _SkillName, int _Index)
 	case 전기볼:
 		Range = 80;
 		break;
-	case 아니아니야:
-		Range = 100;
+	case 먼가먼가스킬:
+		Range = 1000;
 		break;
 	default:
 		break;
