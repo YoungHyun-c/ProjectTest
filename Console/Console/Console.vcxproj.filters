@@ -26,6 +26,9 @@
     <Filter Include="Lesson\07.삼항 연산자">
       <UniqueIdentifier>{9fa1cdb9-6a21-492d-873e-a680c5a39bba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\08. 사용자 정의 자료형">
+      <UniqueIdentifier>{3d0ca0e2-8207-446a-9c3b-205ee28449e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -71,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="Example_07_D.cpp">
       <Filter>Lesson\07.삼항 연산자</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_08.cpp">
+      <Filter>Lesson\08. 사용자 정의 자료형</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_08_B.cpp">
+      <Filter>Lesson\08. 사용자 정의 자료형</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

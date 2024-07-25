@@ -148,7 +148,8 @@ int main()
 	*/
 
 
-
+	const int ArraySize = 8;
+	int* MyVariableSizxeArray = new int[ArraySize];
 
 
 
