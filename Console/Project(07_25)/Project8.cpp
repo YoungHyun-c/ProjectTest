@@ -80,17 +80,8 @@ void CardGame()
 	std::cout << "카드 게임에 오신걸 환영합니다~~~" << std::endl;
 	for (int i = 0; i < 17 && 1 < CardLeft && 0 < PlayerMoney; i++)
 	{
-		std::cout << "남은 소지금 : " << PlayerMoney << std::endl;
-		printf("배팅 금액을 입력해주세요 (100 ~ %d) : ", PlayerMoney);
-		std::cin >> PlayerBatting;
-		while (PlayerBatting < 100 || PlayerBatting > PlayerMoney)
-		{
-			printf("최소 배팅금액과 당신의 소지금 내에서 다시 입력하세요! (100 ~ %d) : ", PlayerMoney);
-			std::cin >> PlayerBatting;
-		}
 		int ComCard[2] = {};
 		int PlayerCard = 0;
-
 		for (int CurIndex = 0; CurIndex < 3; CurIndex++)
 		{
 			int ChoiceCard = (CardCheck[Index] / 13);
@@ -132,6 +123,15 @@ void CardGame()
 			Index++;
 		}
 
+		std::cout << "남은 소지금 : " << PlayerMoney << std::endl;
+		printf("배팅 금액을 입력해주세요 (100 ~ %d) : ", PlayerMoney);
+		std::cin >> PlayerBatting;
+		while (PlayerBatting < 100 || PlayerBatting > PlayerMoney)
+		{
+			printf("최소 배팅금액과 당신의 소지금 내에서 다시 입력하세요! (100 ~ %d) : ", PlayerMoney);
+			std::cin >> PlayerBatting;
+		}
+
 		std::sort(ComCard, ComCard + 2);
 		printf("컴퓨터 카드 : %d ~ %d, 플레이어 카드 : %d\n", ComCard[0], ComCard[1], PlayerCard);
 		if (ComCard[0] < PlayerCard && PlayerCard < ComCard[1])
@@ -155,7 +155,7 @@ void CardGame()
 			break;
 		}
 
-		Sleep(5000);
+		Sleep(4000);
 		std::system("Cls");
 
 		std::cout << "남은 카드 : " << CardLeft << std::endl;
