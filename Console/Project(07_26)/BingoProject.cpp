@@ -39,7 +39,6 @@ void BingoPan::BingoMade()
 		Bingo[Dest] = Bingo[Sour];
 		Bingo[Sour] = Temp;
 	}
-
 }
 
 void BingoPan::BingoPrint()
