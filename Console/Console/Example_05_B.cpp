@@ -105,11 +105,14 @@ int main()
 	const int CnumberA = 100;
 	int const cNumberB = 200;
 
-	// 2. 변수명이 가르키는 주소의 값을 변경할 수 없다.
-	// ㄴ 주소의 상수화.
+	// 2. 포인터 변수의 상수화.
+	int Test = 3;
+	int Test2 = 4;
 	const int* cNumberC;
 
-	// 3. 포인터 변수의 상수화.
+
+	// 3. 변수명이 가르키는 주소의 값을 변경할 수 없다.
+	// ㄴ 주소의 상수화.
 	int pNum;
 	int* const CNumberD = &pNum;
 

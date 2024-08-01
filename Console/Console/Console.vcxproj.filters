@@ -29,6 +29,9 @@
     <Filter Include="Lesson\08. 사용자 정의 자료형">
       <UniqueIdentifier>{3d0ca0e2-8207-446a-9c3b-205ee28449e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\09.포인터">
+      <UniqueIdentifier>{c3343597-12a3-46d8-bee4-89ced8e28654}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -80,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="Example_08_B.cpp">
       <Filter>Lesson\08. 사용자 정의 자료형</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_09.cpp">
+      <Filter>Lesson\09.포인터</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_09_B.cpp">
+      <Filter>Lesson\09.포인터</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

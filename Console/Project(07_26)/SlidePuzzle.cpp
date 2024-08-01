@@ -90,7 +90,6 @@ void SlideGame::Swap(int2 _CurPos, int2 _Pos)
 
 	Slide[_CurPos.Y][_CurPos.X] =  Slide[_Pos.Y][_Pos.X];
 	Slide[_Pos.Y][_Pos.X] = Temp;
-
 }
 
 void SlideGame::SlidePrint()
@@ -137,12 +136,8 @@ void SlideGame::SetScreenCharacter(const int2& _Pos, std::string _Str)
 	{
 		return;
 	}
-	
-	//Swap(Slide[_Pos.Y][_Pos.X], _Str);
 
-	SaveString = Slide[_Pos.Y][_Pos.X];
 	Slide[_Pos.Y][_Pos.X] = _Str;
-
 }
 
 struct Player
@@ -216,7 +211,7 @@ public:
 	}
 
 private:
-	static const int InterFrame = 200;
+	static const int InterFrame = 100;
 
 	int2 Pos = int2(4, 4);
 };
@@ -227,6 +222,7 @@ int main()
 
 	GamePlayer.SetPos({ 4, 4 });
 	SlideGame::GetMainScreen().SlideMade();
+	SlideGame::GetMainScreen().SetScreenCharacter(GamePlayer.GetPos(), " ");
 
 	while (true)
 	{
@@ -234,10 +230,7 @@ int main()
 
 		GamePlayer.GetPos();
 
-		SlideGame::GetMainScreen().SetScreenCharacter(GamePlayer.GetPos(), " ");
 		SlideGame::GetMainScreen().SlidePrint();
-
-
 		GamePlayer.Move(SlideGame::GetMainScreen());
 	}
 
