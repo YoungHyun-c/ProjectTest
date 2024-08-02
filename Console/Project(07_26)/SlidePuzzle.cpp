@@ -164,7 +164,7 @@ public:
 		int2 NextPos = { 0, 0 };
 		int2 CurPos = GetPos();
 		std::string PreStr = SlideGame::GetMainScreen().SaveString;
-
+		
 		switch (Ch)
 		{
 		case 'a':

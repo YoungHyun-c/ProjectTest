@@ -32,6 +32,9 @@
     <Filter Include="Lesson\09.포인터">
       <UniqueIdentifier>{c3343597-12a3-46d8-bee4-89ced8e28654}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\10.클래스">
+      <UniqueIdentifier>{3101be13-7381-44b3-9568-0b83bf233330}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -89,6 +92,18 @@
     </ClCompile>
     <ClCompile Include="Example_09_B.cpp">
       <Filter>Lesson\09.포인터</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_10.cpp">
+      <Filter>Lesson\10.클래스</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_10_B.cpp">
+      <Filter>Lesson\10.클래스</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_10_C.cpp">
+      <Filter>Lesson\10.클래스</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_10_D.cpp">
+      <Filter>Lesson\10.클래스</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
