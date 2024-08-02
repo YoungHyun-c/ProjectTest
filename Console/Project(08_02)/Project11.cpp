@@ -138,9 +138,10 @@ private:
 
 
 #pragma region 대전게임
-class RandNumber
+class RandomNumber
 {
-	const int RandomNum(const int _Start, const int _End)
+public:
+	const int RandomNum(const int& _Start, const int& _End)
 	{
 		std::random_device Ren;
 		std::mt19937 Mt(Ren());
@@ -158,13 +159,38 @@ private:
 
 };
 
-class Player
+class BattlePlayer
 {
 public:
-	Player(int _Hp, int _Atk, int _Def)
-		: pHp(_Hp), pAtk(_Atk), pDef(_Def)
+	BattlePlayer()
 	{
 	}
+
+	void SetPlayerHp(int _Hp)
+	{
+		pHp = _Hp;
+	}
+	int GetPlayerHp()
+	{
+		return pHp;
+	}
+	void SetPlayerAtk(int _Atk)
+	{
+		pAtk = _Atk;
+	}
+	int GetPlayerAtk()
+	{
+		return pAtk;
+	}
+	void SetPlayerDef(int _Def)
+	{
+		pDef = _Def;
+	}
+	int GetPlayerDef()
+	{
+		return pDef;
+	}
+
 
 private:
 	int pHp = 0;
@@ -172,10 +198,26 @@ private:
 	int pDef = 0;
 };
 
-class Monster
+class BattleMonster
 {
 public:
+	BattleMonster(int _Hp, int _Atk, int _Def)
+		: mHp(_Hp), mAtk(_Atk), mDef(_Def)
+	{
+	}
 
+	void SetMosterHp(int _Hp)
+	{
+		mHp = _Hp;
+	}
+	int GetMonsterHp()
+	{
+		return mHp;
+	}
+	int GetMonsterDef()
+	{
+		return mDef;
+	}
 
 private:
 	int mHp = 0;
@@ -192,9 +234,9 @@ int main()
 	// 슬라이드 게임 클래스로 만들기
 	/*{
 		SlideGame::GetSlideScreen().MadeSlide();
-		Player SPlayer;
-		SPlayer.SetPlayerPos({ 4,4 });
-		SlideGame::GetSlideScreen().SetPlayerCharacter(SPlayer.GetPos(), " ");
+		Player* SPlayer = new Player();
+		SPlayer->SetPlayerPos({ 4,4 });
+		SlideGame::GetSlideScreen().SetPlayerCharacter(SPlayer->GetPos(), " ");
 		while (true)
 		{
 			system("cls");
@@ -205,17 +247,33 @@ int main()
 				break;
 			}
 			
-			SPlayer.Move(SlideGame::GetSlideScreen());
+			SPlayer->Move(SlideGame::GetSlideScreen());
 		}
+
+		delete SPlayer;
+		SPlayer = nullptr;
 	}*/
 
 	// 대전게임 클래스로 만들기
 	{
-		RandNumber Random;
-		int PlayerHp, PlayerAtk, PlayerDef;
-		//Player pPlayer(PlayerHp, PlayerAtk, PlayerDef);
+		RandomNumber Random;
 
+		BattlePlayer* pPlayer = new BattlePlayer();
+		pPlayer->SetPlayerHp(Random.RandomNum(500, 1000));
+		pPlayer->SetPlayerAtk(Random.RandomNum(100, 300));
+		pPlayer->SetPlayerDef(Random.RandomNum(100, 300));
 
+		int MonsterHp, MonsterAtk, MonsterDef;
+		MonsterHp = Random.RandomNum(500, 1000);
+		MonsterAtk = Random.RandomNum(100, 300);
+		MonsterDef = Random.RandomNum(100, 300);
+		BattleMonster* pMonster = new BattleMonster(MonsterHp, MonsterAtk, MonsterDef);
+
+		pPlayer->GetPlayerHp();
+
+		pMonster->GetMonsterHp();
+
+		int a = 0;
 	}
 
 
