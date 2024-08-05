@@ -35,10 +35,22 @@
     <Filter Include="Lesson\10.클래스">
       <UniqueIdentifier>{3101be13-7381-44b3-9568-0b83bf233330}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\11.static, extern">
+      <UniqueIdentifier>{baebaccc-3f79-48c1-a9c1-ed7ec5028781}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
       <Filter>Lesson\01. 프로젝트 생성 + 입출력</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClInclude>
+    <ClInclude Include="PWarrior.h">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClInclude>
+    <ClInclude Include="PMage.h">
+      <Filter>Lesson\11.static, extern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +116,30 @@
     </ClCompile>
     <ClCompile Include="Example_10_D.cpp">
       <Filter>Lesson\10.클래스</Filter>
+    </ClCompile>
+    <ClCompile Include="1.Static,Extern.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="2.staticVariale.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="3.Static_Copy.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="4.override.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="PWarrior.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="PMage.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="Maincpp.cpp">
+      <Filter>Lesson\11.static, extern</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

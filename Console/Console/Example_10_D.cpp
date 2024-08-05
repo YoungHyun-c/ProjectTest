@@ -9,7 +9,7 @@ class Person
 {
 private:
 	std::string Name;
-	int age;
+	int age = 0;
 
 public:
 	// getter
