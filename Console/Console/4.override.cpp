@@ -193,8 +193,8 @@ int main()
 	// 자식에 똑같은 함수가 있으면, 자식에 있는 함수를 호출하고, 자식에서 함수를 재정의하지 않았다면 부모꺼를 호출한다.
 	c1.ShowValues();
 	std::cout << c1.publicValue << std::endl;
-	
 	// std::cout << c1.protectedValue // -> Error 클래스 내부에서 사용하는것이 아닌 외부에서 사용하기 때문에.
+
 	ChildProtected c2;
 	c2.ShowValues();
 	
