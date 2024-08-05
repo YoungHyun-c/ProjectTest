@@ -188,6 +188,11 @@ public:
 	{
 	}
 
+	~BattlePlayer()
+	{
+		int a = 0;
+	}
+
 	void SetPlayerHp(int _Hp)
 	{
 		if (_Hp <= 0)
@@ -341,6 +346,12 @@ int main()
 
 		BattleGame BattlePnM;
 		BattlePnM.BattleCheck(pPlayer, pMonster);
+
+
+		delete pPlayer;
+		pPlayer = nullptr;
+		delete pMonster;
+		pMonster = nullptr;
 	}
 
 
