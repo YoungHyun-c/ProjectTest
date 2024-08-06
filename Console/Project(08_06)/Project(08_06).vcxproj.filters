@@ -19,7 +19,13 @@
     <ClCompile Include="UnitProject_86.cpp">
       <Filter>1.Unit</Filter>
     </ClCompile>
+    <ClCompile Include="Archer_86.cpp">
+      <Filter>2.Player</Filter>
+    </ClCompile>
     <ClCompile Include="Warrior_86.cpp">
+      <Filter>2.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Wizard_86.cpp">
       <Filter>2.Player</Filter>
     </ClCompile>
   </ItemGroup>
@@ -28,6 +34,12 @@
       <Filter>1.Unit</Filter>
     </ClInclude>
     <ClInclude Include="Warrior_86.h">
+      <Filter>2.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Wizard_86.h">
+      <Filter>2.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer_86.h">
       <Filter>2.Player</Filter>
     </ClInclude>
   </ItemGroup>

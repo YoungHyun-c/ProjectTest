@@ -127,13 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archer_86.cpp" />
     <ClCompile Include="Project12.cpp" />
     <ClCompile Include="UnitProject_86.cpp" />
     <ClCompile Include="Warrior_86.cpp" />
+    <ClCompile Include="Wizard_86.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Archer_86.h" />
     <ClInclude Include="UnitProject_86.h" />
     <ClInclude Include="Warrior_86.h" />
+    <ClInclude Include="Wizard_86.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

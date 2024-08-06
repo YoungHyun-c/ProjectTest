@@ -81,7 +81,6 @@ int main()
 	Player_86* pP = new Player_86("홍", 200);
 	pP->Attack();
 	pP->TakeDamage(10);
-
 	// Unit_86* uP = new Unit_86("asdsad", 200); // Error -> 추상클래스는 인스턴스화 시킬 수 없음. 순수 가상함수를 사용한 클래스 = 추상클래스.
 
 	return 0;
