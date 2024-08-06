@@ -9,6 +9,7 @@ Wizard_86::Wizard_86(const std::string& _Name, const int _Health, const int _Atk
 
 Wizard_86::~Wizard_86()
 {
+	std::cout << Name << "사라진다.";
 }
 
 void Wizard_86::Attack() const

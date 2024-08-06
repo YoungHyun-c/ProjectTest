@@ -9,7 +9,7 @@ public:
 		: Name(_Name), Health(_Health), Atk(_Atk), Def(_Def)
 	{
 	}
-	~UnitProject_86();
+	virtual ~UnitProject_86();
 
 	void PrintInfo() const;
 
@@ -23,7 +23,6 @@ public:
 	virtual void Attack() const = 0;
 	virtual void Move() const = 0;
 protected:
-
 	std::string Name = "";
 	std::string Job = "";
 	int Health = 0;
