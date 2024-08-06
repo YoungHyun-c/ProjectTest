@@ -20,9 +20,9 @@ public:
 		std::cout << Name << "의 무기는 : " << *Weapon << std::endl;
 	}
 
-protected:
 	virtual void Attack() const = 0;
 	virtual void Move() const = 0;
+protected:
 
 	std::string Name = "";
 	std::string Job = "";

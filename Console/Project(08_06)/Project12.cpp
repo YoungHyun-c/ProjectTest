@@ -4,7 +4,7 @@
 
 int main()
 {
-	Warrior_86* Warrior = new Warrior_86("레오나드", 150, 30, 40);
+	UnitProject_86* Warrior = new Warrior_86("레오나드", 150, 30, 40);
 
 	Warrior->PrintInfo();
 	Warrior->GetWeapon();
@@ -14,7 +14,7 @@ int main()
 	Warrior->PrintInfo();
 
 
-	Archer_86* Archer = new Archer_86("레골라스", 100, 20, 10);
+	UnitProject_86* Archer = new Archer_86("레골라스", 100, 20, 10);
 
 	Archer->PrintInfo();
 	Archer->GetWeapon();
@@ -23,7 +23,7 @@ int main()
 	Archer->TakeAttack(10);
 	Archer->PrintInfo();
 
-	Wizard_86* Wizard = new Wizard_86("아일라", 80, 40, 10);
+	UnitProject_86* Wizard = new Wizard_86("아일라", 80, 40, 10);
 
 	Wizard->PrintInfo();
 	Wizard->GetWeapon();
