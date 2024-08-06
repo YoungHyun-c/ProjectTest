@@ -38,6 +38,15 @@
     <Filter Include="Lesson\11.static, extern">
       <UniqueIdentifier>{baebaccc-3f79-48c1-a9c1-ed7ec5028781}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\12.다형성, 가상">
+      <UniqueIdentifier>{daa1cdf3-1976-409c-b06b-1a2db9600fba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lesson\12.다형성, 가상\Vehicle">
+      <UniqueIdentifier>{64e70d96-20a7-4949-b57b-49ca82eadc0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lesson\12.다형성, 가상\Unit">
+      <UniqueIdentifier>{76a5a971-8071-4b51-974f-87eeb59d3a47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -51,6 +60,21 @@
     </ClInclude>
     <ClInclude Include="PMage.h">
       <Filter>Lesson\11.static, extern</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>Lesson\12.다형성, 가상\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Bike.h">
+      <Filter>Lesson\12.다형성, 가상\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Car.h">
+      <Filter>Lesson\12.다형성, 가상\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit_86.h">
+      <Filter>Lesson\12.다형성, 가상\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_86.h">
+      <Filter>Lesson\12.다형성, 가상\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +150,7 @@
     <ClCompile Include="3.Static_Copy.cpp">
       <Filter>Lesson\11.static, extern</Filter>
     </ClCompile>
-    <ClCompile Include="4.override.cpp">
+    <ClCompile Include="4.inheritance.cpp">
       <Filter>Lesson\11.static, extern</Filter>
     </ClCompile>
     <ClCompile Include="Unit.cpp">
@@ -140,6 +164,27 @@
     </ClCompile>
     <ClCompile Include="Maincpp.cpp">
       <Filter>Lesson\11.static, extern</Filter>
+    </ClCompile>
+    <ClCompile Include="1.Virtual.cpp">
+      <Filter>Lesson\12.다형성, 가상</Filter>
+    </ClCompile>
+    <ClCompile Include="Bike.cpp">
+      <Filter>Lesson\12.다형성, 가상\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Car.cpp">
+      <Filter>Lesson\12.다형성, 가상\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>Lesson\12.다형성, 가상\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="2.FuncResult.cpp">
+      <Filter>Lesson\12.다형성, 가상</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit_86.cpp">
+      <Filter>Lesson\12.다형성, 가상\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_86.cpp">
+      <Filter>Lesson\12.다형성, 가상\Unit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

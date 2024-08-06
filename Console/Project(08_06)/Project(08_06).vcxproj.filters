@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="1.Unit">
+      <UniqueIdentifier>{35283d0c-2fa1-4633-8567-c441e2b19e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2.Player">
+      <UniqueIdentifier>{83efe578-19b4-4551-ad69-4a7b12412b32}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Project12.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitProject_86.cpp">
+      <Filter>1.Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Warrior_86.cpp">
+      <Filter>2.Player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="UnitProject_86.h">
+      <Filter>1.Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior_86.h">
+      <Filter>2.Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
