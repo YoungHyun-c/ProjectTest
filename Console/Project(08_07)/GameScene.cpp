@@ -12,6 +12,8 @@
 
 #define CharacterNum 3
 
+#define InterFrame 2000
+
 GameScene::~GameScene()
 {
 	if (nullptr != PlayerUnit)
@@ -19,13 +21,21 @@ GameScene::~GameScene()
 		delete PlayerUnit;
 		PlayerUnit = nullptr;
 	}
+	if (nullptr != MonsterUnit)
+	{
+		delete MonsterUnit;
+		MonsterUnit = nullptr;
+	}
 }
 
 void GameScene::GameSet()
 {
+	srand(time(NULL));
+
 	CreateCharacter();
 	CreateMonster();
 
+	Sleep(2000);
 	BattleCheck();
 	
 
@@ -71,20 +81,56 @@ void GameScene::CreateCharacter()
 
 void GameScene::CreateMonster()
 {
+	if (MonsterUnit == nullptr)
+	{
+		MonsterUnit = new Monster_87("고붕이", "고블린", "몽둥이", 30, 50, 20);
+		return;
+	}
 
-	MonsterUnit = new Monster_87("고붕이", "고블린", "몽둥이", 30, 20, 20);
-	MonsterUnit->PrintInfo();
-
+	Random_87 RandNum;
+	int Rand = RandNum.RandNum(1, 5);
+	int Exp;
+	switch (Rand)
+	{
+	case 1:
+		Exp = RandNum.RandNum(20, 50);
+		MonsterUnit->SetLevel(2);
+		MonsterUnit->SetMonster("고붕이", "고블린", "몽둥이", 100, 50, 40, 0.3f, Exp);
+		break;
+	case 2:
+		Exp = RandNum.RandNum(40, 100);
+		MonsterUnit->SetLevel(4);
+		MonsterUnit->SetMonster("도붕이", "리자드맨", "나이프", 140, 60, 35, 0.4f, Exp);
+		break;
+	case 3:
+		Exp = RandNum.RandNum(60, 120);
+		MonsterUnit->SetLevel(5);
+		MonsterUnit->SetMonster("버붕이", "버섯맨", "포자포자", 120, 70, 30, 0.2f, Exp);
+		break;
+	case 4:
+		Exp = RandNum.RandNum(80, 150);
+		MonsterUnit->SetLevel(8);
+		MonsterUnit->SetMonster("좀붕이", "좀비맨", "깨물기", 200, 50, 60, 0.3f, Exp);
+		break;
+	case 5:
+		Exp = RandNum.RandNum(200, 400);
+		MonsterUnit->SetLevel(10);
+		MonsterUnit->SetMonster("드붕이", "드래곤", "불꽃", 400, 90, 70, 0.5f, Exp);
+		break;
+	default:
+		break;
+	}
 }
 
 void GameScene::BattleInfoPrint(class UnitManager* _Player, class UnitManager* _Monster)
 {
 	std::cout << "===========================================================" << std::endl;
-	std::cout << "플레이어 : " << PlayerUnit->GetName() << "  VS " << "  몬스터 : " << MonsterUnit->GetName() << std::endl;
+	std::cout << "플레이어 : " << PlayerUnit->GetName() << "  VS " << "   몬스터 : " << MonsterUnit->GetName() << std::endl;
 	std::cout.width(5);
-	std::cout << "남은체력 : " << PlayerUnit->GetName() << "    " << "   남은체력 : " << MonsterUnit->GetHp() << std::endl;
-	std::cout << std::right << "  공격력 : " << PlayerUnit->GetAtk() << "    " << "       공격력 : " << MonsterUnit->GetAtk() << std::endl;
-	std::cout << std::right << "  방어력 : " << PlayerUnit->GetDef() << "    " << "       방어력 : " << MonsterUnit->GetDef() << std::endl;
+	std::cout << std::right <<"레벨     : " << PlayerUnit->GetLevel() << "               " << "레벨 : " << MonsterUnit->GetLevel() << std::endl;
+	std::cout << "남은체력 : " << PlayerUnit->GetHp() << "         " << "남은체력 : " << MonsterUnit->GetHp() << std::endl;
+	std::cout << std::right << "  공격력 : " << PlayerUnit->GetAtk() << "            " << "공격력 : " << MonsterUnit->GetAtk() << std::endl;
+	std::cout << std::right << "  방어력 : " << PlayerUnit->GetDef() << "            " << "방어력 : " << MonsterUnit->GetDef() << std::endl;
 
 	std::cout << "===========================================================" << std::endl;
 }
@@ -95,43 +141,101 @@ void GameScene::BattleCheck()
 	{
 		return;
 	}
+	
+	system("cls");
+	std::cout << "	!!!!몬스터를 만났습니다!!!!" << std::endl;
 
-	std::cout << "	!!!!배틀이 시작되었습니다!!!!" << std::endl;
-
-	int Number = 0;
-	while (Number != 1 && Number != 2 && Number != 3)
+	while (End)
 	{
-		std::cout << "1.계속 싸운다! 2. 회피한다. 3.도망간다. \n" << "숫자를 입력해주세요 : ";
-		std::cin >> Number;
-		if (Number == 1)
+		int Number = 0;
+		bool Attack = false;
+		while (Number != 1 && Number != 2 && Number != 3)
 		{
-			break;
+			system("cls");
+			BattleInfoPrint(PlayerUnit, MonsterUnit);
+
+			std::cout << "0.종료 1.계속 싸운다! 2. 회피한다. 3.도망간다. \n" << "숫자를 입력해주세요 : ";
+			std::cin >> Number;
+			if (Number == 0)
+			{
+				std::cout << "게임이 종료됩니다...." << std::endl;
+				Sleep(InterFrame);
+				End = false;
+				break;
+			}
+			if (Number == 1)
+			{
+				std::cout << "	!!!!배틀이 시작됩니다!!!!" << std::endl;
+				Sleep(InterFrame);
+				Attack = true;
+				break;
+			}
+			if (Number == 2)
+			{
+				std::cout << MonsterUnit->GetName() << "의 공격을 회피합니다!" << std::endl;
+				Sleep(InterFrame);
+				break;
+			}
+			if (Number == 3)
+			{
+				std::cout << "당신은 도망쳤습니다..." << std::endl;
+				std::cout << "새로운 몬스터를 찾습니다..." << std::endl;
+				Sleep(InterFrame);
+				CreateMonster();
+				break;
+			}
+			std::cout << "맞는 번호를 입력해주세요!" << std::endl;
+			Sleep(InterFrame);
 		}
-		if (Number == 2)
+
+		if (Attack == true)
 		{
-			std::cout << "회피!" << std::endl;
+			BattleAttack();
 		}
-		if (Number == 3)
-		{
-			std::cout << "당신은 도망쳤습니다..." << std::endl;
-			Sleep(2000);
-			break;
-		}
-		std::cout << "맞는 번호를 입력해주세요!" << std::endl;
+
+		Attack = false;
 	}
-
-
-	BattleAttack();
 }
 
 void GameScene::BattleAttack()
 {
+	MonsterUnit->TakeAttack(PlayerUnit->GetAtk());
+	Sleep(InterFrame);
+	if (BattleEnd() == false)
+	{
+		return;
+	}
 	PlayerUnit->TakeAttack(MonsterUnit->GetAtk());
-	std::cout << PlayerUnit->GetName() << "가(이) " << MonsterUnit->GetName() << "을(를) 공격합니다!" << std::endl;
+	Sleep(InterFrame);
+	if (BattleEnd() == false)
+	{
+		return;
+	}
+	BattleInfoPrint(PlayerUnit, MonsterUnit);
+	Sleep(InterFrame);
+	system("cls");
 }
 
 
-void GameScene::BattleEnd()
+bool GameScene::BattleEnd()
 {
+	if (PlayerUnit->GetHp() <= 0)
+	{
+		std::cout << "당신은 죽었습니다...." << std::endl;
+		std::cout << "게임이 끝납니다...." << std::endl;
+		Sleep(3000);
+		exit(0);
+		return false;
+	}
+	if (MonsterUnit->GetHp() <= 0)
+	{
+		std::cout << "몬스터를 잡았습니다!!!" << std::endl;
+		std::cout << "Exp가 올라갑니다 : + " << MonsterUnit->GetExp() << std::endl;
+		PlayerUnit->AddExp(MonsterUnit->GetExp());
+		Sleep(3000);
+		CreateMonster();
+		return false;
+	}
 
+	return true;
 }

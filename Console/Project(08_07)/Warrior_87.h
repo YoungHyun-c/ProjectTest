@@ -5,7 +5,7 @@ class Warrior_87 : public UnitManager
 {
 public:
 	Warrior_87()
-		:UnitManager("ÀüºØÀÌ", 300, 40, 60)
+		:UnitManager("ÀüºØÀÌ", Rand.RandNum(300, 500), Rand.RandNum(40, 70), Rand.RandNum(60, 100))
 	{
 		Weapon = new std::string("°Ë");
 		Job = "Àü»ç";

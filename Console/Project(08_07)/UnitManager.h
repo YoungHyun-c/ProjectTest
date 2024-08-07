@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "Random_87.h"
 
 class UnitManager 
 {
@@ -16,21 +17,7 @@ public:
 	virtual void TakeAttack(int _Damage);
 	
 
-	void AddExp(int _Exp)
-	{
-		if (MaxExp <= Exp)
-		{
-			Level += 1;
-			Exp = 0;
-			Atk += 10;
-			Def += 5;
-			MaxHp += 15;
-			Hp = MaxHp;
-			return;
-		}
-
-		Exp += _Exp;
-	}
+	void AddExp(int _Exp);
 
 	const std::string& GetName()
 	{
@@ -49,6 +36,36 @@ public:
 	{
 		return Def;
 	}
+	const int GetExp()
+	{
+		return Exp;
+	}
+	const int GetLevel()
+	{
+		return Level;
+	}
+
+	void SetHp(int _Hp)
+	{
+		Hp = _Hp;
+	}
+
+	void SetLevel(int _Level)
+	{
+		Level = _Level;
+	}
+
+	void SetMonster(const std::string& _Name, const std::string& _Job, std::string _Weapon, int _Hp, int _Atk, int _Def, float _DefP, int _Exp)
+	{
+		Name = _Name;
+		Job = _Job;
+		*Weapon = _Weapon;
+		Hp = _Hp;
+		Atk = _Atk;
+		Def = _Def;
+		DefPower = _DefP;
+		Exp = _Exp;
+	}
 
 protected:
 	std::string Name = "";
@@ -62,9 +79,9 @@ protected:
 	int Hp = 0;
 	int MaxExp = 100;
 	int Exp = 0;
-
 	float DefPower = 0.0f;
 
+	class Random_87 Rand;
 private:
 	class UnitSelect* Unit;
 

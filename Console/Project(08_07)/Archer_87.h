@@ -6,12 +6,12 @@ class Archer_87 : public UnitManager
 {
 public:
 	Archer_87()
-	: UnitManager("±√∫ÿ¿Ã", 250, 60, 30)
+	: UnitManager("±√∫ÿ¿Ã", Rand.RandNum(100, 300), Rand.RandNum(100, 150), Rand.RandNum(20, 60))
 	{
 		Weapon = new std::string("»∞");
 		Job = "±√ºˆ";
 		Level = 1;
-		DefPower = 0.6f;
+		DefPower = 0.3f;
 	}
 
 protected:

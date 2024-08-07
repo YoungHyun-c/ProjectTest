@@ -11,7 +11,8 @@ public:
 		Job = _Job;
 		Weapon = new std::string(_Weapon);
 		Random_87 Rand;
-		Exp = Rand.RandNum(50, 150);
+		Exp = Rand.RandNum(70, 150);
+		DefPower = static_cast<float>(_Def * 0.03f);
 	}
 
 protected:

@@ -14,10 +14,10 @@ public:
 	void BattleInfoPrint(class UnitManager* _Player, class UnitManager* _Monster);
 	void BattleCheck();
 	void BattleAttack();
-	void BattleEnd();
+	bool BattleEnd();
 
 private:
 	class UnitManager* PlayerUnit;
 	class UnitManager* MonsterUnit;
-
+	bool End = true;
 };
