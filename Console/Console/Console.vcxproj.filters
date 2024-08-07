@@ -47,6 +47,9 @@
     <Filter Include="Lesson\12.다형성, 가상\Unit">
       <UniqueIdentifier>{76a5a971-8071-4b51-974f-87eeb59d3a47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\13. 캐스팅">
+      <UniqueIdentifier>{080cf2da-3724-4b1a-b7e0-3a580f155d35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -185,6 +188,15 @@
     </ClCompile>
     <ClCompile Include="Player_86.cpp">
       <Filter>Lesson\12.다형성, 가상\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="1.Casting.cpp">
+      <Filter>Lesson\13. 캐스팅</Filter>
+    </ClCompile>
+    <ClCompile Include="2.Template.cpp">
+      <Filter>Lesson\13. 캐스팅</Filter>
+    </ClCompile>
+    <ClCompile Include="3.TempExample.cpp">
+      <Filter>Lesson\13. 캐스팅</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
