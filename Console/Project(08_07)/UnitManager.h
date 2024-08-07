@@ -44,6 +44,10 @@ public:
 	{
 		return Level;
 	}
+	const std::string& Getclass()
+	{
+		return Job;
+	}
 
 	void SetHp(int _Hp)
 	{

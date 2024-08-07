@@ -125,12 +125,13 @@ void GameScene::CreateMonster()
 void GameScene::BattleInfoPrint(class UnitManager* _Player, class UnitManager* _Monster)
 {
 	std::cout << "===========================================================" << std::endl;
-	std::cout << "플레이어 : " << PlayerUnit->GetName() << "  VS " << "   몬스터 : " << MonsterUnit->GetName() << std::endl;
-	std::cout.width(5);
-	std::cout << std::right <<"레벨     : " << PlayerUnit->GetLevel() << "               " << "레벨 : " << MonsterUnit->GetLevel() << std::endl;
-	std::cout << "남은체력 : " << PlayerUnit->GetHp() << "         " << "남은체력 : " << MonsterUnit->GetHp() << std::endl;
-	std::cout << std::right << "  공격력 : " << PlayerUnit->GetAtk() << "            " << "공격력 : " << MonsterUnit->GetAtk() << std::endl;
-	std::cout << std::right << "  방어력 : " << PlayerUnit->GetDef() << "            " << "방어력 : " << MonsterUnit->GetDef() << std::endl;
+	std::cout << "플레이어 : " << PlayerUnit->GetName() << "  VS    " << "몬스터 : " << MonsterUnit->GetName() << std::endl;
+	std::cout.width(10);
+	std::cout <<"직업     : " << PlayerUnit->Getclass() << std::setfill(' ')  << std::setw(17)  << "직업 : " << MonsterUnit->Getclass() << std::endl;
+	std::cout <<"레벨     : " << PlayerUnit->GetLevel() << std::setw(22) << "레벨 : " << MonsterUnit->GetLevel() << std::endl;
+	std::cout << "남은체력 : " << PlayerUnit->GetHp() << std::setw(21)  << "남은체력 : " << MonsterUnit->GetHp() << std::endl;
+	std::cout  << "공격력   : " << PlayerUnit->GetAtk() << std::setw(21) << "공격력 : " << MonsterUnit->GetAtk() << std::endl;
+	std::cout  << "방어력   : " << PlayerUnit->GetDef() << std::setw(21) << "방어력 : " << MonsterUnit->GetDef() << std::endl;
 
 	std::cout << "===========================================================" << std::endl;
 }
@@ -224,7 +225,7 @@ bool GameScene::BattleEnd()
 		std::cout << "당신은 죽었습니다...." << std::endl;
 		std::cout << "게임이 끝납니다...." << std::endl;
 		Sleep(3000);
-		exit(0);
+		End = false;
 		return false;
 	}
 	if (MonsterUnit->GetHp() <= 0)

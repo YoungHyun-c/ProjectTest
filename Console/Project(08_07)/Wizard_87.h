@@ -6,7 +6,7 @@ class Wizard_87 : public UnitManager
 {
 public:
 	Wizard_87()
-	:UnitManager("¸¶ºØÀÌ", Rand.RandNum(200,300), Rand.RandNum(80, 100), Rand.RandNum(40, 70))
+	:UnitManager("¸¶ºØÀÌ", Rand.RandNum(50,80), Rand.RandNum(80, 150), Rand.RandNum(40, 70))
 	{
 		Weapon = new std::string("ÁöÆÎÀÌ");
 		Job = "¸¶¹ı»ç";
