@@ -141,6 +141,10 @@
     <ClCompile Include="Player_88.cpp" />
     <ClCompile Include="Screen_88.cpp" />
     <ClCompile Include="Shop_88.cpp" />
+    <ClCompile Include="Util.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Commander_88.h" />
@@ -149,6 +153,10 @@
     <ClInclude Include="Player_88.h" />
     <ClInclude Include="Screen_88.h" />
     <ClInclude Include="Shop_88.h" />
+    <ClInclude Include="Util.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

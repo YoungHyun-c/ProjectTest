@@ -7,15 +7,18 @@
 int main()
 {
 	Screen_88 MainScreen;
-	MainScreen.ListSet();
-	MainScreen.PrintScreen();
-	MainScreen.CheckPoint();
+	// 커서 없애기
+	//MainScreen.Start();
 
-	Shop_88 MainShop;
-	MainShop.CreateItem();
-	MainShop.PrintItem();
-	MainShop.BuyItem();
-	MainShop.PrintItem();
+	MainScreen.MenuListSet();
+	MainScreen.PrintScreen();
+	MainScreen.KeyControl();
+
+	//Shop_88 MainShop;
+	//MainShop.CreateItem();
+	//MainShop.PrintItem();
+	//MainShop.BuyItem();
+	//MainShop.PrintItem();
 
 
 

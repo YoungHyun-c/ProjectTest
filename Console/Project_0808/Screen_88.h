@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Windows.h>
+#include <windows.h>
 #include <iostream>
 #include <conio.h>
 #include <string>
@@ -9,14 +9,18 @@
 class Screen_88
 {
 public:
+	void Start();
 
-	void ListSet();
+	void MenuListSet();
 
-	void PrintScreen();
+	void ShopListSet();
 
-	void CheckPoint();
+	int PrintScreen();
+
+	int KeyControl();
 
 private:
 	std::vector<std::string> List;
+
 };
 

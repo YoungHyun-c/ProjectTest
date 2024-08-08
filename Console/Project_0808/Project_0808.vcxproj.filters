@@ -20,6 +20,9 @@
     <Filter Include="Commander">
       <UniqueIdentifier>{8a72d08a-a886-4021-93fc-e627db3c070a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{22902b9e-6a19-4c37-9270-87d87a3e03c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Anything.cpp">
@@ -46,6 +49,9 @@
     <ClCompile Include="EquipItem_88.cpp">
       <Filter>Shop\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shop_88.h">
@@ -65,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="EquipItem_88.h">
       <Filter>Shop\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
