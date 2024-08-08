@@ -128,7 +128,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Anything.cpp" />
+    <ClCompile Include="Anything.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Commander_88.cpp" />
+    <ClCompile Include="EquipItem_88.cpp" />
+    <ClCompile Include="UseItem_88.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player_88.cpp" />
+    <ClCompile Include="Screen_88.cpp" />
+    <ClCompile Include="Shop_88.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Commander_88.h" />
+    <ClInclude Include="EquipItem_88.h" />
+    <ClInclude Include="UseItem_88.h" />
+    <ClInclude Include="Player_88.h" />
+    <ClInclude Include="Screen_88.h" />
+    <ClInclude Include="Shop_88.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

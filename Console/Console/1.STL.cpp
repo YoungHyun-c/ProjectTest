@@ -33,7 +33,7 @@ STL
  ★★★★★★★
  면접 질문
  벡터 VS 리스트
- 벡터는 임의이 접근이 빠르다.
+ 벡터는 임의의 접근이 빠르다.
  문제는 중간의 요소가 사라지면, 뒤의 데이터는 앞으로 땡겨진다.
  ∴ 중간 삽입 삭제가 느리다. (리스트와 상대적으로)
 
@@ -176,6 +176,7 @@ int main()
 	std::cout << iter[3] << std::endl; // 4
 	std::cout << iter[4] << std::endl; // 5
 	// std::cout << iter[5] << std::endl; // Error -> 범위 초과시 에러, Out of Range
+
 
 	iter += 2;
 	std::cout << *iter << std::endl; // 시작 위치에서 2 더한 위치 값 출력 => 3.

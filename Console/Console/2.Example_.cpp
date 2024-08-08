@@ -74,7 +74,7 @@ int main()
 	pWeap.push_back(new Weapon("활", 10));
 	pWeap.push_back(new Weapon("단검", 100));
 	pWeap.push_back(new Weapon("집행검", 600));
-
+	
 
 	for (auto& i : pWeap)
 	{

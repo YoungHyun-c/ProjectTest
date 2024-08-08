@@ -5,10 +5,66 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Shop">
+      <UniqueIdentifier>{26d802c1-6134-41d4-9761-d59e68d4a8d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{a58c1bd8-fcbc-45e6-a571-b3daf16649d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shop\Item">
+      <UniqueIdentifier>{19aca16d-fce7-4fb2-9bbc-82a1deecc04b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{5af42e59-a152-4fe7-8ced-cf698493a416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Commander">
+      <UniqueIdentifier>{8a72d08a-a886-4021-93fc-e627db3c070a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Anything.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop_88.cpp">
+      <Filter>Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="UseItem_88.cpp">
+      <Filter>Shop\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_88.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen_88.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Commander_88.cpp">
+      <Filter>Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipItem_88.cpp">
+      <Filter>Shop\Item</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shop_88.h">
+      <Filter>Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="UseItem_88.h">
+      <Filter>Shop\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_88.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen_88.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Commander_88.h">
+      <Filter>Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipItem_88.h">
+      <Filter>Shop\Item</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
