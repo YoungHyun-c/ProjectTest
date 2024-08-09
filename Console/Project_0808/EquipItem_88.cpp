@@ -30,8 +30,8 @@ void EquipItem_88::Start()
 
 	// 무기
 	EquipWeaponItem[0].SetWeapon("대검", 150, -1, 1000);
-	EquipWeaponItem[0].SetWeapon("목검", 90, 2, 800);
-	EquipWeaponItem[0].SetWeapon("도로쿠대거", 130, 31, 1200);
+	EquipWeaponItem[1].SetWeapon("목검", 90, 2, 800);
+	EquipWeaponItem[2].SetWeapon("도로쿠대거", 130, 31, 1200);
 }
 
 void  EquipItem_88::SetArmor(const std::string& _Name, const int& _Hp, const int& _Def, const int& _Gold)
@@ -48,4 +48,18 @@ void EquipItem_88::SetWeapon(const std::string& _Name, const int& _Atk, const in
 	Atk = _Atk;
 	AtkSpeed = _AtkSpeed;
 	Gold = _Gold;
+}
+
+void EquipItem_88::WeaponInfo() const
+{
+	std::cout << "=========================================" << std::endl;
+	std::cout << "장비 : " << Name << "Atk : +" << Atk << " AtkSpeed : + " << AtkSpeed << "Gold : "<< Gold << std::endl;
+	std::cout << "=========================================" << std::endl;
+}
+
+void EquipItem_88::ArmorInfo() const
+{
+	std::cout << "=========================================" << std::endl;
+	std::cout << "장비 : " << Name << "Hp : +" << Hp << "Def : + " << Def << "Gold : " << Gold << std::endl;
+	std::cout << "=========================================" << std::endl;
 }

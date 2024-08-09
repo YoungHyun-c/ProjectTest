@@ -53,6 +53,9 @@
     <Filter Include="Lesson\14. STL">
       <UniqueIdentifier>{79ac172f-b0c6-4836-92a4-eb163e852a25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\15.리스트">
+      <UniqueIdentifier>{a25b1891-d86d-460b-a4a1-cf8334c2cf11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -206,6 +209,12 @@
     </ClCompile>
     <ClCompile Include="2.Example_.cpp">
       <Filter>Lesson\14. STL</Filter>
+    </ClCompile>
+    <ClCompile Include="1.List.cpp">
+      <Filter>Lesson\15.리스트</Filter>
+    </ClCompile>
+    <ClCompile Include="2.Example.cpp">
+      <Filter>Lesson\15.리스트</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,6 +8,10 @@ public:
 	EquipItem_88();
 	~EquipItem_88();
 
+	void WeaponInfo() const;
+
+	void ArmorInfo() const;
+
 	const std::string& GetName()
 	{
 		return Name;
@@ -37,14 +41,24 @@ public:
 	{
 		return Gold;
 	}
-	
-	void SetArmor(const std::string& _Name, const int& _Hp, const int& _Def, const int& _Gold);
 
-	void SetWeapon(const std::string& _Name, const int& _Atk, const int& _AtkSpeed, const int& _Gold);
+	void SetGold(int _Gold)
+	{
+		if (Gold <= _Gold || _Gold < 0)
+		{
+			return;
+		}
+
+		Gold = _Gold;
+	}
 
 
 protected:
 	void Start();
+
+	void SetArmor(const std::string& _Name, const int& _Hp, const int& _Def, const int& _Gold);
+
+	void SetWeapon(const std::string& _Name, const int& _Atk, const int& _AtkSpeed, const int& _Gold);
 
 private:
 	std::string Name;

@@ -6,8 +6,8 @@
 class UseItem_88
 {
 public:
-	UseItem_88(const std::string& _Name, const int& _Hp, const int& _Mp, int _MaxCount)
-		: Name(_Name), Hp(_Hp) , Mp(_Mp), MaxCount(_MaxCount)
+	UseItem_88(int _MaxCount)
+		:MaxCount(_MaxCount)
 	{
 		Count = _MaxCount;
 	}
@@ -39,14 +39,19 @@ public:
 		}
 	}
 
+
 protected:
 	void Start();
+	void SetUseItem(const std::string& _Name, int _Hp, int _Mp, int _Gold);
 
 private:
 	int MaxCount = 0;
 	std::string Name;
 	int Hp = 0;
 	int Mp = 0;
+	int Gold = 0;
 	int Count = 1;
+
+	std::vector<UseItem_88> Item;
 };
 
