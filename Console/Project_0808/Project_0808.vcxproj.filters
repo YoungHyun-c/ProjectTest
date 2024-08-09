@@ -52,6 +52,12 @@
     <ClCompile Include="Util.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Shop\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInventory.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shop_88.h">
@@ -74,6 +80,12 @@
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Shop\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInventory.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

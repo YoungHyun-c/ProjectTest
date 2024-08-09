@@ -4,23 +4,13 @@
 
 #include "Shop_88.h"
 
+#include "Commander_88.h"
+
 int main()
 {
-	Screen_88 MainScreen;
-	// 커서 없애기
-	//MainScreen.Start();
-
-	MainScreen.MenuListSet();
-	MainScreen.PrintScreen();
-	MainScreen.KeyControl();
-
-	//Shop_88 MainShop;
-	//MainShop.CreateItem();
-	//MainShop.PrintItem();
-	//MainShop.BuyItem();
-	//MainShop.PrintItem();
-
-
+	Commander_88 Com;
+	Com.Start();
+	Com.Update();
 
 	return 0;
 }

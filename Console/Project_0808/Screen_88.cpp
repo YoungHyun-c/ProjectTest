@@ -23,11 +23,11 @@ void Screen_88::Start()
 	SetConsoleCursorInfo(ConsoleHandle, &ConsoleCursor);
 }
 
-
 void Screen_88::MenuListSet()
 {
 	List.push_back("1. 상점으로 이동한다.");
 	List.push_back("2. 캐릭터 인벤토리로 이동한다.");
+	List.push_back("3. 종료한다.");
 }
 
 int Screen_88::PrintScreen()
@@ -60,7 +60,7 @@ int Screen_88::PrintScreen()
 			}
 			break;
 		case Down:
-			if (Y < 2)
+			if (Y < 3)
 			{
 				Cursor.Gotoxy(X - 2, Y);
 				printf("  ");
@@ -69,18 +69,23 @@ int Screen_88::PrintScreen()
 			}
 			break;
 		case Enter:
-			Cursor.Gotoxy(0, 3);
+			Cursor.Gotoxy(0, 4);
 			if (Y == 1)
 			{
 				std::cout << "상점으로 이동합니다..." << std::endl;
-				// Sleep(InterFrame);
-
+				Sleep(InterFrame);
+				return Y;
 			}
 			if (Y == 2)
 			{
 				std::cout << "인벤토리로 이동합니다..." << std::endl;
 				// Sleep(InterFrame);
-
+				return Y;
+			}
+			if (Y == 3)
+			{
+				std::cout << "종료합니다..." << std::endl;
+				return Y;
 			}
 			return 0;
 		}

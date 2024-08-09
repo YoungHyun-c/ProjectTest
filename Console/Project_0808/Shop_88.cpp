@@ -1,7 +1,11 @@
 #include "Shop_88.h"
 
-#include "UseItem_88.h"
-#include "EquipItem_88.h"
+#include "Util.h"
+#include "ItemManager.h"
+
+#define ShopX 4
+#define ShopY 1
+
 
 Shop_88::Shop_88()
 {
@@ -9,54 +13,64 @@ Shop_88::Shop_88()
 
 Shop_88::~Shop_88()
 {
-	std::vector<UseItem_88*>::iterator It = Item.begin();
-	if (*It != nullptr)
+	if (ComManager != nullptr)
 	{
-		for (;It != Item.end(); It++)
-		{
-			delete *It;
-			*It = nullptr;
-		}
+		delete ComManager;
+		ComManager = nullptr;
 	}
 }
 
-void Shop_88::CreateItem()
+void Shop_88::BuyItem(ItemManager* _Item)
 {
-	if (Item.size() == 0)
-	{
-		Item.reserve(5);
-		Item.push_back(new UseItem_88("통닭", 100, 0, 99));
-		Item.push_back(new UseItem_88("피자", 150, 0, 99));
-		Item.push_back(new UseItem_88("오렌지", 0, 30, 99));
-		Item.push_back(new UseItem_88("쓰레기", -10, 0, 99));
-		Item.push_back(new UseItem_88("오물", -70, 0, 99));
-	}
-
-	if (EquipItem.size() == 0)
-	{
-	
-	}
-
-}
-
-void Shop_88::PrintItem()
-{
-	if (Item.capacity() != 0)
-	{
-		for (int i = 0; i < Item.size(); i++)
-		{
-			Item[i]->UseItemInfoPrint();
-		}
-	}
-}
-
-void Shop_88::BuyItem()
-{
-	std::cout << "구매할 번호를 입력해주세요 : " << std::endl;
+	std::cout << "구매할 번호를 입력해주세요 : ";
 	int Num;
 	std::cin >> Num;
-	if (Num == 2)
+	std::cout << std::endl;
+	std::cout << "몇개 구매할지 입력해주세요 : ";
+	int Count;
+	std::cin >> Count;
+	
 	{
-		Item[2]->SubCount(5);
+		_Item[Num].SubCount(Count);
 	}
+
+	std::cout << "상품을 구매했습니다..." << std::endl;
+}
+
+void Shop_88::SellItem()
+{
+	
+}
+
+static int Y = ShopY;
+void Shop_88::PrintProduct(ItemManager* _Item)
+{
+	int X = ShopX;
+	ComManager->Gotoxy(25, 0);
+	std::cout << "~~상점~~" << std::endl;
+	ComManager->Gotoxy(X, Y++);
+	std::cout << "========================================================" << std::endl;
+	_Item->ArmorItemInfo(X, Y);
+	ComManager->Gotoxy(X, Y++);
+	std::cout << "========================================================" << std::endl;
+	_Item->WeaponItemInfo(X, Y);
+	ComManager->Gotoxy(X, Y++);
+	std::cout << "========================================================" << std::endl;
+	_Item->UseItemInfo(X, Y);
+	ComManager->Gotoxy(X, Y++);
+	std::cout << "========================================================" << std::endl;
+	ComManager->Gotoxy(X, Y++);
+	std::cout << "~~~~~~~~~~~~상점에서 무엇을할지 정해주세요~~~~~~~~" << std::endl;
+}
+
+void Shop_88::ShopListSet()
+{
+	List.push_back("1. 구매한다.");
+	List.push_back("2. 판매한다.");
+	List.push_back("3. 나간다.");
+}
+
+int Shop_88::ActionList()
+{
+	return ComManager->PrintScreen(1, Y, List);
 }

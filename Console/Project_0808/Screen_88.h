@@ -13,8 +13,6 @@ public:
 
 	void MenuListSet();
 
-	void ShopListSet();
-
 	int PrintScreen();
 
 	int KeyControl();

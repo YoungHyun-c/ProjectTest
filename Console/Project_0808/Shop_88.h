@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
 
 class Shop_88
 {
@@ -11,15 +10,20 @@ public:
 	Shop_88();
 	~Shop_88();
 
-	void CreateItem();
+	void ShopListSet();
 
-	void PrintItem();
+	int ActionList();
 
-	void BuyItem();
+	void BuyItem(class ItemManager* _Item);
+
+	void SellItem();
+
+	void PrintProduct(class ItemManager* _Item);
 
 private:
-	
-	std::vector<class UseItem_88*> Item;
-	std::vector<class EquipItem_88*> EquipItem;
+	std::vector<std::string> List;
+
+
+	class Util* ComManager;
 };
 
