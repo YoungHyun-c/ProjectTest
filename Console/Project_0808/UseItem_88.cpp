@@ -27,10 +27,4 @@ void UseItem_88::Start()
 	Items.push_back(new UseItem_88(99));
 	Items.push_back(new UseItem_88(99));
 	Items.push_back(new UseItem_88(99));
-
-	Items[0]->SetName("아?");
-	Items[1]->SetName("어?");
-	Items[2]->SetName("오?");
-	Items[3]->SetName("어?");
-
 }

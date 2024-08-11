@@ -7,6 +7,8 @@
 class ItemManager
 {
 public:
+	~ItemManager();
+
 	void Start();
 
 	void UseItemInfo(int& _X , int& _Y);
@@ -53,10 +55,9 @@ public:
 		Gold = _Gold;
 	}
 
-	const int& GetCount()
-	{
-		return Count;
-	}
+	void SetCount(int _Num, int& _Count);
+
+	int GetUseCount();
 
 	void AddCount(int _Num)
 	{
@@ -68,19 +69,16 @@ public:
 		}
 	}
 
-	void SubCount(int _Num)
-	{
-		Count -= _Num;
-		if (Count <= 0)
-		{
-			Count = 0;
-			return;
-		}
-	}
+	void SubCount(int _Num, int& _Count);
 
 	void SetName(std::string _Name)
 	{
 		Name = _Name;
+	}
+
+	size_t GetUseItemSize()
+	{
+		return UseItem.size();
 	}
 
 protected:
@@ -106,6 +104,5 @@ private:
 	std::vector<class EquipItem_88*> EquipWeaponItem;
 
 	class Util* Handle;
-
 };
 

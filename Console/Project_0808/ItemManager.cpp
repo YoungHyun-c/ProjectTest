@@ -8,9 +8,45 @@
 #define ItemNum 5
 #define EquipNum 3
 
+ItemManager::~ItemManager()
+{
+	if (!UseItem.empty())
+	{
+		for (auto& Num : UseItem)
+		{
+			delete Num;
+			Num = nullptr;
+		}
+	}
+
+	if (!EquipArmorItem.empty())
+	{
+		for (auto& Num : EquipArmorItem)
+		{
+			delete Num;
+			Num = nullptr;
+		}
+	}
+
+	if (!EquipWeaponItem.empty())
+	{
+		for (auto& Num : EquipWeaponItem)
+		{
+			delete Num;
+			Num = nullptr;
+		}
+	}
+
+	if (Handle != nullptr)
+	{
+		delete Handle;
+		Handle = nullptr;
+	}
+}
+
 void ItemManager::Start()
 {
-	if (UseItem.size() == 0)
+	if (UseItem.empty())
 	{
 		UseItem.reserve(ItemNum);
 		for (int i = 0; i < ItemNum; i++)
@@ -18,7 +54,7 @@ void ItemManager::Start()
 			UseItem.push_back(new UseItem_88(99));
 		}
 	}
-	if (EquipArmorItem.size() == 0)
+	if (EquipArmorItem.empty())
 	{
 		EquipArmorItem.reserve(EquipNum);
 		for (int i = 0; i < EquipNum; i++)
@@ -26,7 +62,7 @@ void ItemManager::Start()
 			EquipArmorItem.push_back(new EquipItem_88());
 		}
 	}
-	if (EquipWeaponItem.size() == 0)
+	if (EquipWeaponItem.empty())
 	{
 		EquipWeaponItem.reserve(EquipNum);
 		for (int i = 0; i < EquipNum; i++)
@@ -91,4 +127,27 @@ void ItemManager::CreateEuqipItem()
 	EquipWeaponItem[0]->SetWeapon("대검", 150, -1, 1000);
 	EquipWeaponItem[1]->SetWeapon("목검", 90, 2, 800);
 	EquipWeaponItem[2]->SetWeapon("도로쿠대거", 130, 31, 1200);
+}
+
+void ItemManager::SubCount(int _Num, int& _Count)
+{
+	Count = UseItem[_Num]->GetUseCount();
+	Count -= _Count;
+	if (Count <= 0)
+	{
+		Count = 0;
+		UseItem[_Num]->SetCount(_Num, Count);
+		return;
+	}
+	UseItem[_Num]->SetCount(_Num, Count);
+}
+
+void ItemManager::SetCount(int _Num, int& _Count)
+{
+	Count = _Count;
+}
+
+int ItemManager::GetUseCount()
+{
+	return Count;
 }

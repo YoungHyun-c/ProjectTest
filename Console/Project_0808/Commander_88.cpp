@@ -82,15 +82,15 @@ void Commander_88::End()
 
 void Commander_88::ShopManager(ItemManager* _Item)
 {
-	Shop->PrintProduct(ItemM);
 	while (Done)
 	{
+		Shop->PrintProduct(ItemM);
 		int Num = Shop->ActionList();
 		switch (Num)
 		{
 		case 0:
 			std::cout << "구매할 상품을 정해주세요. " << std::endl;
-			Shop->BuyItem(_Item);
+			Shop->BuyItem(*_Item);
 			break;
 		case 1:
 			std::cout << "판매할 상품을 정해주세요. " << std::endl;
@@ -104,6 +104,8 @@ void Commander_88::ShopManager(ItemManager* _Item)
 			Done = false;
 			break;
 		}
+		Sleep(1000);
+		system("cls");
 	}
 }
 

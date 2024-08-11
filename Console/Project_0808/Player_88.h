@@ -39,6 +39,11 @@ public:
 		return AtkSpeed;
 	}
 
+	const std::string& GetWeapon()
+	{
+		return Weapon;
+	}
+
 	void AddHp(int _Hp)
 	{
 		Hp += _Hp;

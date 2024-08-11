@@ -18,6 +18,11 @@ public:
 		return Count;
 	}
 
+	void SetUseCount(int _Count)
+	{
+		Count = _Count;
+	}
+
 	void SetUseItem(const std::string& _Name, int _Hp, int _Mp, int _Gold);
 
 	void Start();

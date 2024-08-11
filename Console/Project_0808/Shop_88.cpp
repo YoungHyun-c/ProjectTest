@@ -3,10 +3,6 @@
 #include "Util.h"
 #include "ItemManager.h"
 
-#define ShopX 4
-#define ShopY 1
-
-
 Shop_88::Shop_88()
 {
 }
@@ -20,20 +16,35 @@ Shop_88::~Shop_88()
 	}
 }
 
-void Shop_88::BuyItem(ItemManager* _Item)
+void Shop_88::BuyItem(ItemManager& _Item)
 {
-	std::cout << "구매할 번호를 입력해주세요 : ";
 	int Num;
-	std::cin >> Num;
-	std::cout << std::endl;
-	std::cout << "몇개 구매할지 입력해주세요 : ";
 	int Count;
-	std::cin >> Count;
-	
-	{
-		_Item[Num].SubCount(Count);
-	}
 
+	while (true)
+	{
+		std::cout << "구매할 번호를 입력해주세요 : ";
+		std::cin >> Num;
+		std::cout << "몇개 구매할지 입력해주세요 : ";
+		std::cin >> Count;
+		if (Num <= 0 || Num > _Item.GetUseItemSize())
+		{
+			std::cout << "다시 입력해주세요..." << std::endl;
+		}
+		else
+		{
+			break;
+		}
+	}
+	
+	_Item.SubCount(Num - 1, Count);
+	
+
+	if (_Item.GetUseCount() == 0)
+	{
+		std::cout << "상품을 다 구매했습니다." << std::endl;
+		return;
+	}
 	std::cout << "상품을 구매했습니다..." << std::endl;
 }
 
@@ -42,12 +53,11 @@ void Shop_88::SellItem()
 	
 }
 
-static int Y = ShopY;
 void Shop_88::PrintProduct(ItemManager* _Item)
 {
-	int X = ShopX;
 	ComManager->Gotoxy(25, 0);
 	std::cout << "~~상점~~" << std::endl;
+	Y = 1;
 	ComManager->Gotoxy(X, Y++);
 	std::cout << "========================================================" << std::endl;
 	_Item->ArmorItemInfo(X, Y);

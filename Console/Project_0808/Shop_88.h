@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+#define ShopX 4
+#define ShopY 1
+
 class Shop_88
 {
 public:
@@ -14,7 +17,7 @@ public:
 
 	int ActionList();
 
-	void BuyItem(class ItemManager* _Item);
+	void BuyItem(class ItemManager& _Item);
 
 	void SellItem();
 
@@ -25,5 +28,9 @@ private:
 
 
 	class Util* ComManager;
+
+
+	int X = ShopX;
+	int Y = ShopY;
 };
 
