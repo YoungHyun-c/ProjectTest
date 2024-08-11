@@ -2,7 +2,10 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
+#define ListX 4
+#define ListY 10
 
 class Player_88
 {
@@ -43,6 +46,23 @@ public:
 	{
 		return Weapon;
 	}
+	const std::string& GetHat()
+	{
+		return Hat;
+	}
+	const std::string& GetArmor()
+	{
+		return Armor;
+	}
+	const std::string& GetBoots()
+	{
+		return Boots;
+	}
+
+	const int& GetGold()
+	{
+		return Gold;
+	}
 
 	void AddHp(int _Hp)
 	{
@@ -76,8 +96,36 @@ public:
 		AtkSpeed += _Speed;
 	}
 
+	void SubGold(int _Gold)
+	{
+		if (_Gold > Gold)
+		{
+			std::cout << "소지금이 더 적음" << std::endl;
+			return;
+		}
+		Gold -= _Gold;
+	}
+
 	void const PlayerInfoPrint();
 
+	void SetArmor(std::string _Name)
+	{
+		if (_Name == "모자")
+		{
+			Hat = _Name;
+		}
+		if (_Name == "갑옷")
+		{
+			Armor = _Name;
+		}
+		if (_Name == "신발")
+		{
+			Boots = _Name;
+		}
+	}
+
+	void PlayerListSet();
+	int PlayerActionList();
 
 private:
 	int MaxHp = 300;
@@ -95,5 +143,10 @@ private:
 	std::string Armor = " ";
 	std::string Boots = " ";
 	
+	std::vector<std::string> List;
+	int X = ListX;
+	int Y = ListY;
+
+	class Util* UManager;
 };
 

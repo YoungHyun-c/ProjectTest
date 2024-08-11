@@ -17,7 +17,7 @@ public:
 
 	int ActionList();
 
-	void BuyItem(class ItemManager& _Item);
+	void BuyItem(class ItemManager& _Item, class Player_88& _Player);
 
 	void SellItem();
 

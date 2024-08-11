@@ -12,7 +12,7 @@ void UseItem_88::SetUseItem(const std::string& _Name, int _Hp, int _Mp, int _Gol
 
 void UseItem_88::UseItemInfoPrint()
 {
-	std::cout << Name <<"을(를) 사용시 Hp : " << Hp << " MP : " << Mp << " 만큼 영향을 받습니다. 수량 : x"<< Count << std::endl;
+	std::cout << Name <<"을(를) 사용시 Hp : " << Hp << " MP : " << Mp << " 만큼 영향을 받습니다. Gold :"<< Gold <<" 수량 : x"<< Count << std::endl;
 }
 
 

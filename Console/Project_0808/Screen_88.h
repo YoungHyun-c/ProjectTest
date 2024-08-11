@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 
+#define ScreenX 4
+#define ScreenY 1
+
+
 class Screen_88
 {
 public:
@@ -15,10 +19,11 @@ public:
 
 	int PrintScreen();
 
-	int KeyControl();
-
 private:
 	std::vector<std::string> List;
+	class Util* ComManager;
 
+	int X = ScreenX;
+	int Y = ScreenY;
 };
 

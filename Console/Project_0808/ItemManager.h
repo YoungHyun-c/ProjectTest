@@ -69,6 +69,7 @@ public:
 		}
 	}
 
+	int BuyUseItem(int _Num, int _Count);
 	void SubCount(int _Num, int& _Count);
 
 	void SetName(std::string _Name)
@@ -80,6 +81,10 @@ public:
 	{
 		return UseItem.size();
 	}
+
+	int BuyArmor(int _Num, class Player_88* _PlayerGold);
+
+	int BuyWeapon(int _Num, int _PlayerGold);
 
 protected:
 	void CreateUseItem();

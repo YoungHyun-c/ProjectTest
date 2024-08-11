@@ -12,26 +12,6 @@ EquipItem_88::~EquipItem_88()
 
 void EquipItem_88::Start()
 {
-	//const int Num = 3;
-
-	//EquipArmorItem.reserve(Num);
-	//EquipWeaponItem.reserve(Num);
-
-	//for (int i = 0; i < Num; i++)
-	//{
-	//	EquipArmorItem.push_back(EquipItem_88());
-	//	EquipWeaponItem.push_back(EquipItem_88());
-	//}
-
-	//// 방어구
-	//EquipArmorItem[0].SetArmor("모자", 10, 11, 500);
-	//EquipArmorItem[1].SetArmor("갑옷", 100, 25, 2000);
-	//EquipArmorItem[2].SetArmor("신발", 25, 7, 700);
-
-	//// 무기
-	//EquipWeaponItem[0].SetWeapon("대검", 150, -1, 1000);
-	//EquipWeaponItem[1].SetWeapon("목검", 90, 2, 800);
-	//EquipWeaponItem[2].SetWeapon("도로쿠대거", 130, 31, 1200);
 }
 
 void  EquipItem_88::SetArmor(const std::string& _Name, const int& _Hp, const int& _Def, const int& _Gold)
@@ -52,7 +32,12 @@ void EquipItem_88::SetWeapon(const std::string& _Name, const int& _Atk, const in
 
 void EquipItem_88::WeaponInfo() const
 {
-	std::cout << "장비 : " << Name << " Atk : +" << Atk << " AtkSpeed : + " << AtkSpeed << " Gold : "<< Gold << std::endl;
+	std::string Speed = "AtkSpeed : +";
+	if (AtkSpeed < 0)
+	{
+		Speed = "AtkSpeed : ";
+	}
+	std::cout << "장비 : " << Name << " Atk : +" << Atk << Speed << AtkSpeed << " Gold : "<< Gold << std::endl;
 }
 
 void EquipItem_88::ArmorInfo() const

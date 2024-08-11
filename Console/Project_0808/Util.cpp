@@ -63,21 +63,8 @@ int Util::PrintScreen(int _X, int _Y, std::vector<std::string>& _List)
 			}
 			break;
 		case Enter:
-			Cursor.Gotoxy(0, _Y + _List.size());
-			if (Y == _Y)
-			{
-				std::cout << "선택..." << std::endl;
-				return 0;
-			}
-			if (Y == _Y + 1)
-			{
-				std::cout << "선택..." << std::endl;
-				return 1;
-			}
-			if (Y == _Y + 2)
-			{
-				return 2;
-			}
+			Cursor.Gotoxy(0, _Y + static_cast<short>(_List.size()));
+			return Y - _Y;
 		}
 	}
 	return 0;

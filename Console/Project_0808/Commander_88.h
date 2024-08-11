@@ -12,7 +12,7 @@ protected:
 
 	void ShoptoItem(class ItemManager* _Item);
 
-	void ShopManager(class ItemManager* _Item);
+	void ShopManager(class ItemManager* _Item, class Player_88* _Player);
 
 	void PlayerManager(class Player_88* _Player);
 
