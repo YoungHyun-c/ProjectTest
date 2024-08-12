@@ -17,6 +17,12 @@
     <Filter Include="MainScreen\1.PackMan">
       <UniqueIdentifier>{89c43115-6b56-45eb-8a1d-8d2fbb0ab4b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level2">
+      <UniqueIdentifier>{6c251afd-1e60-4ae7-90e7-054501ff1f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level1">
+      <UniqueIdentifier>{ba76810a-b646-431a-9e7f-b75e8456d23e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

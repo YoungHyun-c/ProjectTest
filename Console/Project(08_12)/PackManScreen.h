@@ -8,18 +8,20 @@
 class PackManScreen
 {
 public:
-	
-	void PackManStartScreen();
-
-	void PackManMapPrint();
-
-	void PackManSetList();
-
-	int PackManSetting();
-
-	void PackManUpdate();
+	void Start();
 
 private:
+	void PackManStartScreen();
+	void PackManMapPrint();
+	void PackManSetList();
+	int PackManSetting();
+	void PackManUpdate();
+
+	void GameSetList();
+
+private:
+	bool Done = true;
+
 	std::vector<std::string> List;
 
 	int X = 14;

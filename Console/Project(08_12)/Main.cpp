@@ -5,9 +5,12 @@
 
 using namespace std;
 
+#include "MainScreen.h"
+#include "PackManScreen.h"
 #include "Utill.h"
 
-#include "MainScreen.h"
+
+#include <stdio.h>
 
 int main() {
     //POINT MousePoint;
@@ -53,9 +56,23 @@ int main() {
 
 
     {
-        MainScreen GameScreen;
-        GameScreen.Start();
-
+        /*MainScreen GameScreen;
+        GameScreen.Start();*/
     }
+    {
+        PackManScreen* Game = new PackManScreen();
+        Game->Start();
+
+
+        delete Game;
+        Game = nullptr;
+    }
+
+
+    // 바이너리
+    {
+        
+    }
+
     return 0;
 }

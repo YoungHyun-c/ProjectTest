@@ -6,13 +6,13 @@ class MainScreen
 {
 public:
 
-	void Start();
+	/*void Start();
 
 private:
 	void StartPackMan();
 
 	bool Done = true;
 
-	class PackManScreen PackMan;
+	class PackManScreen PackMan;*/
 };
 
