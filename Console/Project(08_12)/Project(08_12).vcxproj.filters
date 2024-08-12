@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Level0">
+      <UniqueIdentifier>{52acc2e3-4b40-4cf8-b99c-24f530a9481d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainScreen">
+      <UniqueIdentifier>{ac9810d3-e8e4-4aa0-a687-5fdc303875b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{325ebd10-3a77-457f-8323-0566be99bbf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainScreen\1.PackMan">
+      <UniqueIdentifier>{89c43115-6b56-45eb-8a1d-8d2fbb0ab4b7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Utill.cpp">
+      <Filter>Level0</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScreen.cpp">
+      <Filter>MainScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PackManScreen.cpp">
+      <Filter>MainScreen\1.PackMan</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utill.h">
+      <Filter>Level0</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScreen.h">
+      <Filter>MainScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PackManScreen.h">
+      <Filter>MainScreen\1.PackMan</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
