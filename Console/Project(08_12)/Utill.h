@@ -22,6 +22,8 @@ public:
 
 	void Gotoxy(short _X, short _Y);
 
+	void TextColor(int _Font, int _BackGround);
+
 	int PrintScreen(int _X, int _Y, std::vector<std::string>& _List);
 
 protected:

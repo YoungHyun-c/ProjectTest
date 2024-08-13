@@ -9,6 +9,10 @@ using namespace std;
 #include "PackManScreen.h"
 #include "Utill.h"
 
+#include "Map.h"
+#include "Player.h"
+#include "Monster.h"
+#include "Item.h"
 
 #include <stdio.h>
 
@@ -60,19 +64,42 @@ int main() {
         GameScreen.Start();*/
     }
     {
-        PackManScreen* Game = new PackManScreen();
+       /* PackManScreen* Game = new PackManScreen();
         Game->Start();
 
 
         delete Game;
-        Game = nullptr;
+        Game = nullptr;*/
+
     }
-
-
-    // ¹ÙÀÌ³Ê¸®
     {
-        
+        /*Player Play;
+        Play.PlayerPrint();*/
+
+        /*Monster Mon = Monster(12, 12);
+        Mon.MonsterPrint();*/
+
+        //Monster Mon = Monster(9, 9); // ÆÄ¶û
+        //Mon.MonsterPrint();
+
+        //Monster Mon = Monster(13, 13); // º¸¶ó
+        //Mon.MonsterPrint();
+
+        //Monster Mon = Monster(14, 14); // ³ë¶û
+        //Mon.MonsterPrint();
     }
 
+    /*{
+        Map TestMap;
+        TestMap.MapPrint();
+    }*/
+
+    {
+        Item It = Item(100);
+        //It.AppleItemPrint();
+        It.BananaItemPrint();
+    }
+
+  
     return 0;
 }

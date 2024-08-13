@@ -24,6 +24,13 @@ void Utill::Gotoxy(short _X, short _Y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
 }
 
+// 0 Èò 1°Ë 2 ÃÊ 3 ÇÏ´Ã 4 Àû»¡ 5 ¿¬º¸ 6 ¿¬³ë 7 Èò 8 È¸»ö 9 ÆÄ¶û 10 ¿¬µÎ 11 ¿¬ÆÄ 12 »¡ 13 ÇÎÅ© 14³ë¶û 15 Èò
+void Utill::TextColor(int _Font, int _BackGround)
+{
+	int Color = _Font + _BackGround * 16;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), Color);
+}
+
 int Utill::PrintScreen(int _X, int _Y, std::vector<std::string>& _List)
 {
 	short X = _X;

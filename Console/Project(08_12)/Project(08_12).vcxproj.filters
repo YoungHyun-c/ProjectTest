@@ -23,13 +23,19 @@
     <Filter Include="Level1">
       <UniqueIdentifier>{ba76810a-b646-431a-9e7f-b75e8456d23e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{069106e3-e8d4-4fa8-8fe8-55294fb55048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{f9aa6649-c53d-4eef-b06a-cb78b3d4316d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{d9f306f2-bf05-45f8-83cf-b855db62200b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Utill.cpp">
-      <Filter>Level0</Filter>
     </ClCompile>
     <ClCompile Include="MainScreen.cpp">
       <Filter>MainScreen</Filter>
@@ -40,11 +46,23 @@
     <ClCompile Include="PackManScreen.cpp">
       <Filter>MainScreen\1.PackMan</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Utill.cpp">
+      <Filter>Level1</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleGameMath.cpp">
+      <Filter>Level0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utill.h">
-      <Filter>Level0</Filter>
-    </ClInclude>
     <ClInclude Include="MainScreen.h">
       <Filter>MainScreen</Filter>
     </ClInclude>
@@ -53,6 +71,21 @@
     </ClInclude>
     <ClInclude Include="PackManScreen.h">
       <Filter>MainScreen\1.PackMan</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Utill.h">
+      <Filter>Level1</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleGameMath.h">
+      <Filter>Level0</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
