@@ -8,6 +8,31 @@ void PackManScreen::Start()
 	GameSetList();
 }
 
+bool PackManScreen::IsScreenOver(const int2& _Pos) const
+{
+	if (_Pos.X < 0)
+	{
+		return true;
+	}
+
+	if (_Pos.Y < 0)
+	{
+		return true;
+	}
+
+	if (_Pos.X >= XScreenSize)
+	{
+		return true;
+	}
+
+	if (_Pos.Y >= YScreenSize)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void PackManScreen::GameSetList()
 {
 	while (Done)

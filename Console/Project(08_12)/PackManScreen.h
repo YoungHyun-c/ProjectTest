@@ -1,14 +1,22 @@
 #pragma once
 
 #include "Utill.h"
+#include "ConsoleGameMath.h"
 
-#define XScreenSize
-#define YScreenSize
+#define XScreen 101
+#define YScreen 51
 
 class PackManScreen
 {
 public:
 	void Start();
+
+	const int2 GetScreenSize()
+	{
+		return int2{ YScreenSize, XScreenSize };
+	}
+
+	bool IsScreenOver(const int2& _Pos) const;
 
 private:
 	void PackManStartScreen();
@@ -21,12 +29,16 @@ private:
 
 private:
 	bool Done = true;
-
 	std::vector<std::string> List;
 
 	int X = 14;
 	int Y = 0;
 
 	class Utill Handle;
+
+private:
+	static const int XScreenSize = XScreen;
+	static const int YScreenSize = YScreen;
+
 };
 

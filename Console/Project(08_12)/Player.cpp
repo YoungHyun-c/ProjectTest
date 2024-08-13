@@ -2,8 +2,47 @@
 
 #include "Utill.h"
 
-// 0 Èò 1°Ë 2 ÃÊ 3 ÇÏ´Ã 4 Àû»¡ 5 ¿¬º¸ 6 ¿¬³ë 7 Èò 8 È¸»ö 9 ÆÄ¶û 10 ¿¬µÎ 11 ¿¬ÆÄ 12 »¡ 13 ÇÎÅ© 14³ë¶û 15 Èò
+void Player::PlayerMove()
+{
+	
+	if (0 == _kbhit())
+	{
+		Sleep(1000);
+		return;
+	}
 
+	char Ch = _getch();
+	int2 NextPos = PlayerPos;
+
+	switch (Ch)
+	{
+	case 'a':
+	case 'A':
+		NextPos.X -= 1;
+		PlayerPos.X -= 1;
+		break;
+	case 'd':
+	case 'D':
+		NextPos.X += 1;
+		PlayerPos.X += 1;
+		break;
+	case 'w':
+	case 'W':
+		NextPos.Y -= 1;
+		PlayerPos.Y -= 1;
+		break;
+	case 's':
+	case 'S':
+		NextPos.Y += 1;
+		PlayerPos.Y += 1;
+		break;
+	default:
+		break;
+	}
+}
+
+
+// 0 Èò 1°Ë 2 ÃÊ 3 ÇÏ´Ã 4 Àû»¡ 5 ¿¬º¸ 6 ¿¬³ë 7 Èò 8 È¸»ö 9 ÆÄ¶û 10 ¿¬µÎ 11 ¿¬ÆÄ 12 »¡ 13 ÇÎÅ© 14³ë¶û 15 Èò
 void Player::PlayerPrint()
 {
 	Utill UtillMan;

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include "ConsoleGameMath.h"
 
 class Player
 {
@@ -14,5 +15,6 @@ public:
 private:
 	char PlayerArr[5][5] = {' '};
 
+	int2 PlayerPos = { 5, 5 };
 };
 

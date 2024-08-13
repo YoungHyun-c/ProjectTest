@@ -73,9 +73,15 @@ int main() {
 
     }
     {
-        /*Player Play;
-        Play.PlayerPrint();*/
+        Player Play;
+        /*while (true)
+        {
+            Play.PlayerPrint();
+            Play.PlayerMove();
 
+            system("cls");
+            Sleep(300);
+        }*/
         /*Monster Mon = Monster(12, 12);
         Mon.MonsterPrint();*/
 
@@ -89,15 +95,15 @@ int main() {
         //Mon.MonsterPrint();
     }
 
-    /*{
+    {
         Map TestMap;
         TestMap.MapPrint();
-    }*/
+    }
 
     {
         Item It = Item(100);
         //It.AppleItemPrint();
-        It.BananaItemPrint();
+        //It.BananaItemPrint();
     }
 
   
