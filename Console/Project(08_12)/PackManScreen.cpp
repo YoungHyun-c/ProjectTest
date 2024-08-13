@@ -1,11 +1,46 @@
 #include "PackManScreen.h"
+#include <iostream>
 
 #define InterFrame 1000
 
-void PackManScreen::Start()
+PackManScreen PackManScreen::MainScreen;
+
+void PackManScreen::ScreenClear()
 {
-	PackManSetList();
-	GameSetList();
+	system("cls");
+
+	for (size_t Y = 0; Y < this->Size.Y; Y++)
+	{
+		for (size_t X = 0; X < this->Size.X; X++)
+		{
+			ArrScreen[Y][X] = L'■';
+		}
+	}
+}
+
+void PackManScreen::ScreenPrint()
+{
+	setlocale(LC_ALL, "KOR");
+	for (size_t Y = 0; Y < this->Size.Y; Y++)
+	{
+		for (size_t X = 0; X < this->Size.X; X++)
+		{
+			wprintf_s(L"%c", ArrScreen[Y][X]);
+		}
+		wprintf_s(L"\n");
+	}
+}
+
+void PackManScreen::SetScreenSize(int2 _Size)
+{
+	Size = _Size;
+
+	ArrScreen.resize(Size.Y);
+
+	for (size_t i = 0; i < Size.Y; i++)
+	{
+		ArrScreen[i].resize(Size.X);
+	}
 }
 
 bool PackManScreen::IsScreenOver(const int2& _Pos) const
@@ -31,6 +66,36 @@ bool PackManScreen::IsScreenOver(const int2& _Pos) const
 	}
 
 	return false;
+}
+
+void PackManScreen::SetScreenCharacter(const int2& _Pos, wchar_t _Ch)
+{
+	if (true == IsScreenOver(_Pos))
+	{
+		return;
+	}
+	
+	ArrScreen[_Pos.X][_Pos.Y] = _Ch;
+}
+
+wchar_t PackManScreen::GetScreenCharacter(const int2& _Pos) const
+{
+	return ArrScreen[_Pos.X][_Pos.Y];
+}
+
+
+PackManScreen::PackManScreen()
+{
+}
+
+PackManScreen::~PackManScreen()
+{
+}
+
+void PackManScreen::Start()
+{
+	PackManSetList();
+	GameSetList();
 }
 
 void PackManScreen::GameSetList()
@@ -112,15 +177,13 @@ void PackManScreen::PackManMapPrint()
 void PackManScreen::PackManSetList()
 {
 	List.push_back("1. 게임을 시작한다.");
-	List.push_back("2. 초기화면으로 돌아간다.");
-	List.push_back("3. 게임을 종료한다.");
+	List.push_back("2. 게임을 종료한다.");
 }
 
 int PackManScreen::PackManSetting()
 {
 	return Handle.PrintScreen(X + 14, Y, List);
 }
-
 
 void PackManScreen::PackManUpdate()
 {

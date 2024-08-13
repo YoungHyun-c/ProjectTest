@@ -1,6 +1,14 @@
 #include "Player.h"
-
 #include "Utill.h"
+
+#include <conio.h>
+#include <Windows.h>
+#include "PackManScreen.h"
+#include "GameObjectManager.h"
+#include "GameEnum.h"
+#include "Item.h"
+
+bool Player::IsGameUpdate = true;
 
 void Player::PlayerMove()
 {
@@ -39,7 +47,97 @@ void Player::PlayerMove()
 	default:
 		break;
 	}
+
+	IsItemCheck();
 }
+
+
+bool Player::IsItemCheck()
+{
+	std::list<ConsoleGameObject*>& ItemGroup
+		= GameObjectManager::GetGroup(ObjectOrder::Item);
+
+	for (ConsoleGameObject* Ptr : ItemGroup)
+	{
+		if (nullptr == Ptr)
+		{
+			continue;
+		}
+
+		int2 ItemPos = Ptr->GetPos();
+		if (GetPos() == ItemPos)
+		{
+			Ptr->Death();
+			return true;
+		}
+	}
+	return false;
+}
+
+void Player::Update()
+{
+	IsItemCheck();
+
+	if (0 == _kbhit())
+	{
+		return;
+	}
+
+	char Ch = _getch();
+
+	int2 NextPos = { 0, 0 };
+
+	switch (Ch)
+	{
+	case 'a':
+	case 'A':
+		NextPos = Pos;
+		NextPos.X -= 1;
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		{
+			Pos.X -= 1;
+		}
+		break;
+	case 'd':
+	case 'D':
+		NextPos = Pos;
+		NextPos.X += 1;
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		{
+			Pos.X += 1;
+		}
+		break;
+	case 'w':
+	case 'W':
+		NextPos = Pos;
+		NextPos.Y -= 1;
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		{
+			Pos.Y -= 1;
+		}
+		break;
+	case 's':
+	case 'S':
+		NextPos = Pos;
+		NextPos.Y += 1;
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		{
+			Pos.Y += 1;
+		}
+		break;
+	case 'q':
+	case 'Q':
+	{
+		IsGameUpdate = false;
+		break;
+	}
+	default:
+		break;
+	}
+
+	IsItemCheck();
+}
+
 
 
 // 0 Èò 1°Ë 2 ÃÊ 3 ÇÏ´Ã 4 Àû»¡ 5 ¿¬º¸ 6 ¿¬³ë 7 Èò 8 È¸»ö 9 ÆÄ¶û 10 ¿¬µÎ 11 ¿¬ÆÄ 12 »¡ 13 ÇÎÅ© 14³ë¶û 15 Èò
@@ -229,3 +327,4 @@ void Player::PlayerPrint()
 //		PlayerArr[4][6] = '1';
 //	}
 //}
+

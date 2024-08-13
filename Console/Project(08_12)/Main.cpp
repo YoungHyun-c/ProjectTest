@@ -16,6 +16,9 @@ using namespace std;
 
 #include <stdio.h>
 
+#include "GameObjectManager.h"
+#include "GameEnum.h"
+
 int main() {
     //POINT MousePoint;
     //std::cout << fixed;
@@ -63,17 +66,16 @@ int main() {
         /*MainScreen GameScreen;
         GameScreen.Start();*/
     }
-    {
-       /* PackManScreen* Game = new PackManScreen();
+   /* {
+        PackManScreen* Game = new PackManScreen();
         Game->Start();
 
 
         delete Game;
-        Game = nullptr;*/
-
-    }
+        Game = nullptr;
+    }*/
     {
-        Player Play;
+        //Player Play;
         /*while (true)
         {
             Play.PlayerPrint();
@@ -96,16 +98,31 @@ int main() {
     }
 
     {
-        Map TestMap;
-        TestMap.MapPrint();
+       /* Map TestMap;
+        TestMap.MapPrint();*/
     }
 
     {
-        Item It = Item(100);
+        //Item It = Item(100);
         //It.AppleItemPrint();
         //It.BananaItemPrint();
     }
 
+    int2 ScreenSize = { 6, 6 };
+    PackManScreen::GetMainScreen().SetScreenSize(ScreenSize);
+
+    GameObjectManager::CreateConsoleObject<Player>(ObjectOrder::Player);
+    GameObjectManager::CreateConsoleObject<Item>(ObjectOrder::Item);
+
+    while (Player::IsGameUpdate)
+    {
+        GameObjectManager::ConsoleAllObjectUpdate();
+        GameObjectManager::ConsoleAllObjectRender();
+        GameObjectManager::ConsoleAllObjectRelease();
+        Sleep(200);
+    }
   
+    GameObjectManager::ConsoleAllObjectDelete();
+
     return 0;
 }

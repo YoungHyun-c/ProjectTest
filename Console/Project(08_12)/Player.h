@@ -1,15 +1,15 @@
 #pragma once
+#include "ConsoleGameObject.h"
 
-#include <iostream>
-#include <string>
-#include "ConsoleGameMath.h"
-
-class Player
+class Player : public ConsoleGameObject
 {
 public:
+	static bool IsGameUpdate;
+
+	void Update() override;
+	bool IsItemCheck();
 
 	void PlayerPrint();
-
 	void PlayerMove();
 
 private:

@@ -128,6 +128,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleGameMath.cpp" />
+    <ClCompile Include="ConsoleGameObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineArray.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScreen.cpp" />
@@ -139,6 +151,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleGameMath.h" />
+    <ClInclude Include="ConsoleGameObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEnum.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineArray.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Item.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="Map.h" />

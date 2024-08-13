@@ -1,4 +1,13 @@
 #include "Item.h"
+#include "PackManScreen.h"
+#include "PackManScreen.h"
+
+Item::Item()
+{
+	int X = 5;
+	int Y = 5;
+	SetPos({ X, Y });
+}
 
 Item::~Item()
 {
@@ -6,6 +15,30 @@ Item::~Item()
 	{
 		delete UtillMan;
 		UtillMan = nullptr;
+	}
+}
+
+void Item::Update()
+{
+	int Num = 0;
+	for (size_t X = 0; X < PackManScreen::GetMainScreen().GetScreenSize().X; X++)
+	{
+		for (size_t Y = 0; Y < PackManScreen::GetMainScreen().GetScreenSize().Y; Y++)
+		{
+			if (X != Item::GetPos().X || Y != Item::GetPos().X)
+			{
+				Num = 0;
+			}
+			else
+			{
+				Num = 1;
+			}
+		}
+	}
+
+	if (Num == 1)
+	{
+		Death();
 	}
 }
 

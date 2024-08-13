@@ -1,10 +1,12 @@
 #pragma once
-
 #include "Utill.h"
+#include "ConsoleGameObject.h"
 
-class Item
+class PackManScreen;
+class Item : public ConsoleGameObject
 {
 public:
+	Item();
 	Item(int _Value) :
 		Value(_Value)
 	{
@@ -15,6 +17,8 @@ public:
 	void BananaItemPrint();
 	void TransItemPrint();
 
+protected:
+	void Update() override;
 private:
 	int Value;
 
