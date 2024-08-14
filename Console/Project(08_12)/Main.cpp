@@ -20,9 +20,6 @@ using namespace std;
 #include "GameEnum.h"
 
 int main() {
-    //POINT MousePoint;
-    //std::cout << fixed;
-    //std::cout.precision(1);
 
     system("mode con cols= 210 lines= 100 | title Á¦¸ñ¸í");
     //Utill Handle;
@@ -108,11 +105,12 @@ int main() {
         //It.BananaItemPrint();
     }
 
-    int2 ScreenSize = { 6, 6 };
+    int2 ScreenSize = { 100, 40 };
     PackManScreen::GetMainScreen().SetScreenSize(ScreenSize);
+    PackManScreen::GetMainScreen().VoidCursor();
 
     GameObjectManager::CreateConsoleObject<Player>(ObjectOrder::Player);
-    GameObjectManager::CreateConsoleObject<Item>(ObjectOrder::Item);
+    //GameObjectManager::CreateConsoleObject<Item>(ObjectOrder::Item);
 
     while (Player::IsGameUpdate)
     {

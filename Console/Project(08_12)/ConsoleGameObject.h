@@ -45,8 +45,8 @@ public:
 
 protected:
 	int2 Pos;
-	wchar_t RenderChar = L'£À';
-	wchar_t PreveRenderChar = L' ';
+	char RenderChar = 'A';
+	char PreveRenderChar = '0';
 
 	char PlayerArr[5][5] = { ' ' };
 

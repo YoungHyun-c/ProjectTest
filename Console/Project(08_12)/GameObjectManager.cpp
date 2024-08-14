@@ -28,7 +28,6 @@ void GameObjectManager::ConsoleAllObjectUpdate()
 			{
 				continue;
 			}
-
 			Object->Update();
 		}
 	}

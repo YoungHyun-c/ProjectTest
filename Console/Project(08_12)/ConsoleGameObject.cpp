@@ -13,5 +13,7 @@ void ConsoleGameObject::Render()
 
 void ConsoleGameObject::Update()
 {
+
+
 }
 

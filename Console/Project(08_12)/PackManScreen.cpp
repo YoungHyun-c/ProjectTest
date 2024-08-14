@@ -5,6 +5,16 @@
 
 PackManScreen PackManScreen::MainScreen;
 
+// 커서 없애기
+void PackManScreen::VoidCursor()
+{
+	HANDLE ConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO ConsoleCursor;
+	ConsoleCursor.bVisible = 0;
+	ConsoleCursor.dwSize = 1;
+	SetConsoleCursorInfo(ConsoleHandle, &ConsoleCursor);
+}
+
 void PackManScreen::ScreenClear()
 {
 	system("cls");
@@ -13,14 +23,14 @@ void PackManScreen::ScreenClear()
 	{
 		for (size_t X = 0; X < this->Size.X; X++)
 		{
-			ArrScreen[Y][X] = L'■';
+			//MapArr[Y][X] = '0';
 		}
 	}
 }
 
 void PackManScreen::ScreenPrint()
 {
-	setlocale(LC_ALL, "KOR");
+	/*setlocale(LC_ALL, "KOR");
 	for (size_t Y = 0; Y < this->Size.Y; Y++)
 	{
 		for (size_t X = 0; X < this->Size.X; X++)
@@ -28,6 +38,30 @@ void PackManScreen::ScreenPrint()
 			wprintf_s(L"%c", ArrScreen[Y][X]);
 		}
 		wprintf_s(L"\n");
+	}*/
+
+	for (int Y = 0; Y < YScreen; Y++)
+	{
+		for (int X = 0; X < XScreen; X++)
+		{
+			if (MapArr[Y][X] == '1')
+			{
+				Handle.TextColor(15, 15);
+				std::cout << "■";
+			}
+			else if (MapArr[Y][X] == '0')
+			{
+				Handle.TextColor(0, 0);
+				std::cout << " ";
+			}
+			else if (MapArr[Y][X] == 'A')
+			{
+				Handle.TextColor(2, 2);
+				std::cout << "A";
+			}
+		}
+		Handle.TextColor(0, 0);
+		std::cout << std::endl;
 	}
 }
 
@@ -55,12 +89,12 @@ bool PackManScreen::IsScreenOver(const int2& _Pos) const
 		return true;
 	}
 
-	if (_Pos.X >= XScreenSize)
+	if (_Pos.X >= this->Size.X)
 	{
 		return true;
 	}
 
-	if (_Pos.Y >= YScreenSize)
+	if (_Pos.Y >= this->Size.Y)
 	{
 		return true;
 	}
@@ -68,19 +102,20 @@ bool PackManScreen::IsScreenOver(const int2& _Pos) const
 	return false;
 }
 
-void PackManScreen::SetScreenCharacter(const int2& _Pos, wchar_t _Ch)
+void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch)
 {
 	if (true == IsScreenOver(_Pos))
 	{
 		return;
 	}
 	
-	ArrScreen[_Pos.X][_Pos.Y] = _Ch;
+
+	MapArr[_Pos.Y][_Pos.X] = _Ch;
 }
 
-wchar_t PackManScreen::GetScreenCharacter(const int2& _Pos) const
+char PackManScreen::GetScreenCharacter(const int2& _Pos) const
 {
-	return ArrScreen[_Pos.X][_Pos.Y];
+	return MapArr[_Pos.Y][_Pos.X];
 }
 
 
@@ -96,6 +131,8 @@ void PackManScreen::Start()
 {
 	PackManSetList();
 	GameSetList();
+
+	//VoidCursor();
 }
 
 void PackManScreen::GameSetList()
@@ -166,14 +203,6 @@ void PackManScreen::PackManStartScreen()
 	std::cout << "==========================================================" << std::endl;
 }
 
-void PackManScreen::PackManMapPrint()
-{
-	std::cout << "=======" << std::endl;
-	std::cout << "==   ==" << std::endl;
-	std::cout << "== = ==" << std::endl;
-	std::cout << "== = ==" << std::endl;
-}
-
 void PackManScreen::PackManSetList()
 {
 	List.push_back("1. 게임을 시작한다.");
@@ -187,6 +216,6 @@ int PackManScreen::PackManSetting()
 
 void PackManScreen::PackManUpdate()
 {
-	PackManMapPrint();
+	
 }
 

@@ -36,7 +36,7 @@ Commander_88::~Commander_88()
 void Commander_88::Start()
 {
 	MainScreen = new Screen_88();
-	//MainScreen->Start();
+	MainScreen->Start();
 	MainScreen->MenuListSet();
 
 	ItemM = new ItemManager();

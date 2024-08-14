@@ -8,49 +8,14 @@
 #include "GameEnum.h"
 #include "Item.h"
 
-bool Player::IsGameUpdate = true;
-
-void Player::PlayerMove()
+Player::Player()
 {
-	
-	if (0 == _kbhit())
-	{
-		Sleep(1000);
-		return;
-	}
-
-	char Ch = _getch();
-	int2 NextPos = PlayerPos;
-
-	switch (Ch)
-	{
-	case 'a':
-	case 'A':
-		NextPos.X -= 1;
-		PlayerPos.X -= 1;
-		break;
-	case 'd':
-	case 'D':
-		NextPos.X += 1;
-		PlayerPos.X += 1;
-		break;
-	case 'w':
-	case 'W':
-		NextPos.Y -= 1;
-		PlayerPos.Y -= 1;
-		break;
-	case 's':
-	case 'S':
-		NextPos.Y += 1;
-		PlayerPos.Y += 1;
-		break;
-	default:
-		break;
-	}
-
-	IsItemCheck();
+	SetPos(PackManScreen::GetMainScreen().GetScreenSize().Half());
+	RenderChar = 'A';
+	PreveRenderChar = '0';
 }
 
+bool Player::IsGameUpdate = true;
 
 bool Player::IsItemCheck()
 {
@@ -76,7 +41,7 @@ bool Player::IsItemCheck()
 
 void Player::Update()
 {
-	IsItemCheck();
+	//IsItemCheck();
 
 	if (0 == _kbhit())
 	{
@@ -84,8 +49,8 @@ void Player::Update()
 	}
 
 	char Ch = _getch();
-
-	int2 NextPos = { 0, 0 };
+	
+	int2 NextPos = PlayerPos;
 
 	switch (Ch)
 	{
@@ -93,8 +58,9 @@ void Player::Update()
 	case 'A':
 		NextPos = Pos;
 		NextPos.X -= 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
 		{
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.X -= 1;
 		}
 		break;
@@ -102,8 +68,9 @@ void Player::Update()
 	case 'D':
 		NextPos = Pos;
 		NextPos.X += 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
 		{
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.X += 1;
 		}
 		break;
@@ -111,8 +78,9 @@ void Player::Update()
 	case 'W':
 		NextPos = Pos;
 		NextPos.Y -= 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
 		{
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.Y -= 1;
 		}
 		break;
@@ -120,8 +88,9 @@ void Player::Update()
 	case 'S':
 		NextPos = Pos;
 		NextPos.Y += 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos))
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
 		{
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.Y += 1;
 		}
 		break;
@@ -135,9 +104,8 @@ void Player::Update()
 		break;
 	}
 
-	IsItemCheck();
+	//IsItemCheck();
 }
-
 
 
 // 0 Èò 1°Ë 2 ÃÊ 3 ÇÏ´Ã 4 Àû»¡ 5 ¿¬º¸ 6 ¿¬³ë 7 Èò 8 È¸»ö 9 ÆÄ¶û 10 ¿¬µÎ 11 ¿¬ÆÄ 12 »¡ 13 ÇÎÅ© 14³ë¶û 15 Èò
