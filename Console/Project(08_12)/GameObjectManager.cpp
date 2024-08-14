@@ -35,7 +35,7 @@ void GameObjectManager::ConsoleAllObjectUpdate()
 
 void GameObjectManager::ConsoleAllObjectRender()
 {
-	PackManScreen::GetMainScreen().ScreenClear();
+	//PackManScreen::GetMainScreen().ScreenClear();
 
 	for (size_t GroupIndex = 0; GroupIndex < AllObject.size(); GroupIndex++)
 	{

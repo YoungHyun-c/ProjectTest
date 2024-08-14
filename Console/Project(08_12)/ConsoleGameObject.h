@@ -1,6 +1,9 @@
 #pragma once
 #include "ConsoleGameMath.h"
 
+#define YSize 5
+#define XSize 6
+
 // Ό³Έν :
 class ConsoleGameObject
 {
@@ -48,7 +51,23 @@ protected:
 	char RenderChar = 'A';
 	char PreveRenderChar = '0';
 
-	char PlayerArr[5][5] = { ' ' };
+	char PlayerArr[YSize][XSize] =
+	{
+		 " 222 ",
+		 "22222",
+		 "222  ",
+		 "22222",
+		 " 222 "
+	};
+
+	char PlayerPreveArr[YSize][XSize] = 
+	{
+		 "     ",
+		 "     ",
+		 "     ",
+		 "     ",
+		 "     "
+	};
 
 private:
 	bool UpdateValue = true;

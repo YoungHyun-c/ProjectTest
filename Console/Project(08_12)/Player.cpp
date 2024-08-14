@@ -58,9 +58,9 @@ void Player::Update()
 	case 'A':
 		NextPos = Pos;
 		NextPos.X -= 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
 			Pos.X -= 1;
 		}
 		break;
@@ -68,9 +68,9 @@ void Player::Update()
 	case 'D':
 		NextPos = Pos;
 		NextPos.X += 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
 			Pos.X += 1;
 		}
 		break;
@@ -78,9 +78,9 @@ void Player::Update()
 	case 'W':
 		NextPos = Pos;
 		NextPos.Y -= 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
 			Pos.Y -= 1;
 		}
 		break;
@@ -88,9 +88,9 @@ void Player::Update()
 	case 'S':
 		NextPos = Pos;
 		NextPos.Y += 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) == '0')
+		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
 			Pos.Y += 1;
 		}
 		break;
@@ -103,7 +103,6 @@ void Player::Update()
 	default:
 		break;
 	}
-
 	//IsItemCheck();
 }
 

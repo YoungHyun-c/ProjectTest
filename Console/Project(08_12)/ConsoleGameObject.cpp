@@ -8,7 +8,8 @@ void ConsoleGameObject::Render()
 		return;
 	}
 
-	PackManScreen::GetMainScreen().SetScreenCharacter(Pos, RenderChar);
+	// PackManScreen::GetMainScreen().SetScreenCharacter(Pos, RenderChar);
+	PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerArr);
 }
 
 void ConsoleGameObject::Update()
@@ -16,4 +17,3 @@ void ConsoleGameObject::Update()
 
 
 }
-

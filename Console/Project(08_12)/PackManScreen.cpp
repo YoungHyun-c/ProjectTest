@@ -4,6 +4,7 @@
 #define InterFrame 1000
 
 PackManScreen PackManScreen::MainScreen;
+stConsole Console;
 
 // 커서 없애기
 void PackManScreen::VoidCursor()
@@ -15,54 +16,104 @@ void PackManScreen::VoidCursor()
 	SetConsoleCursorInfo(ConsoleHandle, &ConsoleCursor);
 }
 
+void PackManScreen::InitGame(bool bInitConsole)
+{
+	if (bInitConsole)
+	{
+		Console.hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		Console.nCurBuffer = 0;
+
+
+		CONSOLE_CURSOR_INFO ConsoleCursor{ 1, FALSE };
+		CONSOLE_SCREEN_BUFFER_INFO ConsoleInfo{ 0 , };
+		GetConsoleScreenBufferInfo(Console.hConsole, &ConsoleInfo);
+		ConsoleInfo.dwSize.X = 100;
+		ConsoleInfo.dwSize.Y = 40;
+
+		Console.rtConsole.nWidht = ConsoleInfo.srWindow.Right - ConsoleInfo.srWindow.Left;
+		Console.rtConsole.nHeight = ConsoleInfo.srWindow.Bottom - ConsoleInfo.srWindow.Top;
+
+		Console.hBuffer[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+		SetConsoleScreenBufferSize(Console.hBuffer[0], ConsoleInfo.dwSize);
+		SetConsoleWindowInfo(Console.hBuffer[0], TRUE, &ConsoleInfo.srWindow);
+		SetConsoleCursorInfo(Console.hBuffer[0], &ConsoleCursor);
+
+		Console.hBuffer[1] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+		SetConsoleScreenBufferSize(Console.hBuffer[1], ConsoleInfo.dwSize);
+		SetConsoleWindowInfo(Console.hBuffer[1], TRUE, &ConsoleInfo.srWindow);
+		SetConsoleCursorInfo(Console.hBuffer[1], &ConsoleCursor);
+	}
+}
+
 void PackManScreen::ScreenClear()
 {
-	system("cls");
+	COORD Pos{ 0, };
+	DWORD dwWritten = 0;
+	unsigned Size = Console.rtConsole.nWidht * Console.rtConsole.nHeight;
 
-	for (size_t Y = 0; Y < this->Size.Y; Y++)
-	{
-		for (size_t X = 0; X < this->Size.X; X++)
-		{
-			//MapArr[Y][X] = '0';
-		}
-	}
+	FillConsoleOutputCharacter(Console.hConsole, ' ', Size, Pos, &dwWritten);
+	SetConsoleCursorPosition(Console.hConsole, Pos);
+
+	//system("cls");
+	//for (size_t Y = 0; Y < this->Size.Y; Y++)
+	//{
+	//	for (size_t X = 0; X < this->Size.X; X++)
+	//	{
+	//		//MapArr[Y][X] = '0';
+	//	}
+	//}
 }
 
 void PackManScreen::ScreenPrint()
 {
-	/*setlocale(LC_ALL, "KOR");
-	for (size_t Y = 0; Y < this->Size.Y; Y++)
-	{
-		for (size_t X = 0; X < this->Size.X; X++)
-		{
-			wprintf_s(L"%c", ArrScreen[Y][X]);
-		}
-		wprintf_s(L"\n");
-	}*/
+	memset(chBuf, 0, sizeof(chBuf));
+	int nLen = sprintf_s(chBuf, sizeof(chBuf), *MapArr);
+
+	SetConsoleCursorPosition(Console.hBuffer[Console.nCurBuffer], coord);
+	WriteFile(Console.hBuffer[Console.nCurBuffer], chBuf, nLen, &dw, NULL);
+
+	ScreenClear();
 
 	for (int Y = 0; Y < YScreen; Y++)
 	{
 		for (int X = 0; X < XScreen; X++)
 		{
-			if (MapArr[Y][X] == '1')
+			switch (MapArr[Y][X])
 			{
-				Handle.TextColor(15, 15);
-				std::cout << "■";
-			}
-			else if (MapArr[Y][X] == '0')
-			{
+			case '0':
 				Handle.TextColor(0, 0);
 				std::cout << " ";
-			}
-			else if (MapArr[Y][X] == 'A')
-			{
+				break;
+			case '1':
+				Handle.TextColor(15, 15);
+				std::cout << "■";
+				break;
+			case '2':
+				// 플레이어
+				Handle.TextColor(14, 14);
+				std::cout << "■";
+				break;
+			case 'A':
+			case 'a':
 				Handle.TextColor(2, 2);
 				std::cout << "A";
+				break;
+			case ' ':
+				Handle.TextColor(0, 0);
+				std::cout << " ";
+				break;
 			}
 		}
 		Handle.TextColor(0, 0);
 		std::cout << std::endl;
 	}
+
+	// 화면 버퍼 설정
+	SetConsoleActiveScreenBuffer(Console.hBuffer[Console.nCurBuffer]);
+	// 화면 버퍼 인덱스를 교체
+	Console.nCurBuffer = Console.nCurBuffer ? 0 : 1;
+	Sleep(1);
 }
 
 void PackManScreen::SetScreenSize(int2 _Size)
@@ -102,15 +153,22 @@ bool PackManScreen::IsScreenOver(const int2& _Pos) const
 	return false;
 }
 
-void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch)
+void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
 {
 	if (true == IsScreenOver(_Pos))
 	{
 		return;
 	}
-	
 
-	MapArr[_Pos.Y][_Pos.X] = _Ch;
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			MapArr[_Pos.Y + i][_Pos.X + j] = _Ch[i][j];
+		}
+	}
+
+	// MapArr[_Pos.Y][_Pos.X] = _Ch;
 }
 
 char PackManScreen::GetScreenCharacter(const int2& _Pos) const
@@ -131,7 +189,8 @@ void PackManScreen::Start()
 {
 	PackManSetList();
 	GameSetList();
-
+	
+	//InitGame();
 	//VoidCursor();
 }
 
