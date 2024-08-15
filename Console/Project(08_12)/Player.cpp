@@ -48,61 +48,68 @@ void Player::Update()
 		return;
 	}
 
-	char Ch = _getch();
-	
+	//if (true == KeyCheck())
+	//{
+
+	//}
+
+	char Ch;
+
 	int2 NextPos = PlayerPos;
 
-	switch (Ch)
-	{
-	case 'a':
-	case 'A':
+	do { Ch = _getch();  Dir = Ch; } while (Ch == 224);
+	switch (Ch) {
+	case LEFT:
 		NextPos = Pos;
 		NextPos.X -= 1;
 		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.X -= 1;
 		}
 		break;
-	case 'd':
-	case 'D':
+	case RIGHT:
 		NextPos = Pos;
 		NextPos.X += 1;
 		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.X += 1;
 		}
 		break;
-	case 'w':
-	case 'W':
+	case UP:
 		NextPos = Pos;
 		NextPos.Y -= 1;
 		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.Y -= 1;
 		}
 		break;
-	case 's':
-	case 'S':
+	case DOWN:
 		NextPos = Pos;
 		NextPos.Y += 1;
 		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PlayerPreveArr);
+			PackManScreen::GetMainScreen().SetScreenCharacter(Pos, PreveRenderChar);
 			Pos.Y += 1;
 		}
 		break;
-	case 'q':
-	case 'Q':
-	{
+	case PAUSE:
 		IsGameUpdate = false;
+		//Pause();
 		break;
+	case ESC:
+		exit(0);
 	}
-	default:
-		break;
-	}
+	
+	// Ch = 0;
+
+	//if (0 != GetAsyncKeyState('A') || 0 != GetAsyncKeyState('a'))
+	//{
+
+	//}
+
 	//IsItemCheck();
 }
 

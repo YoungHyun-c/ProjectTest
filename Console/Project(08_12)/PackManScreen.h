@@ -4,7 +4,7 @@
 #include "Utill.h"
 
 #define XScreen 101
-#define YScreen 51
+#define YScreen 50
 
 struct stRect
 {
@@ -44,6 +44,7 @@ public:
 	void SetScreenSize(int2 _Size);
 	void ScreenClear();
 	bool IsScreenOver(const int2& _Pos) const;
+	void SetScreenCharacter(const int2& _Pos, char _Ch);
 	void SetScreenCharacter(const int2& _Pos, char _Ch[][6]);
 	char GetScreenCharacter(const int2& _Pos) const;
 	void InitGame(bool bInitConsole = true);

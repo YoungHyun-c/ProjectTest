@@ -48,8 +48,8 @@ public:
 
 protected:
 	int2 Pos;
-	char RenderChar = 'A';
-	char PreveRenderChar = '0';
+	char RenderChar = '2';
+	char PreveRenderChar = ' ';
 
 	char PlayerArr[YSize][XSize] =
 	{

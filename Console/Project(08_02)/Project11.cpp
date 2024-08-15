@@ -6,6 +6,11 @@
 #include <conio.h>
 
 #pragma region 1.슬라이드
+void Gotoxy(short X, short Y)
+{
+	COORD pos = { X, Y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
 class int2
 {
 public:
@@ -304,14 +309,14 @@ private:
 int main()
 {
 	// 슬라이드 게임 클래스로 만들기
-	/*{
+	{
 		SlideGame::GetSlideScreen().MadeSlide();
 		Player* SPlayer = new Player();
 		SPlayer->SetPlayerPos({ 4,4 });
 		SlideGame::GetSlideScreen().SetPlayerCharacter(SPlayer->GetPos(), " ");
 		while (true)
 		{
-			system("cls");
+			//system("cls");
 
 			SlideGame::GetSlideScreen().PrintSlide();
 			if (true == SlideGame::GetSlideScreen().WinSlide())
@@ -324,7 +329,7 @@ int main()
 
 		delete SPlayer;
 		SPlayer = nullptr;
-	}*/
+	}
 
 	// 대전게임 클래스로 만들기
 	{
@@ -396,6 +401,7 @@ void const SlideGame::MadeSlide()
 }
 void const SlideGame::PrintSlide()
 {
+	Gotoxy(0, 0);
 	for (int Y = 0; Y < YScreenSize; Y++)
 	{
 		for (int X = 0; X < XScreenSize; X++)

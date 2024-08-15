@@ -48,12 +48,12 @@ void PackManScreen::InitGame(bool bInitConsole)
 
 void PackManScreen::ScreenClear()
 {
-	COORD Pos{ 0, };
-	DWORD dwWritten = 0;
-	unsigned Size = Console.rtConsole.nWidht * Console.rtConsole.nHeight;
+	//COORD Pos{ 0, };
+	//DWORD dwWritten = 0;
+	//unsigned Size = Console.rtConsole.nWidht * Console.rtConsole.nHeight;
 
-	FillConsoleOutputCharacter(Console.hConsole, ' ', Size, Pos, &dwWritten);
-	SetConsoleCursorPosition(Console.hConsole, Pos);
+	//FillConsoleOutputCharacter(Console.hConsole, ' ', Size, Pos, &dwWritten);
+	//SetConsoleCursorPosition(Console.hConsole, Pos);
 
 	//system("cls");
 	//for (size_t Y = 0; Y < this->Size.Y; Y++)
@@ -67,15 +67,9 @@ void PackManScreen::ScreenClear()
 
 void PackManScreen::ScreenPrint()
 {
-	memset(chBuf, 0, sizeof(chBuf));
-	int nLen = sprintf_s(chBuf, sizeof(chBuf), *MapArr);
+	Handle.Gotoxy(0, 0);
 
-	SetConsoleCursorPosition(Console.hBuffer[Console.nCurBuffer], coord);
-	WriteFile(Console.hBuffer[Console.nCurBuffer], chBuf, nLen, &dw, NULL);
-
-	ScreenClear();
-
-	for (int Y = 0; Y < YScreen; Y++)
+	for (int Y = 0; Y < YScreen - 1; Y++)
 	{
 		for (int X = 0; X < XScreen; X++)
 		{
@@ -108,12 +102,10 @@ void PackManScreen::ScreenPrint()
 		Handle.TextColor(0, 0);
 		std::cout << std::endl;
 	}
+	
 
-	// 화면 버퍼 설정
-	SetConsoleActiveScreenBuffer(Console.hBuffer[Console.nCurBuffer]);
-	// 화면 버퍼 인덱스를 교체
-	Console.nCurBuffer = Console.nCurBuffer ? 0 : 1;
-	Sleep(1);
+
+	//Sleep(1);
 }
 
 void PackManScreen::SetScreenSize(int2 _Size)
@@ -167,8 +159,16 @@ void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
 			MapArr[_Pos.Y + i][_Pos.X + j] = _Ch[i][j];
 		}
 	}
+}
 
-	// MapArr[_Pos.Y][_Pos.X] = _Ch;
+void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch)
+{
+	if (true == IsScreenOver(_Pos))
+	{
+		return;
+	}
+
+	MapArr[_Pos.Y ][_Pos.X ] = _Ch;
 }
 
 char PackManScreen::GetScreenCharacter(const int2& _Pos) const
@@ -278,3 +278,57 @@ void PackManScreen::PackManUpdate()
 	
 }
 
+
+
+/*memset(chBuf, 0, sizeof(chBuf));
+	int nLen = sprintf_s(chBuf, sizeof(chBuf), *MapArr);
+
+	SetConsoleCursorPosition(Console.hBuffer[Console.nCurBuffer], coord);
+	WriteFile(Console.hBuffer[Console.nCurBuffer], chBuf, nLen, &dw, NULL);*/
+
+	//ScreenClear();
+	//static char front_buffer[YScreen][XScreen] = { ' ' };
+
+	//for (int i = 0; i < YScreen; i++)
+	//{
+	//	for (int j = 0, j2 = 0; j < XScreen; j++)
+	//	{
+	//		char Check = MapArr[i][j];
+	//		if (front_buffer[i][j] != MapArr[i][j])
+	//		{
+	//			switch (MapArr[i][j])
+	//			{
+	//			case '0':
+	//				Handle.TextColor(0, 0);
+	//				std::cout << " ";
+	//				break;
+	//			case '1':
+	//				Handle.TextColor(15, 15);
+	//				std::cout << "■";
+	//				break;
+	//			case '2':
+	//				// 플레이어
+	//				Handle.TextColor(14, 14);
+	//				std::cout << "■";
+	//				break;
+	//			case 'A':
+	//			case 'a':
+	//				Handle.TextColor(2, 2);
+	//				std::cout << "A";
+	//				break;
+	//			case ' ':
+	//				Handle.TextColor(0, 0);
+	//				std::cout << " ";
+	//				break;
+	//			}
+	//			front_buffer[i][j] = MapArr[i][j];
+	//		}
+	//		j2 += 2;
+	//	}
+	//	Handle.TextColor(0, 0);
+	//	std::cout << std::endl;
+	//}
+	// 화면 버퍼 설정
+	//SetConsoleActiveScreenBuffer(Console.hBuffer[Console.nCurBuffer]);
+	//// 화면 버퍼 인덱스를 교체
+	//Console.nCurBuffer = Console.nCurBuffer ? 0 : 1;
