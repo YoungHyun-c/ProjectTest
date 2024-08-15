@@ -33,6 +33,22 @@ public:
 	}
 
 private:
+	void FlipHorizontally(char arr[][6]) {
+		for (int i = 0; i < YSize; i++) {
+			for (int j = 0; j < 5 / 2; j++) {
+				std::swap(arr[i][j], arr[i][5 - 1 - j]);
+			}
+		}
+	}
+
+	void FlipVertically(char arr[][XSize]) {
+		for (int i = 0; i < YSize / 2; i++) {
+			for (int j = 0; j < 5; j++) {
+				std::swap(arr[i][j], arr[YSize - 1 - i][j]);
+			}
+		}
+	}
+
 	int2 PlayerPos = { 50, 30 };
 	int2 PlayerSize;
 
@@ -54,6 +70,25 @@ private:
 		 " 2222"
 	};
 
+	char PlayerArr3[YSize][XSize] =
+	{
+		 " 2 2 ",
+		 "22 22",
+		 "22222",
+		 "22222",
+		 " 222 "
+	};
+
+	char PlayerArr4[YSize][XSize] =
+	{
+		 "2   2",
+		 "2   2",
+		 "22 22",
+		 "22222",
+		 " 222 "
+	};
+
+
 	char PlayerPreveArr[YSize][XSize] =
 	{
 		 "     ",
@@ -74,5 +109,8 @@ private:
 	clock_t end;
 
 	class Utill Handle;
+
+	bool LRReverse = true;
+	bool UDReverse = true;
 };
 

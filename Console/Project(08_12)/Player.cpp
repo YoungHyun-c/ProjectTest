@@ -97,14 +97,53 @@ void Player::PlayerPrint()
 {
 	end = clock();
 	Test = double(end - start) / CLOCKS_PER_SEC;
-	if (Test < 0.3)
+	if (Dir == LEFT || Dir == RIGHT)
 	{
-		DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr1);
+		if (Dir == LEFT && LRReverse == true)
+		{
+			FlipHorizontally(PlayerArr1);
+			FlipHorizontally(PlayerArr2);
+			LRReverse = false;
+		}
+		if (Dir == RIGHT && LRReverse == false)
+		{
+			FlipHorizontally(PlayerArr1);
+			FlipHorizontally(PlayerArr2);
+			LRReverse = true;
+		}
+		if (Test < 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr1);
+		}
+		if (Test >= 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr2);
+			start = clock();
+		}
 	}
-	if (Test >= 0.3)
+
+	if (Dir == UP || Dir == DOWN)
 	{
-		DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr2);
-		start = clock();
+		if (Dir == UP && UDReverse == false)
+		{
+			FlipVertically(PlayerArr3);
+			FlipVertically(PlayerArr4);
+			UDReverse = true;
+		}if (Dir == DOWN && UDReverse == true)
+		{
+			FlipVertically(PlayerArr3);
+			FlipVertically(PlayerArr4);
+			UDReverse = false;
+		}
+		if (Test < 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr3);
+		}
+		if (Test >= 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr4);
+			start = clock();
+		}
 	}
 }
 
