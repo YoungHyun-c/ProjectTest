@@ -82,11 +82,6 @@ void PackManScreen::ScreenPrint()
 				Handle.TextColor(15, 15);
 				std::cout << "■";
 				break;
-			case '2':
-				// 플레이어
-				Handle.TextColor(14, 14);
-				std::cout << "■";
-				break;
 			case 'A':
 			case 'a':
 				Handle.TextColor(2, 2);
@@ -141,6 +136,22 @@ bool PackManScreen::IsScreenOver(const int2& _Pos) const
 
 	return false;
 }
+
+bool PackManScreen::CanMove(int _X, int _Y)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (MapArr[_Y + i][_X + j] == '1')
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+	
 
 void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
 {

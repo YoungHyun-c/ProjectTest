@@ -12,7 +12,6 @@ bool Player::IsGameUpdate = true;
 Player::Player()
 {
 	SetPos(PackManScreen::GetMainScreen().GetScreenSize().Half());
-
 }
 
 bool Player::IsItemCheck()
@@ -51,45 +50,56 @@ void Player::Update()
 	case LEFT:
 		NextPos = PlayerPos;
 		NextPos.X -= 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
+		MovePlayer(NextPos.X, NextPos.Y);
+		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			Handle.TextColor(0, 0);
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
 			PlayerPos.X -= 1;
-		}
+		}*/
 		break;
 	case RIGHT:
 		NextPos = PlayerPos;
 		NextPos.X += 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
+		MovePlayer(NextPos.X, NextPos.Y);
+		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			Handle.TextColor(0, 0);
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
 			PlayerPos.X += 1;
-		}
+		}*/
 		break;
 	case UP:
 		NextPos = PlayerPos;
 		NextPos.Y -= 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
+		MovePlayer(NextPos.X, NextPos.Y);
+		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			Handle.TextColor(0, 0);
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
 			PlayerPos.Y -= 1;
-		}
+		}*/
 		break;
 	case DOWN:
 		NextPos = PlayerPos;
 		NextPos.Y += 1;
-		if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
+		MovePlayer(NextPos.X, NextPos.Y);
+		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
 		{
-			Handle.TextColor(0, 0);
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
 			PlayerPos.Y += 1;
-		}
+		}*/
 		break;
 	case ESC:
 		exit(0);
+	}
+}
+
+void Player::MovePlayer(int _X, int _Y)
+{
+	if (PackManScreen::GetMainScreen().CanMove(_X, _Y))
+	{
+		DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
+
+		PlayerPos.X = _X;
+		PlayerPos.Y = _Y;
 	}
 }
 
@@ -147,19 +157,23 @@ void Player::PlayerPrint()
 	}
 }
 
-void Player::DrawChar(short x, short y, const char c[][6])
+void Player::DrawChar(short x, short y, const char c[][XSize])
 {
-	short X = x;
 	for (short i = 0; i < YSize; i++)
 	{
-		for (short j = 0; j < 5; j++)
+		for (short j = 0; j < 3; j++)
 		{
-			COORD pos = { X + j, y + i };
+			COORD pos = { x + j, y + i};
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 			Handle.TextColor(14, 14);
 			if (c[i][j] == '2')
 			{
-				std::cout << c[i][j];
+				std::cout << "бс";
+			}
+			if (c[i][j] == '3')
+			{
+				Handle.TextColor(12, 14);
+				std::cout << "б▀";
 			}
 			if (c[i][j] == ' ')
 			{

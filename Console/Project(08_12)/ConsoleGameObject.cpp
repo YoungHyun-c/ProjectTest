@@ -9,7 +9,7 @@ void ConsoleGameObject::Render()
 	}
 
 	// PackManScreen::GetMainScreen().SetScreenCharacter(Pos, RenderChar);
-	PackManScreen::GetMainScreen().SetScreenCharacter(Pos, RenderChar);
+	//PackManScreen::GetMainScreen().SetScreenCharacter(Pos, RenderChar);
 }
 
 void ConsoleGameObject::Update()

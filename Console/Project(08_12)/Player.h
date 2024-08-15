@@ -6,8 +6,8 @@
 #include <time.h>
 #include "Utill.h"
 
-#define XSize 6
-#define YSize 5
+#define YSize 3
+#define XSize 4
 
 #define LEFT 75
 #define RIGHT 77
@@ -33,17 +33,17 @@ public:
 	}
 
 private:
-	void FlipHorizontally(char arr[][6]) {
+	void FlipHorizontally(char arr[YSize][XSize]) {
 		for (int i = 0; i < YSize; i++) {
-			for (int j = 0; j < 5 / 2; j++) {
-				std::swap(arr[i][j], arr[i][5 - 1 - j]);
+			for (int j = 0; j < (XSize - 1) / 2; j++) {
+				std::swap(arr[i][j], arr[i][XSize - 2 - j]);
 			}
 		}
 	}
 
-	void FlipVertically(char arr[][XSize]) {
+	void FlipVertically(char arr[YSize][XSize]) {
 		for (int i = 0; i < YSize / 2; i++) {
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < XSize - 1; j++) {
 				std::swap(arr[i][j], arr[YSize - 1 - i][j]);
 			}
 		}
@@ -52,53 +52,76 @@ private:
 	int2 PlayerPos = { 50, 30 };
 	int2 PlayerSize;
 
-	char PlayerArr1[YSize][XSize] =
+	/*char PlayerArr1[YSize][XSize] =
 	{
 		 " 222 ",
 		 "22222",
 		 "222  ",
 		 "22222",
 		 " 222 "
+	};*/
+	char PlayerArr1[YSize][XSize] =
+	{
+		 "222",
+		 "22 ",
+		 "222",
 	};
 
-	char PlayerArr2[YSize][XSize] =
+	/*char PlayerArr2[YSize][XSize] =
 	{
 		 " 2222",
 		 "222  ",
 		 "22   ",
 		 "222  ",
 		 " 2222"
+	};*/
+	char PlayerArr2[YSize][XSize] =
+	{
+		 "223",
+		 "2  ",
+		 "223",
 	};
 
-	char PlayerArr3[YSize][XSize] =
+	/*char PlayerArr3[YSize][XSize] =
 	{
 		 " 2 2 ",
 		 "22 22",
 		 "22222",
 		 "22222",
 		 " 222 "
+	};*/
+
+	char PlayerArr3[YSize][XSize] =
+	{
+		 "2 2",
+		 "2 2",
+		 "222"
 	};
 
 	char PlayerArr4[YSize][XSize] =
 	{
-		 "2   2",
-		 "2   2",
-		 "22 22",
-		 "22222",
-		 " 222 "
+		 "3 3",
+		 "222",
+		 "222"
 	};
 
 
-	char PlayerPreveArr[YSize][XSize] =
+	/*char PlayerPreveArr[YSize][XSize] =
 	{
 		 "     ",
 		 "     ",
 		 "     ",
 		 "     ",
 		 "     "
+	};*/
+	char PlayerPreveArr[YSize][XSize] =
+	{
+		 "   ",
+		 "   ",
+		 "   ",
 	};
 
-	void DrawChar(short x, short y, const char c[][6]);
+	void DrawChar(short x, short y, const char c[][XSize]);
 
 	int Dir = RIGHT;
 	int Key = -1;
@@ -112,5 +135,7 @@ private:
 
 	bool LRReverse = true;
 	bool UDReverse = true;
+
+	void MovePlayer(int _X, int _Y);
 };
 

@@ -52,6 +52,8 @@ public:
 	void ScreenPrint();
 	void VoidCursor();
 
+	bool CanMove(int _X, int _Y);
+
 private:
 	void PackManStartScreen();
 	void PackManSetList();

@@ -1,8 +1,8 @@
 #pragma once
 #include "ConsoleGameMath.h"
 
-#define YSize 5
-#define XSize 6
+//#define YSize 5
+//#define XSize 6
 
 // Ό³Έν :
 class ConsoleGameObject
@@ -48,7 +48,7 @@ public:
 
 protected:
 	int2 Pos;
-	char RenderChar = '2';
+	//char RenderChar = '2';
 	char PreveRenderChar = ' ';
 
 	/*char PlayerArr[YSize][XSize] =
