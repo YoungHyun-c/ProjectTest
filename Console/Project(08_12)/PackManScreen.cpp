@@ -68,7 +68,6 @@ void PackManScreen::ScreenClear()
 void PackManScreen::ScreenPrint()
 {
 	Handle.Gotoxy(0, 0);
-
 	for (int Y = 0; Y < YScreen - 1; Y++)
 	{
 		for (int X = 0; X < XScreen; X++)
@@ -103,8 +102,6 @@ void PackManScreen::ScreenPrint()
 		std::cout << std::endl;
 	}
 	
-
-
 	//Sleep(1);
 }
 

@@ -1,11 +1,9 @@
 #include <windows.h>
 
 #include <iostream>
+#include <stdio.h>
 #include <conio.h>
 
-using namespace std;
-
-#include "MainScreen.h"
 #include "PackManScreen.h"
 #include "Utill.h"
 
@@ -14,60 +12,30 @@ using namespace std;
 #include "Monster.h"
 #include "Item.h"
 
-#include <stdio.h>
+int main()
+{
+    system("mode con cols = 100 lines = 50 | title PackMan");
+    // 프레임이 너무 느려 간단하게 바꾸기
 
-#include "GameObjectManager.h"
-#include "GameEnum.h"
+    int2 ScreenSize = { 100, 50 };
+    PackManScreen::GetMainScreen().SetScreenSize(ScreenSize);
+    PackManScreen::GetMainScreen().VoidCursor();
 
-int main() {
+    PackManScreen::GetMainScreen().ScreenPrint();
+    Player Play;
 
-    system("mode con cols= 110 lines= 70 | title 제목명");
-    //Utill Handle;
-    //char Bullet = '*';
-    //int XStart = 25;
-    //int YStart = 12;
-    //char Ch;
-    ////Ch = _getch();
-    //Handle.Gotoxy(XStart, YStart);
-    //std::cout << Bullet << std::endl;
-    //float time;
-    //clock_t start, end;
-    //start = clock();
-    //while (true)
-    //{
-    //    int nSelect;
-    //    end = clock();
-    //    time = ((float)(end - start) / CLOCKS_PER_SEC);
-    //    if (GetCursorPos(&MousePoint)) {
-    //        float X = MousePoint.x / 1920.0f;
-    //        float Y = MousePoint.y / 1080.0f;
-    //        //cout << (MousePoint.x / 1920.0f) << "," << (MousePoint.y / 1080.0f) << "\n";
-    //        //if (Ch == 'k')
-    //        //{
-    //        //    Handle.Gotoxy(XStart, YStart);
-    //        //    //cout << X << ", " << Y << "\n";
-    //        //}
-    //        if (time >= 1.5)
-    //        {
-    //            XStart -= X * 0.01f;
-    //            YStart -= Y * 0.01f;
-    //            Handle.Gotoxy(XStart, YStart);
-    //            std::cout << Bullet << std::endl;
-    //            start = clock();
-    //        }
-    //    }
-    //}
+    while (true)
+    {
+        Play.Update();
+        Play.PlayerPrint();
+
+        /*KeyProcess();
+        GameProcess();
+        DrawPackMan(dir);*/
+    }
+
 
     {
-        //Player Play;
-        /*while (true)
-        {
-            Play.PlayerPrint();
-            Play.PlayerMove();
-
-            system("cls");
-            Sleep(300);
-        }*/
         /*Monster Mon = Monster(12, 12);
         Mon.MonsterPrint();*/
 
@@ -81,34 +49,51 @@ int main() {
         //Mon.MonsterPrint();
     }
 
-
-    int2 ScreenSize = { 100, 40 };
-    PackManScreen::GetMainScreen().SetScreenSize(ScreenSize);
-    PackManScreen::GetMainScreen().VoidCursor();
-    // PackManScreen::GetMainScreen().InitGame();
-
-    GameObjectManager::CreateConsoleObject<Player>(ObjectOrder::Player);
-    //GameObjectManager::CreateConsoleObject<Item>(ObjectOrder::Item);
-
-    while (true)
+    // 만들었던 프레임 워크 이거로 안할꺼임
     {
-        while (Player::IsGameUpdate)
-        {
-            GameObjectManager::ConsoleAllObjectUpdate();
-            GameObjectManager::ConsoleAllObjectRender();
-            //GameObjectManager::ConsoleAllObjectRelease();
-        }
-        if (Player::IsGameUpdate == false)
-        {
-            char Ch = _getch();
-            if (Ch == 'p')
-            {
-                Player::IsGameUpdate = true;
-            }
-        }
+        //int2 ScreenSize = { 100, 50 };
+        //PackManScreen::GetMainScreen().SetScreenSize(ScreenSize);
+        //PackManScreen::GetMainScreen().VoidCursor();
+
+        //GameObjectManager::CreateConsoleObject<Player>(ObjectOrder::Player);
+        //while (true)
+        //{
+        //    while (Player::IsGameUpdate)
+        //    {
+        //        GameObjectManager::ConsoleAllObjectUpdate();
+        //        GameObjectManager::ConsoleAllObjectRender();
+        //        //GameObjectManager::ConsoleAllObjectRelease();
+        //    }
+        //    if (Player::IsGameUpdate == false)
+        //    {
+        //        char Ch = _getch();
+        //        if (Ch == 'p')
+        //        {
+        //            Player::IsGameUpdate = true;
+        //        }
+        //    }
+        //}
+        //GameObjectManager::ConsoleAllObjectDelete();
     }
-  
-    GameObjectManager::ConsoleAllObjectDelete();
 
     return 0;
 }
+
+
+// 바깥에서 시간
+// clock_t start = clock();
+ //void Player::PlayerPrint(clock_t _Start)
+    //{*/
+    //    /*clock_t current = clock() - _Start;
+    //    int sec;
+    //    sec = current / CLOCKS_PER_SEC;
+    //    if (sec < 0.5)
+    //    {
+    //        DrawChar(PlayerPos.X, PlayerPos.Y , PlayerArr1);
+    //    }
+    //    if (1 < sec)
+    //    {
+    //        DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr2);
+    //        sec = 0;
+    //    }*/
+    //}

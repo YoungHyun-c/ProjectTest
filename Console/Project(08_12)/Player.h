@@ -1,6 +1,10 @@
 #pragma once
 #include "ConsoleGameObject.h"
 #include <Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "Utill.h"
 
 #define XSize 6
 #define YSize 5
@@ -29,26 +33,46 @@ public:
 	}
 
 private:
-	int2 PlayerPos;
+	int2 PlayerPos = { 50, 30 };
 	int2 PlayerSize;
 
-	/*char PlayerArr[YSize][XSize] =
+	char PlayerArr1[YSize][XSize] =
 	{
-		 " 111 ",
-		 "11111",
-		 "111  ",
-		 "11111",
-		 " 111 "
-	};*/
+		 " 222 ",
+		 "22222",
+		 "222  ",
+		 "22222",
+		 " 222 "
+	};
 
-	int Key = -1;
-
-	bool KeyCheck()
+	char PlayerArr2[YSize][XSize] =
 	{
-		return 0 != GetAsyncKeyState(Key);
-	}
+		 " 2222",
+		 "222  ",
+		 "22   ",
+		 "222  ",
+		 " 2222"
+	};
 
+	char PlayerPreveArr[YSize][XSize] =
+	{
+		 "     ",
+		 "     ",
+		 "     ",
+		 "     ",
+		 "     "
+	};
+
+	void DrawChar(short x, short y, const char c[][6]);
 
 	int Dir = RIGHT;
+	int Key = -1;
+	int Speed = 100;
+
+	double Test;
+	clock_t start = clock();
+	clock_t end;
+
+	class Utill Handle;
 };
 

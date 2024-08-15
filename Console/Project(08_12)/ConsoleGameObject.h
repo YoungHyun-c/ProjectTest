@@ -51,7 +51,7 @@ protected:
 	char RenderChar = '2';
 	char PreveRenderChar = ' ';
 
-	char PlayerArr[YSize][XSize] =
+	/*char PlayerArr[YSize][XSize] =
 	{
 		 " 222 ",
 		 "22222",
@@ -67,7 +67,7 @@ protected:
 		 "     ",
 		 "     ",
 		 "     "
-	};
+	};*/
 
 private:
 	bool UpdateValue = true;
