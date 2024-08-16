@@ -19,20 +19,8 @@ int main()
 
     int2 ScreenSize = { 100, 50 };
     PackManScreen::GetMainScreen().SetScreenSize(ScreenSize);
-    PackManScreen::GetMainScreen().VoidCursor();
 
-    PackManScreen::GetMainScreen().ScreenPrint();
-    Player Play;
-
-    while (true)
-    {
-        Play.Update();
-        Play.PlayerPrint();
-
-        /*KeyProcess();
-        GameProcess();
-        DrawPackMan(dir);*/
-    }
+    PackManScreen::GetMainScreen().Start();
 
 
     {

@@ -6,15 +6,6 @@
 #include <time.h>
 #include "Utill.h"
 
-#define YSize 3
-#define XSize 4
-
-#define LEFT 75
-#define RIGHT 77
-#define UP 72
-#define DOWN 80
-#define PAUSE 112
-#define ESC 27
 
 class Player : public ConsoleGameObject
 {
@@ -32,7 +23,22 @@ public:
 		return PlayerSize;
 	}
 
-private:
+	inline void SetPos(const int2& _Value) override
+	{
+		PlayerPos = _Value;
+	}
+
+	inline int2 GetPos() const override
+	{
+		return PlayerPos;
+	}
+
+
+protected:
+	void DrawChar(short x, short y, const char c[][XSize]);
+
+	void MovePlayer(int _X, int _Y);
+
 	void FlipHorizontally(char arr[YSize][XSize]) {
 		for (int i = 0; i < YSize; i++) {
 			for (int j = 0; j < (XSize - 1) / 2; j++) {
@@ -49,9 +55,9 @@ private:
 		}
 	}
 
-	int2 PlayerPos = { 50, 30 };
-	int2 PlayerSize;
+	void PlayerInfoPrint();
 
+private:
 	/*char PlayerArr1[YSize][XSize] =
 	{
 		 " 222 ",
@@ -105,7 +111,6 @@ private:
 		 "222"
 	};
 
-
 	/*char PlayerPreveArr[YSize][XSize] =
 	{
 		 "     ",
@@ -121,13 +126,11 @@ private:
 		 "   ",
 	};
 
-	void DrawChar(short x, short y, const char c[][XSize]);
-
+	int Speed = 100;
 	int Dir = RIGHT;
 	int Key = -1;
-	int Speed = 100;
 
-	double Test;
+	double CheckTime;
 	clock_t start = clock();
 	clock_t end;
 
@@ -136,6 +139,11 @@ private:
 	bool LRReverse = true;
 	bool UDReverse = true;
 
-	void MovePlayer(int _X, int _Y);
+
+	int2 PlayerPos = { 50, 30 };
+	int2 PlayerSize = { XSize - 1, YSize };
+
+	int PlayerScore = 0;
+	int PlayerLifeCount = 3;
 };
 

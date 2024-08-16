@@ -4,6 +4,16 @@
 //#define YSize 5
 //#define XSize 6
 
+#define YSize 3
+#define XSize 4
+
+#define LEFT 75
+#define RIGHT 77
+#define UP 72
+#define DOWN 80
+#define PAUSE 112
+#define ESC 27
+
 // Ό³Έν :
 class ConsoleGameObject
 {
@@ -13,7 +23,7 @@ public:
 		Pos = _Value;
 	}
 
-	inline int2 GetPos() const
+	virtual inline int2 GetPos() const
 	{
 		return Pos;
 	}
@@ -68,6 +78,8 @@ protected:
 		 "     ",
 		 "     "
 	};*/
+
+	int MonsterCount = 3;
 
 private:
 	bool UpdateValue = true;

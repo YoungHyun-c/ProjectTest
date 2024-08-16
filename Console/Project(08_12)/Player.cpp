@@ -11,7 +11,7 @@ bool Player::IsGameUpdate = true;
 
 Player::Player()
 {
-	SetPos(PackManScreen::GetMainScreen().GetScreenSize().Half());
+	// SetPos(PackManScreen::GetMainScreen().GetScreenSize().Half());
 }
 
 bool Player::IsItemCheck()
@@ -36,13 +36,26 @@ bool Player::IsItemCheck()
 	return false;
 }
 
+void Player::PlayerInfoPrint()
+{
+	Handle.Gotoxy(0, 47);
+	Handle.TextColor(15, 0);
+	std::cout << "Life : " << PlayerLifeCount;
+
+	Handle.Gotoxy(45, 47);
+	std::cout << "Score : " << PlayerScore;
+}
+
 void Player::Update()
 {
+	PlayerInfoPrint();
+
 	if (_kbhit())
 	{
 		Key = _getch();
 		do { Key = _getch(); } while (Key == 224);
 	}
+
 	int2 NextPos = PlayerPos;
 	Sleep(Speed); //플레이어 스피드
 	Dir = Key;
@@ -51,41 +64,21 @@ void Player::Update()
 		NextPos = PlayerPos;
 		NextPos.X -= 1;
 		MovePlayer(NextPos.X, NextPos.Y);
-		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
-		{
-			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
-			PlayerPos.X -= 1;
-		}*/
 		break;
 	case RIGHT:
 		NextPos = PlayerPos;
 		NextPos.X += 1;
 		MovePlayer(NextPos.X, NextPos.Y);
-		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
-		{
-			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
-			PlayerPos.X += 1;
-		}*/
 		break;
 	case UP:
 		NextPos = PlayerPos;
 		NextPos.Y -= 1;
 		MovePlayer(NextPos.X, NextPos.Y);
-		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
-		{
-			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
-			PlayerPos.Y -= 1;
-		}*/
 		break;
 	case DOWN:
 		NextPos = PlayerPos;
 		NextPos.Y += 1;
 		MovePlayer(NextPos.X, NextPos.Y);
-		/*if (false == PackManScreen::GetMainScreen().IsScreenOver(NextPos) && PackManScreen::GetMainScreen().GetScreenCharacter(NextPos) != '1')
-		{
-			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
-			PlayerPos.Y += 1;
-		}*/
 		break;
 	case ESC:
 		exit(0);
@@ -106,7 +99,7 @@ void Player::MovePlayer(int _X, int _Y)
 void Player::PlayerPrint()
 {
 	end = clock();
-	Test = double(end - start) / CLOCKS_PER_SEC;
+	CheckTime = double(end - start) / CLOCKS_PER_SEC;
 	if (Dir == LEFT || Dir == RIGHT)
 	{
 		if (Dir == LEFT && LRReverse == true)
@@ -121,11 +114,11 @@ void Player::PlayerPrint()
 			FlipHorizontally(PlayerArr2);
 			LRReverse = true;
 		}
-		if (Test < 0.3)
+		if (CheckTime < 0.3)
 		{
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr1);
 		}
-		if (Test >= 0.3)
+		if (CheckTime >= 0.3)
 		{
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr2);
 			start = clock();
@@ -145,11 +138,11 @@ void Player::PlayerPrint()
 			FlipVertically(PlayerArr4);
 			UDReverse = false;
 		}
-		if (Test < 0.3)
+		if (CheckTime < 0.3)
 		{
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr3);
 		}
-		if (Test >= 0.3)
+		if (CheckTime >= 0.3)
 		{
 			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr4);
 			start = clock();
@@ -161,7 +154,7 @@ void Player::DrawChar(short x, short y, const char c[][XSize])
 {
 	for (short i = 0; i < YSize; i++)
 	{
-		for (short j = 0; j < 3; j++)
+		for (short j = 0; j < XSize - 1; j++)
 		{
 			COORD pos = { x + j, y + i};
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);

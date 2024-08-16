@@ -18,7 +18,22 @@ void PackManScreen::VoidCursor()
 
 void PackManScreen::InitGame(bool bInitConsole)
 {
-	if (bInitConsole)
+	if (PlayMan == nullptr)
+	{
+		PlayMan = new Player();
+	}
+
+	if (MonsterList.empty())
+	{
+		MonsterList.reserve(MonsterCount);
+	}
+
+	MonsterList.push_back(new Monster(9, 9, 38, 15));
+	MonsterList.push_back(new Monster(12, 12, 46, 15));
+	MonsterList.push_back(new Monster(13, 13, 54, 15));
+
+
+	/*if (bInitConsole)
 	{
 		Console.hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -43,7 +58,7 @@ void PackManScreen::InitGame(bool bInitConsole)
 		SetConsoleScreenBufferSize(Console.hBuffer[1], ConsoleInfo.dwSize);
 		SetConsoleWindowInfo(Console.hBuffer[1], TRUE, &ConsoleInfo.srWindow);
 		SetConsoleCursorInfo(Console.hBuffer[1], &ConsoleCursor);
-	}
+	}*/
 }
 
 void PackManScreen::ScreenClear()
@@ -191,15 +206,22 @@ PackManScreen::PackManScreen()
 
 PackManScreen::~PackManScreen()
 {
+	if (PlayMan != nullptr)
+	{
+		delete PlayMan;
+		PlayMan = nullptr;
+	}
 }
 
 void PackManScreen::Start()
 {
-	PackManSetList();
-	GameSetList();
-	
-	//InitGame();
-	//VoidCursor();
+	InitGame();
+	VoidCursor();
+	//PackManSetList();
+	//GameSetList();
+
+	// 바로 겜 가서 테스트용
+	PackManUpdate();
 }
 
 void PackManScreen::GameSetList()
@@ -234,6 +256,7 @@ void PackManScreen::GameSetList()
 		}
 	}
 }
+
 
 void PackManScreen::PackManStartScreen()
 {
@@ -281,9 +304,36 @@ int PackManScreen::PackManSetting()
 	return Handle.PrintScreen(X + 14, Y, List);
 }
 
-void PackManScreen::PackManUpdate()
+void PackManScreen::GameInfoPrint()
 {
 	
+}
+
+void PackManScreen::PackManUpdate()
+{
+	ScreenPrint();
+
+	PlayMan->PlayerPrint();
+	for (int i = 0; i < 3; i++)
+	{
+		MonsterList[i]->MonsterPrint();
+	}
+
+	MonsterList[0]->SetPos({ PlayMan->GetPos().X + 5, PlayMan->GetPos().Y });
+
+	while (true)
+	{
+		PlayMan->Update();
+		PlayMan->PlayerPrint();
+
+		// 몬스터
+		for (int i = 0; i < 3; i++)
+		{
+			MonsterList[i]->MonsterPrint();
+		}
+
+		GameInfoPrint();
+	}
 }
 
 
