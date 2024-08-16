@@ -50,7 +50,8 @@ void Monster::DrawChar(short _X, short _Y, const char C[YSize][XSize])
 		std::cout << std::endl;
 	}
 }
-//
+
+
 //void Monster::MonsterColor(int _Font, int _Back, char M[YSize][XSize])
 //{
 //	for (int i = 0; i < YSize; i++)

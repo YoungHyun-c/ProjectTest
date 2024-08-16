@@ -28,7 +28,12 @@ public:
 		return Pos;
 	}
 
-	bool IsDeath()
+	virtual bool MonsterCheck(int _X, int _Y)
+	{
+		return false;
+	}
+
+	bool IsDeath() const
 	{
 		return DeathValue;
 	}

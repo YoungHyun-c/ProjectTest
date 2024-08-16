@@ -22,15 +22,14 @@ protected:
 private:
 	int Value;
 
-	char AppleItemArr[3][4] =
-	{ " 5 ",
-	  "555",
-	  "5 5"};
+	char AppleItemArr[2][3] =
+	{ " 5",
+	  "55",
+	};
 
-	char BanaanaItemArr[3][4] =
-	{ "  5",
-	  " 55",
-	  "55 " };
+	char BanaanaItemArr[2][3] =
+	{ "5 ",
+	  "55" };
 
 	char TransItemArr[3][4] =
 	{ " 5 ",

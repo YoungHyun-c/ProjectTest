@@ -48,9 +48,9 @@ void Item::AppleItemPrint()
 	UtillMan;
 	while (true)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 2; i++)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int j = 0; j < 3; j++)
 			{
 				switch (AppleItemArr[i][j])
 				{
@@ -77,9 +77,9 @@ void Item::BananaItemPrint()
 	UtillMan;
 	while (true)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 2; i++)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int j = 0; j < 3; j++)
 			{
 				switch (BanaanaItemArr[i][j])
 				{

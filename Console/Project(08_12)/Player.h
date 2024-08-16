@@ -18,7 +18,7 @@ public:
 
 	void PlayerPrint();
 
-	const int2 GetPlayerSize()
+	int2 GetPlayerSize() const
 	{
 		return PlayerSize;
 	}
@@ -31,6 +31,19 @@ public:
 	inline int2 GetPos() const override
 	{
 		return PlayerPos;
+	}
+
+	void SubLifeCount(int _Value = 1)
+	{
+		if (PlayerLifeCount > 0)
+		{
+			PlayerLifeCount -= _Value;
+		}
+	}
+
+	int GetLifeCount()
+	{
+		return PlayerLifeCount;
 	}
 
 
@@ -56,6 +69,7 @@ protected:
 	}
 
 	void PlayerInfoPrint();
+	bool MonsterCheck(int _X, int _Y) override;
 
 private:
 	/*char PlayerArr1[YSize][XSize] =

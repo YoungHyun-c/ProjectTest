@@ -5,6 +5,10 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "GameObjectManager.h"
+#include "GameEnum.h"
+
+#include "Item.h"
 
 #define XScreen 101
 #define YScreen 50
@@ -66,6 +70,7 @@ private:
 	void GameSetList();
 
 	void GameInfoPrint();
+	void GameProcess();
 
 private:
 	bool Done = true;
@@ -144,5 +149,8 @@ private:
 	
 	std::vector<class Monster*> MonsterList;
 	int MonsterCount = 3;
+
+	std::vector<class Item*> ItemList;
+	int ItemCount = 50;
 };
 

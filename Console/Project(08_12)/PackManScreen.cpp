@@ -1,5 +1,6 @@
 #include "PackManScreen.h"
 #include <iostream>
+#include "Utill.h"
 
 #define InterFrame 1000
 
@@ -27,38 +28,22 @@ void PackManScreen::InitGame(bool bInitConsole)
 	{
 		MonsterList.reserve(MonsterCount);
 	}
-
 	MonsterList.push_back(new Monster(9, 9, 38, 15));
 	MonsterList.push_back(new Monster(12, 12, 46, 15));
 	MonsterList.push_back(new Monster(13, 13, 54, 15));
 
-
-	/*if (bInitConsole)
+	if (ItemList.empty())
 	{
-		Console.hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		ItemList.reserve(ItemCount);
+	}
 
-		Console.nCurBuffer = 0;
+
+	for (int i = 0; i < ItemCount; i++)
+	{
+		ItemList.push_back(new Item(99));
+	}
 
 
-		CONSOLE_CURSOR_INFO ConsoleCursor{ 1, FALSE };
-		CONSOLE_SCREEN_BUFFER_INFO ConsoleInfo{ 0 , };
-		GetConsoleScreenBufferInfo(Console.hConsole, &ConsoleInfo);
-		ConsoleInfo.dwSize.X = 100;
-		ConsoleInfo.dwSize.Y = 40;
-
-		Console.rtConsole.nWidht = ConsoleInfo.srWindow.Right - ConsoleInfo.srWindow.Left;
-		Console.rtConsole.nHeight = ConsoleInfo.srWindow.Bottom - ConsoleInfo.srWindow.Top;
-
-		Console.hBuffer[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-		SetConsoleScreenBufferSize(Console.hBuffer[0], ConsoleInfo.dwSize);
-		SetConsoleWindowInfo(Console.hBuffer[0], TRUE, &ConsoleInfo.srWindow);
-		SetConsoleCursorInfo(Console.hBuffer[0], &ConsoleCursor);
-
-		Console.hBuffer[1] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-		SetConsoleScreenBufferSize(Console.hBuffer[1], ConsoleInfo.dwSize);
-		SetConsoleWindowInfo(Console.hBuffer[1], TRUE, &ConsoleInfo.srWindow);
-		SetConsoleCursorInfo(Console.hBuffer[1], &ConsoleCursor);
-	}*/
 }
 
 void PackManScreen::ScreenClear()
@@ -309,6 +294,35 @@ void PackManScreen::GameInfoPrint()
 	
 }
 
+void PackManScreen::GameProcess()
+{
+	// 몬스터
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (int2{ PlayMan->GetPos().X + j, PlayMan->GetPos().Y + i } == int2{ MonsterList[0]->GetPos().X + 1, MonsterList[0]->GetPos().Y + 1 })
+			{
+				PlayMan->SubLifeCount();
+				break;
+			}
+			if (int2{ PlayMan->GetPos().X + j, PlayMan->GetPos().Y + i } == int2{ MonsterList[1]->GetPos().X + 1, MonsterList[1]->GetPos().Y + 1 })
+			{
+				PlayMan->SubLifeCount();
+				break;
+			}
+			if (int2{ PlayMan->GetPos().X + j, PlayMan->GetPos().Y + i } == int2{ MonsterList[2]->GetPos().X + 1, MonsterList[2]->GetPos().Y + 1 })
+			{
+				PlayMan->SubLifeCount();
+				break;
+			}
+		}
+	}
+
+
+
+}
+
 void PackManScreen::PackManUpdate()
 {
 	ScreenPrint();
@@ -316,7 +330,7 @@ void PackManScreen::PackManUpdate()
 	PlayMan->PlayerPrint();
 	for (int i = 0; i < 3; i++)
 	{
-		MonsterList[i]->MonsterPrint();
+		//MonsterList[i]->MonsterPrint();
 	}
 
 	MonsterList[0]->SetPos({ PlayMan->GetPos().X + 5, PlayMan->GetPos().Y });
@@ -324,15 +338,13 @@ void PackManScreen::PackManUpdate()
 	while (true)
 	{
 		PlayMan->Update();
+		GameProcess();
 		PlayMan->PlayerPrint();
-
 		// 몬스터
 		for (int i = 0; i < 3; i++)
 		{
 			MonsterList[i]->MonsterPrint();
 		}
-
-		GameInfoPrint();
 	}
 }
 

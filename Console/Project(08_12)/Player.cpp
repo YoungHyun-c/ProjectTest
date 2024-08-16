@@ -80,6 +80,8 @@ void Player::Update()
 		NextPos.Y += 1;
 		MovePlayer(NextPos.X, NextPos.Y);
 		break;
+	case PAUSE:
+		IsGameUpdate = false;
 	case ESC:
 		exit(0);
 	}
@@ -94,6 +96,37 @@ void Player::MovePlayer(int _X, int _Y)
 		PlayerPos.X = _X;
 		PlayerPos.Y = _Y;
 	}
+
+	/*if (MonsterCheck(_X, _Y))
+	{
+		PlayerLifeCount -= 1;
+
+		char ch = _getch();
+	}*/
+}
+
+bool Player::MonsterCheck(int _X, int _Y)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (PlayerArr2[_Y + i][_X + j] == '4')
+			{
+				return true;
+			}
+			if (PlayerArr3[_Y + i][_X + j] == '4')
+			{
+				return true;
+			}
+			if (PlayerArr4[_Y + i][_X + j] == '4')
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 void Player::PlayerPrint()
