@@ -111,15 +111,15 @@ bool Player::MonsterCheck(int _X, int _Y)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if (PlayerArr2[_Y + i][_X + j] == '4')
+			if (PlayerArr2[_Y + i][_X + j] == '5')
 			{
 				return true;
 			}
-			if (PlayerArr3[_Y + i][_X + j] == '4')
+			if (PlayerArr3[_Y + i][_X + j] == '5')
 			{
 				return true;
 			}
-			if (PlayerArr4[_Y + i][_X + j] == '4')
+			if (PlayerArr4[_Y + i][_X + j] == '5')
 			{
 				return true;
 			}
