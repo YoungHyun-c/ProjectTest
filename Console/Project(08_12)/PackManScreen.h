@@ -152,5 +152,9 @@ private:
 
 	std::vector<class Item*> ItemList;
 	int ItemCount = 50;
+
+	double CheckTime;
+	clock_t start = clock();
+	clock_t end;
 };
 

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStartPathFinder.cpp" />
     <ClCompile Include="ConsoleGameMath.cpp" />
     <ClCompile Include="ConsoleGameObject.cpp">
       <SubType>
@@ -155,6 +156,7 @@
     <ClCompile Include="Utill.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStartPathFinder.h" />
     <ClInclude Include="ConsoleGameMath.h" />
     <ClInclude Include="ConsoleGameObject.h">
       <SubType>

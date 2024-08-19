@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Utill.h"
+#include "AStartPathFinder.h"
 #include "ConsoleGameObject.h"
+#include "Player.h"
 
 class Monster : public ConsoleGameObject
 {
@@ -28,7 +30,7 @@ public:
 	void DrawChar(short _X, short _Y, const char C[YSize][XSize]);
 	//void MonsterColor(int _Font, int _Back, char M[YSize][XSize]);
 
-	//void MonsterMove();
+	int2 MonsterMove(class Player* _Move);
 
 private:
 	/*char MonsterArr[5][6] = { " 222 ",
@@ -47,6 +49,11 @@ private:
 							  "454",
 							  " 4 " };
 
+	char MonsterPreveArr[YSize][XSize] =
+							 {"   ",
+							  "   ",
+							  "   " };
+
 
 	int FontColor = 0;
 	int BackColor = 0;
@@ -61,5 +68,8 @@ private:
 	class Utill Handle;
 
 	int2 MonsterPos = {  };
+
+	Player PlayMan;
+	AStartPathFinder AStart;
 };
 

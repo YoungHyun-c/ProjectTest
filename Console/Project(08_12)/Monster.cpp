@@ -1,6 +1,5 @@
 #include "Monster.h"
 
-
 Monster::~Monster()
 {
 }
@@ -20,6 +19,7 @@ void Monster::MonsterPrint()
 		DrawChar(MonsterPos.X, MonsterPos.Y, MonsterArr2);
 		start = clock();
 	}
+
 }
 
 void Monster::DrawChar(short _X, short _Y, const char C[YSize][XSize])
@@ -51,6 +51,12 @@ void Monster::DrawChar(short _X, short _Y, const char C[YSize][XSize])
 	}
 }
 
+
+int2 Monster::MonsterMove(Player* _pPlayer)
+{
+	//DrawChar(MonsterPos.X, MonsterPos.Y, MonsterPreveArr);
+	return AStart.Astar({ MonsterPos.Y, MonsterPos.X }, { _pPlayer->GetPos().Y, _pPlayer->GetPos().X });
+}
 
 //void Monster::MonsterColor(int _Font, int _Back, char M[YSize][XSize])
 //{

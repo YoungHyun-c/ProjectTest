@@ -70,6 +70,9 @@
     <ClCompile Include="GameEngineArray.cpp">
       <Filter>Level0</Filter>
     </ClCompile>
+    <ClCompile Include="AStartPathFinder.cpp">
+      <Filter>Level0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScreen.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="GameEnum.h">
       <Filter>Level2</Filter>
+    </ClInclude>
+    <ClInclude Include="AStartPathFinder.h">
+      <Filter>Level0</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

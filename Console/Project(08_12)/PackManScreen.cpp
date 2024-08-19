@@ -319,8 +319,6 @@ void PackManScreen::GameProcess()
 		}
 	}
 
-
-
 }
 
 void PackManScreen::PackManUpdate()
@@ -333,7 +331,7 @@ void PackManScreen::PackManUpdate()
 		//MonsterList[i]->MonsterPrint();
 	}
 
-	MonsterList[0]->SetPos({ PlayMan->GetPos().X + 5, PlayMan->GetPos().Y });
+	MonsterList[0]->SetPos({ PlayMan->GetPos().X + 13, PlayMan->GetPos().Y - 10 });
 
 	while (true)
 	{
@@ -341,9 +339,19 @@ void PackManScreen::PackManUpdate()
 		GameProcess();
 		PlayMan->PlayerPrint();
 		// ∏ÛΩ∫≈Õ
-		for (int i = 0; i < 3; i++)
+		/*for (int i = 0; i < 3; i++)
 		{
 			MonsterList[i]->MonsterPrint();
+		}*/
+
+		MonsterList[0]->MonsterPrint();
+
+		end = clock();
+		CheckTime = double(end - start) / CLOCKS_PER_SEC;
+		if (CheckTime >= 0.3)
+		{
+			MonsterList[0]->SetPos({ MonsterList[0]->MonsterMove(PlayMan).Y, MonsterList[0]->MonsterMove(PlayMan).X});
+			start = clock();
 		}
 	}
 }
