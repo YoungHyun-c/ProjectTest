@@ -1,6 +1,5 @@
 #include "PackManScreen.h"
-#include <iostream>
-#include "Utill.h"
+
 
 #define InterFrame 1000
 
@@ -37,13 +36,12 @@ void PackManScreen::InitGame(bool bInitConsole)
 		ItemList.reserve(ItemCount);
 	}
 
-
 	for (int i = 0; i < ItemCount; i++)
 	{
 		ItemList.push_back(new Item(99));
 	}
 
-
+	srand(time(NULL));
 }
 
 void PackManScreen::ScreenClear()
@@ -319,11 +317,57 @@ void PackManScreen::GameProcess()
 		}
 	}
 
+	// 아이템
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			for (int k = 0; k < ItemCount; k++)
+			{
+				if (ItemList[k]->IsDeath() == false && int2 { PlayMan->GetPos().X + j, PlayMan->GetPos().Y + i } == int2{ItemList[k]->GetPos().X , ItemList[k]->GetPos().Y})
+				{
+					PlayMan->AddScore(100);
+					ItemList[k]->Death();
+					break;
+				}
+			}
+		}
+	}
+	
+}
+
+void PackManScreen::ItemMade()
+{
+	int RandNumX = rand() % 90 + 5;
+	int RandNumY = rand() % 45;
+
+	for (int k = 0; k < ItemCount; k++)
+	{
+		RandNumX = rand() % 90 + 5;
+		RandNumY = rand() % 45;
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				while(MapArr[RandNumY + i][RandNumX + j] == '1')
+				{
+					RandNumX = rand() % 90 + 5;
+					RandNumY = rand() % 45;
+					i = 0;
+					j = 0;
+				}
+			}
+		}
+		ItemList[k]->SetPos({ RandNumX, RandNumY });
+		ItemList[k]->AppleItemPrint(ItemList[k]->GetPos());
+	}
+	
 }
 
 void PackManScreen::PackManUpdate()
 {
 	ScreenPrint();
+	ItemMade();
 
 	PlayMan->PlayerPrint();
 	for (int i = 0; i < 3; i++)
@@ -331,82 +375,29 @@ void PackManScreen::PackManUpdate()
 		//MonsterList[i]->MonsterPrint();
 	}
 
-	MonsterList[0]->SetPos({ PlayMan->GetPos().X + 13, PlayMan->GetPos().Y - 10 });
+	//MonsterList[0]->SetPos({ PlayMan->GetPos().X + 13, PlayMan->GetPos().Y - 10 });
 
 	while (true)
 	{
 		PlayMan->Update();
 		GameProcess();
 		PlayMan->PlayerPrint();
+
+
 		// 몬스터
 		/*for (int i = 0; i < 3; i++)
 		{
 			MonsterList[i]->MonsterPrint();
 		}*/
 
-		MonsterList[0]->MonsterPrint();
+		//MonsterList[0]->MonsterPrint();
 
-		end = clock();
+		/*end = clock();
 		CheckTime = double(end - start) / CLOCKS_PER_SEC;
 		if (CheckTime >= 0.3)
 		{
 			MonsterList[0]->SetPos({ MonsterList[0]->MonsterMove(PlayMan).Y, MonsterList[0]->MonsterMove(PlayMan).X});
 			start = clock();
-		}
+		}*/
 	}
 }
-
-
-
-/*memset(chBuf, 0, sizeof(chBuf));
-	int nLen = sprintf_s(chBuf, sizeof(chBuf), *MapArr);
-
-	SetConsoleCursorPosition(Console.hBuffer[Console.nCurBuffer], coord);
-	WriteFile(Console.hBuffer[Console.nCurBuffer], chBuf, nLen, &dw, NULL);*/
-
-	//ScreenClear();
-	//static char front_buffer[YScreen][XScreen] = { ' ' };
-
-	//for (int i = 0; i < YScreen; i++)
-	//{
-	//	for (int j = 0, j2 = 0; j < XScreen; j++)
-	//	{
-	//		char Check = MapArr[i][j];
-	//		if (front_buffer[i][j] != MapArr[i][j])
-	//		{
-	//			switch (MapArr[i][j])
-	//			{
-	//			case '0':
-	//				Handle.TextColor(0, 0);
-	//				std::cout << " ";
-	//				break;
-	//			case '1':
-	//				Handle.TextColor(15, 15);
-	//				std::cout << "■";
-	//				break;
-	//			case '2':
-	//				// 플레이어
-	//				Handle.TextColor(14, 14);
-	//				std::cout << "■";
-	//				break;
-	//			case 'A':
-	//			case 'a':
-	//				Handle.TextColor(2, 2);
-	//				std::cout << "A";
-	//				break;
-	//			case ' ':
-	//				Handle.TextColor(0, 0);
-	//				std::cout << " ";
-	//				break;
-	//			}
-	//			front_buffer[i][j] = MapArr[i][j];
-	//		}
-	//		j2 += 2;
-	//	}
-	//	Handle.TextColor(0, 0);
-	//	std::cout << std::endl;
-	//}
-	// 화면 버퍼 설정
-	//SetConsoleActiveScreenBuffer(Console.hBuffer[Console.nCurBuffer]);
-	//// 화면 버퍼 인덱스를 교체
-	//Console.nCurBuffer = Console.nCurBuffer ? 0 : 1;

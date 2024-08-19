@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+#include <Windows.h>
+#include <random>
 
 #include "ConsoleGameMath.h"
 #include "Utill.h"
@@ -71,6 +74,8 @@ private:
 
 	void GameInfoPrint();
 	void GameProcess();
+
+	void ItemMade();
 
 private:
 	bool Done = true;
@@ -151,7 +156,7 @@ private:
 	int MonsterCount = 3;
 
 	std::vector<class Item*> ItemList;
-	int ItemCount = 50;
+	int ItemCount = 5;
 
 	double CheckTime;
 	clock_t start = clock();

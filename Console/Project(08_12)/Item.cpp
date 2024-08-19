@@ -43,61 +43,54 @@ void Item::Update()
 }
 
 
-void Item::AppleItemPrint()
+void Item::AppleItemPrint(int2 _Pos)
 {
 	UtillMan;
-	while (true)
+	for (short i = 0; i < 2; i++)
 	{
-		for (int i = 0; i < 2; i++)
+		for (short j = 0; j < 2; j++)
 		{
-			for (int j = 0; j < 3; j++)
+			COORD pos = { _Pos.X + j, _Pos.Y + i };
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+			switch (AppleItemArr[i][j])
 			{
-				switch (AppleItemArr[i][j])
-				{
-				case '5':
-					UtillMan->TextColor(12, 12);
-					std::cout << "бс";
-					break;
-				default:
-					UtillMan->TextColor(0, 0);
-					std::cout << " ";
-					break;
-				}
+			case '5':
+				UtillMan->TextColor(12, 12);
+				std::cout << "бс";
+				break;
+			default:
+				UtillMan->TextColor(0, 0);
+				std::cout << " ";
+				break;
 			}
-			UtillMan->TextColor(0, 0);
-			std::cout << std::endl;
 		}
-		Sleep(300);
-		system("cls");
+		UtillMan->TextColor(0, 0);
+		std::cout << std::endl;
 	}
 }
 
 void Item::BananaItemPrint()
 {
 	UtillMan;
-	while (true)
+
+	for (int i = 0; i < 2; i++)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 3; j++)
 		{
-			for (int j = 0; j < 3; j++)
+			switch (BanaanaItemArr[i][j])
 			{
-				switch (BanaanaItemArr[i][j])
-				{
-				case '5':
-					UtillMan->TextColor(14, 14);
-					std::cout << "бс";
-					break;
-				default:
-					UtillMan->TextColor(0, 0);
-					std::cout << " ";
-					break;
-				}
+			case '5':
+				UtillMan->TextColor(14, 14);
+				std::cout << "бс";
+				break;
+			default:
+				UtillMan->TextColor(0, 0);
+				std::cout << " ";
+				break;
 			}
-			UtillMan->TextColor(0, 0);
-			std::cout << std::endl;
 		}
-		Sleep(300);
-		system("cls");
+		UtillMan->TextColor(0, 0);
+		std::cout << std::endl;
 	}
 }
 

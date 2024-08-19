@@ -13,7 +13,7 @@ public:
 	}
 	~Item();
 
-	void AppleItemPrint();
+	void AppleItemPrint(int2 _Pos);
 	void BananaItemPrint();
 	void TransItemPrint();
 

@@ -46,6 +46,11 @@ public:
 		return PlayerLifeCount;
 	}
 
+	void AddScore(int _Value)
+	{
+		PlayerScore += _Value;
+	}
+
 
 protected:
 	void DrawChar(short x, short y, const char c[][XSize]);
