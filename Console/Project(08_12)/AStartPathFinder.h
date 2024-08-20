@@ -3,6 +3,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <unordered_set>
 #include "ConsoleGameMath.h"
 
 
@@ -16,6 +17,10 @@ struct Node
 	int2 Pos;
 	int G, H;
 	Node* NParent;
+
+	bool operator<(const Node& other) const {
+		return Fcost() > other.Fcost();  // 작은 값이 우선순위를 가지도록 정의
+	}
 
 	//std::pair<int, int> Parent; // 역추적에 쓰일 노드.
 };

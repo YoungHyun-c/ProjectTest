@@ -4,67 +4,57 @@
 
 std::vector<int2> AStartPathFinder::FindPath(const int2& _Start, const int2& _Target)
 {
-	std::priority_queue<Node*, std::vector<Node*>, cmp> OpenSet;
-	std::vector<Node*> AllNodes;
+    std::priority_queue<Node> openSet;
+    std::unordered_set<int2, int2::HashFunction> closeSet;
 
-	Node* StartNode = new Node{ _Start, 0 , Heuristic(_Start, _Target), nullptr };
-	OpenSet.push(StartNode);
-	AllNodes.push_back(StartNode);
+    Node startNode{ _Start, 0, Heuristic(_Start, _Target), nullptr };
+    openSet.push(startNode);
 
-	int dX[] = { -1, 1, 0, 0 };
-	int dY[] = { 0, 0, -1, 1 };
+    int dx[] = { -1, 1, 0, 0 };
+    int dy[] = { 0, 0, -1, 1 };
 
-	while (!OpenSet.empty())
-	{
-		Node* Current = OpenSet.top();
-		OpenSet.pop();
+    while (!openSet.empty()) {
+        Node current = openSet.top();
+        openSet.pop();
 
-		// 목표 지점에 도달한 경우 경로를 역추적.
-		if (Current->Pos == _Target)
-		{
-			std::vector<int2> Path;
-			while (Current != nullptr)
-			{
-				Path.push_back(Current->Pos);
-				Current = Current->NParent;
-			}
-			for (Node* node : AllNodes)
-			{
-				delete node;
-			}
-			return Path;
-		}
+        // 목표 지점에 도달하면 경로를 역추적하여 반환
+        if (current.Pos == _Target) {
+            std::vector<int2> path;
+            Node* traceNode = &current;
 
-		for (int i = 0; i < 4; ++i)
-		{
-			int2 NeighborPos = { Current->Pos.X + dX[i], Current->Pos.Y + dY[i] };
-			if (NeighborPos.X >= 0 && NeighborPos.X < PackManScreen::GetMainScreen().GetScreenSize().X - ENTITYSIZE
-				&& NeighborPos.Y >= 0 && NeighborPos.Y < PackManScreen::GetMainScreen().GetScreenSize().Y - ENTITYSIZE 
-				&&  PackManScreen::GetMainScreen().CanMove(NeighborPos.X, NeighborPos.Y))
-			{
-				int gCost = Current->G + 1;
-				Node* Neighbor = new Node{ NeighborPos, gCost, Heuristic(NeighborPos, _Target), Current };
-				OpenSet.push(Neighbor);
-				AllNodes.push_back(Neighbor);
-			}
-		}
-	}
+            while (traceNode != nullptr) {
+                path.push_back(traceNode->Pos);
+                traceNode = traceNode->NParent;
+            }
 
+            return path;
+        }
 
-	for (Node* node : AllNodes)
-	{
-		delete node;
-	}
+        // 이미 방문한 노드라면 건너뜀
+        if (closeSet.find(current.Pos) != closeSet.end()) {
+            continue;
+        }
 
-	return {};
+        closeSet.insert(current.Pos);
+
+        // 인접 노드 탐색
+        for (int i = 0; i < 4; ++i) {
+            int2 neighborPos = { current.Pos.X + dx[i], current.Pos.Y + dy[i] };
+
+            if (neighborPos.X >= 0 && neighborPos.X < PackManScreen::GetMainScreen().GetScreenSize().X 
+                && neighborPos.Y >= 0 && neighborPos.Y < PackManScreen::GetMainScreen().GetScreenSize().Y &&
+               PackManScreen::GetMainScreen().CanMove(neighborPos.X, neighborPos.Y) && closeSet.find(neighborPos) == closeSet.end()) {
+
+                int newGCost = current.G + 1;
+                Node neighborNode{ neighborPos, newGCost, Heuristic(neighborPos, _Target), new Node(current) };
+                openSet.push(neighborNode);
+            }
+        }
+    }
+
+    return {};  // 경로를 찾지 못한 경우 빈 벡터 반환
+
 }
-
-
-
-
-
-
-
 
 
 

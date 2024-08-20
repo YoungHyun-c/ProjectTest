@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class int2
 {
@@ -22,6 +23,12 @@ public:
 
 	int X = 0;
 	int Y = 0;
+
+	struct HashFunction {
+		size_t operator()(const int2& pos) const {
+			return std::hash<int>()(pos.X) ^ std::hash<int>()(pos.Y);
+		}
+	};
 
 public:
 	inline int2 Half() const

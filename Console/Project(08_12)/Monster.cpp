@@ -77,6 +77,10 @@ void Monster::MoveMonsterToPlayer()
 {
 	if (Path.size() > 1 && PackManScreen::GetMainScreen().CanMove(MonsterPos.X, MonsterPos.Y))
 	{
+		if (IndexCount > Path.size())
+		{
+			return;
+		}
 		MonsterPrevePrint(MonsterPos.X, MonsterPos.Y);
 		SetPos(Path[Path.size() - IndexCount++]);
 	}

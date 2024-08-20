@@ -409,7 +409,7 @@ void PackManScreen::PackManUpdate()
 	auto LastMonsterFindTime = std::chrono::steady_clock::now();
 	auto LastMonsterMoveTime = std::chrono::steady_clock::now();
 	const std::chrono::milliseconds MoveInterval(1000);
-	const std::chrono::milliseconds Move(200);
+	const std::chrono::milliseconds Move(150);
 	while (true)
 	{
 		GameProcess();
@@ -438,25 +438,25 @@ void PackManScreen::PackManUpdate()
 			std::cout << "초기 위치에서 다시 시작합니다.";
 		}
 
-		//auto CurrentTime = std::chrono::steady_clock::now();
-		//if (CurrentTime - LastMonsterFindTime >= MoveInterval)
-		//{
-		//	//FindMonsterToPlayer();
-		//	for (auto& Index : MonsterList)
-		//	{
-		//		//Index->FindMonsterToPlayer(PlayMan);
-		//	}
-		//	LastMonsterFindTime = CurrentTime;
-		//}
-		//if (CurrentTime - LastMonsterMoveTime >= Move)
-		//{
-		//	//MoveMonsterToPlayer();
-		//	for (auto& Index : MonsterList)
-		//	{
-		//		Index->MoveMonsterToPlayer();
-		//	}
-		//	LastMonsterMoveTime = CurrentTime;
-		//}
+		auto CurrentTime = std::chrono::steady_clock::now();
+		if (CurrentTime - LastMonsterFindTime >= MoveInterval)
+		{
+			//FindMonsterToPlayer();
+			for (auto& Index : MonsterList)
+			{
+				Index->FindMonsterToPlayer(PlayMan);
+			}
+			LastMonsterFindTime = CurrentTime;
+		}
+		if (CurrentTime - LastMonsterMoveTime >= Move)
+		{
+			//MoveMonsterToPlayer();
+			for (auto& Index : MonsterList)
+			{
+				Index->MoveMonsterToPlayer();
+			}
+			LastMonsterMoveTime = CurrentTime;
+		}
 		
 		for (auto& Item : ItemList)
 		{
@@ -468,7 +468,7 @@ void PackManScreen::PackManUpdate()
 
 		for (auto& Monster : MonsterList)
 		{
-			Monster->MonsterUpdate();
+			//Monster->MonsterUpdate();
 			Monster->MonsterPrint();
 		}
 
