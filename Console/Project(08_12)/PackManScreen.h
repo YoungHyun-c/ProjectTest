@@ -81,6 +81,7 @@ private:
 	void GameProcess();
 
 	bool CheckCollision();
+	bool CheckMonsterCollision();
 
 	void ItemMade();
 
@@ -154,6 +155,7 @@ private:
 
 private:
 	char chBuf[256] = { 0 , };
+	char Key;
 	COORD coord{ 0, 0 };
 	DWORD dw = 0;
 

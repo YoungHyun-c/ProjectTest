@@ -45,6 +45,8 @@ void Player::PlayerInfoPrint()
 	Handle.Gotoxy(45, 47);
 	std::cout << "Score : " << PlayerScore;
 
+	Handle.Gotoxy(60, 47);
+	std::cout << "플레이어 스피드 : " << PlayerSpeed << "    ";
 }
 
 void Player::Update()
@@ -53,8 +55,9 @@ void Player::Update()
 
 	if (_kbhit())
 	{
-		Key = _getch();
-		do { Key = _getch(); } while (Key == 224);
+		//Key = _getch();
+		do { Key = _getch(); }
+		while (Key == 224);
 	}
 
 	int2 NextPos = PlayerPos;
@@ -81,10 +84,6 @@ void Player::Update()
 		NextPos.Y += 1;
 		MovePlayer(NextPos.X, NextPos.Y);
 		break;
-	case PAUSE:
-		IsGameUpdate = false;
-	case ESC:
-		exit(0);
 	}
 }
 

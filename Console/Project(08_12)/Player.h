@@ -56,6 +56,26 @@ public:
 		PlayerScore += _Value;
 	}
 
+	void AddSpeed(int _Value)
+	{
+		if (PlayerSpeed + _Value < 10)
+		{
+			PlayerSpeed = 10;
+			return;
+		}
+		PlayerSpeed += _Value;
+		if (PlayerSpeed >= 150)
+		{
+			PlayerSpeed = 150;
+			return;
+		}
+	}
+
+	void SetSpeed(int _Value)
+	{
+		PlayerSpeed = _Value;
+	}
+
 	void PlayerReset();
 
 
@@ -170,6 +190,6 @@ private:
 	int2 PlayerSize = { XSize - 1, YSize };
 
 	int PlayerScore = 0;
-	int PlayerLifeCount = 1;
+	int PlayerLifeCount = 3;
 };
 

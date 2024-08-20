@@ -69,6 +69,28 @@ void Item::AppleItemPrint(int2 _Pos)
 	}
 }
 
+void Item::ItemOff(int2 _Pos)
+{
+	UtillMan;
+	if (ItemRender)
+	{
+		for (short i = 0; i < 2; i++)
+		{
+			for (short j = 0; j < 2; j++)
+			{
+				COORD pos = { static_cast<short>(_Pos.X) + j, static_cast<short>(_Pos.Y) + i };
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+				UtillMan->TextColor(0, 0);
+				std::cout << " ";
+			}
+			UtillMan->TextColor(0, 0);
+			std::cout << std::endl;
+		}
+		ItemRender = false;
+	}
+}
+
 void Item::BananaItemPrint()
 {
 	UtillMan;

@@ -14,6 +14,8 @@ public:
 	~Item();
 
 	void AppleItemPrint(int2 _Pos);
+	void ItemOff(int2 _Pos);
+
 	void BananaItemPrint();
 	void TransItemPrint();
 
@@ -37,5 +39,6 @@ private:
 	  " 5 " };
 
 	Utill* UtillMan;
+	bool ItemRender = true;
 };
 

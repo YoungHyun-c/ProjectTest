@@ -351,25 +351,61 @@ bool PackManScreen::CheckCollision()
 	return false;
 }
 
+bool PackManScreen::CheckMonsterCollision()
+{
+	for (int dY = 0; dY < ENTITYSIZE; dY++)
+	{
+		for (int dX = 0; dX < ENTITYSIZE; dX++)
+		{
+			for (int Index = 0; Index < MonsterList.size() - 1; Index++)
+			{
+				if (MonsterList[Index]->GetPos().X + dX >= MonsterList[Index + 1]->GetPos().X && MonsterList[Index]->GetPos().X + dX < MonsterList[Index + 1]->GetPos().X + ENTITYSIZE
+					&& MonsterList[Index]->GetPos().Y + dY >= MonsterList[Index + 1]->GetPos().Y && MonsterList[Index]->GetPos().Y + dY < MonsterList[Index + 1]->GetPos().Y + ENTITYSIZE)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
 void PackManScreen::GameProcess()
 {
 	// 아이템
-	for (int i = 0; i < 3; i++)
+	for (int Y = 0; Y < 2; Y++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int X = 0; X < 2; X++)
 		{
-			for (int k = 0; k < ItemCount; k++)
+			for (auto& ItemIndex : ItemList)
 			{
-				if (ItemList[k]->IsDeath() == false && int2 { PlayMan->GetPos().X + j, PlayMan->GetPos().Y + i } == int2{ItemList[k]->GetPos().X , ItemList[k]->GetPos().Y})
+				if (ItemIndex->IsDeath() == false
+					&& ItemIndex->GetPos().X + X >= PlayMan->GetPos().X && ItemIndex->GetPos().X + X < PlayMan->GetPos().X + 2
+					&& ItemIndex->GetPos().Y + Y >= PlayMan->GetPos().Y && ItemIndex->GetPos().Y + Y < PlayMan->GetPos().Y + 2)
 				{
 					PlayMan->AddScore(100);
-					ItemList[k]->Death();
+					ItemIndex->Death();
 					break;
 				}
 			}
 		}
 	}
 	
+	// 플레이어 관련
+	if (_kbhit())
+	{
+		Key = _getch();
+
+		if (Key == '9')
+		{
+			PlayMan->AddSpeed(-10);
+		}
+		else if (Key == '0')
+		{
+			PlayMan->AddSpeed(10);
+		}
+	}
 }
 
 void PackManScreen::ItemMade()
@@ -385,7 +421,7 @@ void PackManScreen::ItemMade()
 		{
 			for (int j = 0; j < 2; j++)
 			{
-				while(MapArr[RandNumY + i][RandNumX + j] == '1')
+				while(MapArr[RandNumY + i][RandNumX + j] == '1' || MapArr[RandNumY + i][RandNumX + j] == '5')
 				{
 					RandNumX = Rand.RandNum(5, 95);
 					RandNumY = Rand.RandNum(5, 40);
@@ -418,7 +454,7 @@ void PackManScreen::PackManUpdate()
 		{
 			Handle.TextColor(15, 0);
 			Handle.Gotoxy(0, 48);
-			std::cout << "당신은 잡혔습니다!								";
+			std::cout << "당신은 잡혔습니다!                                           ";
 			PlayMan->SubLifeCount();
 			if (PlayMan->GetLifeCount() <= 0)
 			{
@@ -431,7 +467,10 @@ void PackManScreen::PackManUpdate()
 			}
 
 			Sleep(2000);
-			MonsterList[0]->MonsterReset();
+			for (auto& Monster : MonsterList)
+			{
+				Monster->MonsterReset();
+			}
 			PlayMan->PlayerReset();
 			Handle.TextColor(15, 0);
 			Handle.Gotoxy(0, 48);
@@ -441,7 +480,6 @@ void PackManScreen::PackManUpdate()
 		auto CurrentTime = std::chrono::steady_clock::now();
 		if (CurrentTime - LastMonsterFindTime >= MoveInterval)
 		{
-			//FindMonsterToPlayer();
 			for (auto& Index : MonsterList)
 			{
 				Index->FindMonsterToPlayer(PlayMan);
@@ -450,10 +488,12 @@ void PackManScreen::PackManUpdate()
 		}
 		if (CurrentTime - LastMonsterMoveTime >= Move)
 		{
-			//MoveMonsterToPlayer();
-			for (auto& Index : MonsterList)
+			if (CheckMonsterCollision() == false)
 			{
-				Index->MoveMonsterToPlayer();
+				for (auto& Index : MonsterList)
+				{
+					Index->MoveMonsterToPlayer();
+				}
 			}
 			LastMonsterMoveTime = CurrentTime;
 		}
@@ -464,11 +504,14 @@ void PackManScreen::PackManUpdate()
 			{
 				Item->AppleItemPrint(Item->GetPos());
 			}
+			else
+			{
+				Item->ItemOff(Item->GetPos());
+			}
 		}
 
 		for (auto& Monster : MonsterList)
 		{
-			//Monster->MonsterUpdate();
 			Monster->MonsterPrint();
 		}
 
