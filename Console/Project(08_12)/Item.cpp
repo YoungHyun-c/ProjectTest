@@ -50,7 +50,7 @@ void Item::AppleItemPrint(int2 _Pos)
 	{
 		for (short j = 0; j < 2; j++)
 		{
-			COORD pos = { _Pos.X + j, _Pos.Y + i };
+			COORD pos = { static_cast<short>(_Pos.X) + j, static_cast<short>(_Pos.Y) + i};
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 			switch (AppleItemArr[i][j])
 			{

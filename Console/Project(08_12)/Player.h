@@ -33,6 +33,11 @@ public:
 		return PlayerPos;
 	}
 
+	inline int2 GetInitialPos()
+	{
+		return InitPlayerPos;
+	}
+
 	void SubLifeCount(int _Value = 1)
 	{
 		if (PlayerLifeCount > 0)
@@ -41,10 +46,10 @@ public:
 		}
 	}
 
-	int GetLifeCount()
+	/*int GetLifeCount()
 	{
 		return PlayerLifeCount;
-	}
+	}*/
 
 	void AddScore(int _Value)
 	{
@@ -158,8 +163,8 @@ private:
 	bool LRReverse = true;
 	bool UDReverse = true;
 
-
-	int2 PlayerPos = { 50, 30 };
+	int2 InitPlayerPos = { 50, 40 };
+	int2 PlayerPos = InitPlayerPos;
 	int2 PlayerSize = { XSize - 1, YSize };
 
 	int PlayerScore = 0;

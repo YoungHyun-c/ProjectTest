@@ -3,7 +3,7 @@
 #include "Utill.h"
 #include "AStartPathFinder.h"
 #include "ConsoleGameObject.h"
-#include "Player.h"
+#include "PackManScreen.h"
 
 class Monster : public ConsoleGameObject
 {
@@ -30,7 +30,7 @@ public:
 	void DrawChar(short _X, short _Y, const char C[YSize][XSize]);
 	//void MonsterColor(int _Font, int _Back, char M[YSize][XSize]);
 
-	int2 MonsterMove(class Player* _Move);
+	void MonsterPrevePrint(int _X, int _Y);
 
 private:
 	/*char MonsterArr[5][6] = { " 222 ",

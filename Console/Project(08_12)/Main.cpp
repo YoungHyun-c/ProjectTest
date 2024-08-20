@@ -25,7 +25,7 @@ int main()
 
     PackManScreen::GetMainScreen().Start();
 
-    AStartPathFinder Test;
+  /*  AStartPathFinder Test;
     int Size = 7;
     std::vector<std::vector<int>> map(Size, std::vector<int>(Size, 0));
     std::pair<int, int> Start, Gold;
@@ -40,7 +40,7 @@ int main()
         {0,0,0,0,0,0,0},
     };
     Test.print_map(map);
-    Test.Astar(map, Start, Gold);
+    Test.Astar(map, Start, Gold);*/
 
     {
         /*Monster Mon = Monster(12, 12);

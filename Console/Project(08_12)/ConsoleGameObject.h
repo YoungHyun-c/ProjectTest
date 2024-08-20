@@ -14,6 +14,8 @@
 #define PAUSE 112
 #define ESC 27
 
+#define ENTITYSIZE 3
+
 // Ό³Έν :
 class ConsoleGameObject
 {
