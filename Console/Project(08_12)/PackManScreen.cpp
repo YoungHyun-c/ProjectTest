@@ -1,11 +1,41 @@
 #include "PackManScreen.h"
 
-
 #define InterFrame 1000
-#define MonsterMove 200
+#define MonsterMove 1500
 
 PackManScreen PackManScreen::MainScreen;
 stConsole Console;
+
+PackManScreen::PackManScreen()
+{
+}
+
+PackManScreen::~PackManScreen()
+{
+	if (PlayMan != nullptr)
+	{
+		delete PlayMan;
+		PlayMan = nullptr;
+	}
+
+	if (!MonsterList.empty())
+	{
+		for (auto& Index : MonsterList)
+		{
+			delete Index;
+			Index = nullptr;
+		}
+	}
+
+	if (!ItemList.empty())
+	{
+		for (auto& Index : ItemList)
+		{
+			delete Index;
+			Index = nullptr;
+		}
+	}
+}
 
 // 커서 없애기
 void PackManScreen::VoidCursor()
@@ -32,9 +62,9 @@ void PackManScreen::InitGame(bool bInitConsole)
 	MonsterList.push_back(new Monster(12, 12, 46, 15));
 	MonsterList.push_back(new Monster(13, 13, 54, 15));
 
-	/*MonsterList[0]->SetPos({38, 15 });
+	MonsterList[0]->SetPos({38, 15 });
 	MonsterList[1]->SetPos({46, 15 });
-	MonsterList[2]->SetPos({54, 15 });*/
+	MonsterList[2]->SetPos({54, 15 });
 
 	if (ItemList.empty())
 	{
@@ -140,7 +170,7 @@ bool PackManScreen::IsScreenOver(const int2& _Pos) const
 	return false;
 }
 
-bool PackManScreen::CanMove(int _X, int _Y)
+bool PackManScreen::CanMove(int _X, int _Y) const
 {
 	for (int i = 0; i < ENTITYSIZE; i++)
 	{
@@ -155,26 +185,24 @@ bool PackManScreen::CanMove(int _X, int _Y)
 	return true;
 }
 
+int PackManScreen::IndexCount1 = 2;
+
+void PackManScreen::FindMonsterToPlayer()
+{
+	Path1 = AStar.FindPath(MonsterList[0]->GetPos(), PlayMan->GetPos());
+
+	IndexCount1 = 2;
+}
+
 void PackManScreen::MoveMonsterToPlayer()
 {
-	AStartPathFinder AStar;
-
-	std::vector<int2> Path = AStar.FindPath(MapArr, MonsterList[0]->GetPos(), PlayMan->GetPos());
-	if (Path.size() > 1)
+	if (Path1.size() > 1 && CanMove(MonsterList[0]->GetPos().X, MonsterList[0]->GetPos().Y))
 	{
 		MonsterList[0]->MonsterPrevePrint(MonsterList[0]->GetPos().X, MonsterList[0]->GetPos().Y);
-		MonsterList[0]->SetPos(Path[Path.size() - 2]);
-	}
-
-	std::vector<int2> Path1 = AStar.FindPath(MapArr, MonsterList[1]->GetPos(), PlayMan->GetPos());
-	if (Path.size() > 1)
-	{
-		MonsterList[1]->MonsterPrevePrint(MonsterList[1]->GetPos().X, MonsterList[1]->GetPos().Y);
-		MonsterList[1]->SetPos(Path1[Path1.size() - 2]);
+		MonsterList[0]->SetPos(Path1[Path1.size() - IndexCount1++]);
 	}
 }
 	
-
 void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
 {
 	if (true == IsScreenOver(_Pos))
@@ -206,19 +234,6 @@ char PackManScreen::GetScreenCharacter(const int2& _Pos) const
 	return MapArr[_Pos.Y][_Pos.X];
 }
 
-
-PackManScreen::PackManScreen()
-{
-}
-
-PackManScreen::~PackManScreen()
-{
-	if (PlayMan != nullptr)
-	{
-		delete PlayMan;
-		PlayMan = nullptr;
-	}
-}
 
 void PackManScreen::Start()
 {
@@ -359,21 +374,21 @@ void PackManScreen::GameProcess()
 
 void PackManScreen::ItemMade()
 {
-	int RandNumX = rand() % 90 + 5;
-	int RandNumY = rand() % 45;
+	GameEngineRandom Rand;
+	int RandNumX, RandNumY;
 
 	for (int k = 0; k < ItemCount; k++)
 	{
-		RandNumX = rand() % 90 + 5;
-		RandNumY = rand() % 45;
+		RandNumX = Rand.RandNum(5, 95);
+		RandNumY = Rand.RandNum(5, 40);
 		for (int i = 0; i < 2; i++)
 		{
 			for (int j = 0; j < 2; j++)
 			{
 				while(MapArr[RandNumY + i][RandNumX + j] == '1')
 				{
-					RandNumX = rand() % 90 + 5;
-					RandNumY = rand() % 45;
+					RandNumX = Rand.RandNum(5, 95);
+					RandNumY = Rand.RandNum(5, 40);
 					i = 0;
 					j = 0;
 				}
@@ -381,9 +396,7 @@ void PackManScreen::ItemMade()
 		}
 		MapArr[RandNumY][RandNumX] = '5';
 		ItemList[k]->SetPos({ RandNumX, RandNumY });
-		ItemList[k]->AppleItemPrint(ItemList[k]->GetPos());
 	}
-	
 }
 
 void PackManScreen::PackManUpdate()
@@ -393,35 +406,69 @@ void PackManScreen::PackManUpdate()
 
 	PlayMan->PlayerPrint();
 
-	//MonsterList[0]->SetPos({ PlayMan->GetPos().X + 15, PlayMan->GetPos().Y - 18 });
-
-	//MonsterList[0]->SetPos({ 0, 0 });
-	MonsterList[0]->SetPos({ 38, 15 });
-
-	auto LastMonsterMoveTiem = std::chrono::steady_clock::now();
-	const std::chrono::milliseconds MoveInterval(MonsterMove);
-
+	auto LastMonsterFindTime = std::chrono::steady_clock::now();
+	auto LastMonsterMoveTime = std::chrono::steady_clock::now();
+	const std::chrono::milliseconds MoveInterval(1000);
+	const std::chrono::milliseconds Move(200);
 	while (true)
 	{
 		GameProcess();
 
 		if (CheckCollision())
 		{
-			std::cout << "당신은 잡혔습니다!";
-			PlayMan->SetPos(PlayMan->GetInitialPos()); //50, 40
-			MonsterList[0]->SetPos({ PlayMan->GetPos().X + 17, PlayMan->GetPos().Y - 10 });
-			Sleep(1000);
+			Handle.TextColor(15, 0);
+			Handle.Gotoxy(0, 48);
+			std::cout << "당신은 잡혔습니다!								";
+			PlayMan->SubLifeCount();
+			if (PlayMan->GetLifeCount() <= 0)
+			{
+				Handle.TextColor(15, 0);
+				Handle.Gotoxy(0, 48);
+				std::cout << " 게임이 종료됩니다...								";
+				Sleep(1000);
+				system("cls");
+				break;
+			}
+
+			Sleep(2000);
+			MonsterList[0]->MonsterReset();
+			PlayMan->PlayerReset();
+			Handle.TextColor(15, 0);
+			Handle.Gotoxy(0, 48);
+			std::cout << "초기 위치에서 다시 시작합니다.";
 		}
 
-		auto CurrentTime = std::chrono::steady_clock::now();
-		if (CurrentTime - LastMonsterMoveTiem >= MoveInterval)
-		{
-			MoveMonsterToPlayer();
-			LastMonsterMoveTiem = CurrentTime;
-		}
+		//auto CurrentTime = std::chrono::steady_clock::now();
+		//if (CurrentTime - LastMonsterFindTime >= MoveInterval)
+		//{
+		//	//FindMonsterToPlayer();
+		//	for (auto& Index : MonsterList)
+		//	{
+		//		//Index->FindMonsterToPlayer(PlayMan);
+		//	}
+		//	LastMonsterFindTime = CurrentTime;
+		//}
+		//if (CurrentTime - LastMonsterMoveTime >= Move)
+		//{
+		//	//MoveMonsterToPlayer();
+		//	for (auto& Index : MonsterList)
+		//	{
+		//		Index->MoveMonsterToPlayer();
+		//	}
+		//	LastMonsterMoveTime = CurrentTime;
+		//}
 		
+		for (auto& Item : ItemList)
+		{
+			if (Item->IsDeath() == false)
+			{
+				Item->AppleItemPrint(Item->GetPos());
+			}
+		}
+
 		for (auto& Monster : MonsterList)
 		{
+			Monster->MonsterUpdate();
 			Monster->MonsterPrint();
 		}
 

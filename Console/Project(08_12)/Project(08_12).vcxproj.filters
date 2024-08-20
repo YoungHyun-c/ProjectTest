@@ -76,6 +76,9 @@
     <ClCompile Include="T.cpp">
       <Filter>Level2\Player</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineRandom.cpp">
+      <Filter>Level0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScreen.h">
@@ -115,6 +118,9 @@
       <Filter>Level2</Filter>
     </ClInclude>
     <ClInclude Include="AStartPathFinder.h">
+      <Filter>Level0</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRandom.h">
       <Filter>Level0</Filter>
     </ClInclude>
   </ItemGroup>

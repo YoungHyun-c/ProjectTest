@@ -46,15 +46,17 @@ public:
 		}
 	}
 
-	/*int GetLifeCount()
+	int GetLifeCount()
 	{
 		return PlayerLifeCount;
-	}*/
+	}
 
 	void AddScore(int _Value)
 	{
 		PlayerScore += _Value;
 	}
+
+	void PlayerReset();
 
 
 protected:
@@ -150,7 +152,7 @@ private:
 		 "   ",
 	};
 
-	int Speed = 100;
+	int PlayerSpeed = 100;
 	int Dir = RIGHT;
 	int Key = -1;
 
@@ -168,6 +170,6 @@ private:
 	int2 PlayerSize = { XSize - 1, YSize };
 
 	int PlayerScore = 0;
-	int PlayerLifeCount = 3;
+	int PlayerLifeCount = 1;
 };
 

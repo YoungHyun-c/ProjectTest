@@ -6,6 +6,7 @@
 #include <thread>
 
 #include "ConsoleGameMath.h"
+#include "GameEngineRandom.h"
 #include "Utill.h"
 
 #include "GameObjectManager.h"
@@ -64,7 +65,8 @@ public:
 	void ScreenPrint();
 	void VoidCursor();
 
-	bool CanMove(int _X, int _Y);
+	bool CanMove(int _X, int _Y) const;
+	void FindMonsterToPlayer();
 	void MoveMonsterToPlayer();
 
 private:
@@ -162,5 +164,11 @@ private:
 
 	std::vector<class Item*> ItemList;
 	int ItemCount = 10;
+
+	static int IndexCount1;
+
+	AStartPathFinder AStar;
+	std::vector<int2> Path1;
+
 };
 

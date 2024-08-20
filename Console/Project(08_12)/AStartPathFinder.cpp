@@ -2,7 +2,7 @@
 
 #include "PackManScreen.h"
 
-std::vector<int2> AStartPathFinder::FindPath(char _Map[][101], const int2& _Start, const int2& _Target)
+std::vector<int2> AStartPathFinder::FindPath(const int2& _Start, const int2& _Target)
 {
 	std::priority_queue<Node*, std::vector<Node*>, cmp> OpenSet;
 	std::vector<Node*> AllNodes;
@@ -35,19 +35,18 @@ std::vector<int2> AStartPathFinder::FindPath(char _Map[][101], const int2& _Star
 			return Path;
 		}
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; ++i)
 		{
 			int2 NeighborPos = { Current->Pos.X + dX[i], Current->Pos.Y + dY[i] };
-			if (NeighborPos.X >= 0 && NeighborPos.X < 100
-				&& NeighborPos.Y >= 0 && NeighborPos.Y < 50
-				&& PackManScreen::GetMainScreen().CanMove(NeighborPos.X, NeighborPos.Y))
+			if (NeighborPos.X >= 0 && NeighborPos.X < PackManScreen::GetMainScreen().GetScreenSize().X - ENTITYSIZE
+				&& NeighborPos.Y >= 0 && NeighborPos.Y < PackManScreen::GetMainScreen().GetScreenSize().Y - ENTITYSIZE 
+				&&  PackManScreen::GetMainScreen().CanMove(NeighborPos.X, NeighborPos.Y))
 			{
 				int gCost = Current->G + 1;
 				Node* Neighbor = new Node{ NeighborPos, gCost, Heuristic(NeighborPos, _Target), Current };
 				OpenSet.push(Neighbor);
 				AllNodes.push_back(Neighbor);
 			}
-
 		}
 	}
 

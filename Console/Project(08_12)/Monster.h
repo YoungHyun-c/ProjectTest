@@ -11,7 +11,7 @@ public:
 	Monster();
 	~Monster();
 	Monster(int _FontColor, int _BackColor, int _X, int _Y)
-		: FontColor(_FontColor), BackColor(_BackColor) , MonsterPos(_X, _Y)
+		: FontColor(_FontColor), BackColor(_BackColor) , InitMonsterPos(_X, _Y)
 	{
 	}
 
@@ -28,9 +28,16 @@ public:
 	}
 
 	void DrawChar(short _X, short _Y, const char C[YSize][XSize]);
-	//void MonsterColor(int _Font, int _Back, char M[YSize][XSize]);
 
 	void MonsterPrevePrint(int _X, int _Y);
+
+	void MonsterReset();
+
+	void MonsterUpdate();
+	void MoveMonster(int _X, int _Y);
+
+	void FindMonsterToPlayer(Player* _Player);
+	void MoveMonsterToPlayer();
 
 private:
 	/*char MonsterArr[5][6] = { " 222 ",
@@ -58,8 +65,8 @@ private:
 	int FontColor = 0;
 	int BackColor = 0;
 
-	int Speed = 100;
-	int Dir = RIGHT;
+	int MonsterSpeed = 100;
+	int Dir = 0;
 
 	double CheckTime;
 	clock_t start = clock();
@@ -67,9 +74,11 @@ private:
 
 	class Utill Handle;
 
+	int2 InitMonsterPos = { };
 	int2 MonsterPos = {  };
 
-	Player PlayMan;
-	AStartPathFinder AStart;
+	int IndexCount = 0;
+	AStartPathFinder AStar;
+	std::vector<int2> Path;
 };
 

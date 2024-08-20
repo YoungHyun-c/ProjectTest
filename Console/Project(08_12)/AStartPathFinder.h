@@ -71,7 +71,7 @@ public:
 		return abs(A.X - B.X) + abs(A.Y - B.Y);
 	}
 
-	std::vector<int2> FindPath(char _Map[][101], const int2& _Start, const int2& _Target);
+	std::vector<int2> FindPath(const int2& _Start, const int2& _Target);
 
 protected:
 	std::priority_queue<Node, std::vector<Node>, cmp> OpenList;

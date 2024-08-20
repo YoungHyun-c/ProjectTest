@@ -55,7 +55,7 @@ void Item::AppleItemPrint(int2 _Pos)
 			switch (AppleItemArr[i][j])
 			{
 			case '5':
-				UtillMan->TextColor(12, 12);
+				UtillMan->TextColor(12, 5);
 				std::cout << "бс";
 				break;
 			default:

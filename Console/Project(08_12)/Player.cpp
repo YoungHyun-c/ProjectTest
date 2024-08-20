@@ -44,6 +44,7 @@ void Player::PlayerInfoPrint()
 
 	Handle.Gotoxy(45, 47);
 	std::cout << "Score : " << PlayerScore;
+
 }
 
 void Player::Update()
@@ -57,7 +58,7 @@ void Player::Update()
 	}
 
 	int2 NextPos = PlayerPos;
-	Sleep(Speed); //플레이어 스피드
+	Sleep(PlayerSpeed); //플레이어 스피드
 	Dir = Key;
 	switch (Dir) {
 	case LEFT:
@@ -96,13 +97,6 @@ void Player::MovePlayer(int _X, int _Y)
 		PlayerPos.X = _X;
 		PlayerPos.Y = _Y;
 	}
-
-	/*if (MonsterCheck(_X, _Y))
-	{
-		PlayerLifeCount -= 1;
-
-		char ch = _getch();
-	}*/
 }
 
 bool Player::MonsterCheck(int _X, int _Y)
@@ -210,4 +204,11 @@ void Player::DrawChar(short x, short y, const char c[][XSize])
 		Handle.TextColor(0, 0);
 		std::cout << std::endl;
 	}
+}
+
+void Player::PlayerReset()
+{
+	DrawChar(PlayerPos.X, PlayerPos.Y, PlayerPreveArr);
+	PlayerPos = InitPlayerPos;
+	
 }
