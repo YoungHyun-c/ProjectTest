@@ -29,11 +29,22 @@ public:
 		return Speed;
 	}
 
+	const std::string& GetName()
+	{
+		return ItemName;
+	}
+
+	void SetItemName(std::string& _Name)
+	{
+		ItemName = _Name;
+	}
+
 protected:
 	void Update() override;
 private:
 	int Value;
 	int Speed = 0;
+	std::string ItemName = "";
 
 	char AppleItemArr[2][3] =
 	{ " 5",

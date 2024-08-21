@@ -80,8 +80,20 @@ void Monster::MoveMonsterToPlayer()
 		{
 			return;
 		}
-		if (PackManScreen::GetMainScreen().CheckMonsterCollision());
-		PrevePos = Path[Path.size() - (IndexCount - 1)];
+		/*if (PackManScreen::GetMainScreen().CheckMonsterCollision())
+		{
+			MonsterPrevePrint(PrevePos.X, PrevePos.Y);
+			SetPos(PrevePos);
+			return;
+		}*/
+		const size_t HomeIndex = Path.size() - (IndexCount - 1);
+		PrevePos = Path[HomeIndex];
+		int2 NextPos = { Path[Path.size() - IndexCount].X - PrevePos.X, Path[Path.size() - IndexCount].Y - PrevePos.Y };
+
+		/*if (PackManScreen::GetMainScreen().CheckMonsterCollision())
+		{
+			return;
+		}*/
 		MonsterPrevePrint(MonsterPos.X, MonsterPos.Y);
 		SetPos(Path[Path.size() - IndexCount++]);
 	}

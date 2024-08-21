@@ -51,6 +51,7 @@ public:
 
 	bool CheckMonsterCollision();
 	bool CheckTest(const int2& _Pos);
+	bool CheckCollision();
 
 private:
 	int PackManSetting();
@@ -62,7 +63,6 @@ private:
 	void GameInfoPrint();
 	void GameProcess();
 
-	bool CheckCollision();
 
 	void ItemMade();
 

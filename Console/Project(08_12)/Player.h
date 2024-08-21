@@ -1,10 +1,6 @@
 #pragma once
 #include "ConsoleGameObject.h"
-#include <Windows.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "Utill.h"
+#include "GameObjectManager.h"
 
 enum class PlayerState
 {
@@ -85,6 +81,7 @@ public:
 	void PlayerReset();
 
 	void ChangeState(PlayerState _State);
+	void StateUpdate();
 
 	PlayerState GetState()
 	{
@@ -92,7 +89,7 @@ public:
 	}
 
 protected:
-	void DrawChar(short x, short y, const char c[][XSize]);
+	void DrawChar(short x, short y, const char c[][XSize], int _Font = 14, int _Back = 14);
 
 	void MovePlayer(int _X, int _Y);
 
@@ -114,6 +111,13 @@ protected:
 
 	void PlayerInfoPrint();
 	bool MonsterCheck(int _X, int _Y) override;
+
+
+	void NormalStart();
+	void NormalUpdate();
+
+	void AttackStart();
+	void AttackUpdate();
 
 
 private:
@@ -190,8 +194,12 @@ private:
 	int Key = -1;
 
 	double CheckTime;
+	clock_t Check = clock();
 	clock_t start = clock();
 	clock_t end;
+	std::chrono::steady_clock::time_point AttackTime;
+	std::chrono::steady_clock::time_point AttackEndTime;
+	static const std::chrono::milliseconds Attackker;
 
 	class Utill Handle;
 
@@ -205,6 +213,6 @@ private:
 	int PlayerScore = 0;
 	int PlayerLifeCount = 3;
 
-	PlayerState State = PlayerState::Max;
+	PlayerState State = PlayerState::Normal;
 };
 

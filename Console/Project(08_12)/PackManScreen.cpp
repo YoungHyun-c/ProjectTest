@@ -194,6 +194,9 @@ void PackManScreen::InitGame(bool bInitConsole)
 			Items.push_back(new Item(BananaValue, -10));
 		}
 	}
+	std::string ItemName = "공격";
+	Items[20]->SetItemName(ItemName);
+	Items[21]->SetItemName(ItemName);
 }
 
 void PackManScreen::ScreenPrint()
@@ -268,25 +271,40 @@ bool PackManScreen::CanMove(int _X, int _Y) const
 
 bool PackManScreen::CheckCollision()
 {
-	for (int dY = 0; dY < ENTITYSIZE; dY++)
+	//for (int dY = 0; dY < ENTITYSIZE; dY++)
+	//{
+	//	for (int dX = 0; dX < ENTITYSIZE; dX++)
+	//	{
+	//		for (auto& Monster : MonsterList)
+	//		{
+	//			if (Monster->GetPos().X + dX >= PlayMan->GetPos().X && Monster->GetPos().X + dX < PlayMan->GetPos().X + ENTITYSIZE
+	//					&& Monster->GetPos().Y + dY >= PlayMan->GetPos().Y && Monster->GetPos().Y + dY < PlayMan->GetPos().Y + ENTITYSIZE)
+	//			{
+	//				if (PlayMan->GetState() == PlayerState::Attacker)
+	//				{
+	//					Monster->MonsterReset();
+	//					return false;
+	//				}
+	//				else
+	//				{
+	//					//return true;
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
+	for (auto& Monster : MonsterList)
 	{
-		for (int dX = 0; dX < ENTITYSIZE; dX++)
+		if (Col.CheckCollision(Monster->GetPos(), PlayMan->GetPos()))
 		{
-			for (auto& Index : MonsterList)
+			if (PlayMan->GetState() == PlayerState::Attacker)
 			{
-				if (Index->GetPos().X + dX >= PlayMan->GetPos().X && Index->GetPos().X + dX < PlayMan->GetPos().X + ENTITYSIZE
-						&& Index->GetPos().Y + dY >= PlayMan->GetPos().Y && Index->GetPos().Y + dY < PlayMan->GetPos().Y + ENTITYSIZE)
-				{
-					if (PlayMan->GetState() == PlayerState::Attacker)
-					{
-						Index->MonsterReset();
-						return false;
-					}
-					else
-					{
-						return true;
-					}
-				}
+				Monster->MonsterReset();
+				return false;
+			}
+			else
+			{
+				//return true;
 			}
 		}
 	}
@@ -301,7 +319,7 @@ bool PackManScreen::CheckMonsterCollision()
 		{
 			if (Col.CheckCollision(MonsterList[i]->GetPos(), MonsterList[j]->GetPos()))
 			{
-				//MonsterList[i]->MonsterReset();
+				MonsterList[i]->MonsterReset();
 				return true;
 			}
 		}
@@ -313,8 +331,9 @@ bool PackManScreen::CheckTest(const int2& _Pos)
 {
 	for (const auto& Monster : MonsterList)
 	{
-		if ( int2{Monster->GetPos().X + 1, Monster->GetPos().Y + 1} == _Pos)
+		if (Col.CheckCollision({Monster->GetPos().X, Monster->GetPos().Y}, _Pos))
 		{
+			Monster->MonsterReset();
 			return true;
 		}
 	}
@@ -324,14 +343,17 @@ bool PackManScreen::CheckTest(const int2& _Pos)
 void PackManScreen::GameProcess()
 {
 	// 아이템
-
 	 for (auto& ItemIndex : Items)
 	{
 		if (ItemIndex->IsDeath() == false
-			&& Col.CheckCollision({ ItemIndex->GetPos().X, ItemIndex->GetPos().Y }, PlayMan->GetPos()))
+			&& Col.CheckItemCollision({ ItemIndex->GetPos().X, ItemIndex->GetPos().Y }, PlayMan->GetPos()))
 		{
 			PlayMan->AddScore(ItemIndex->GetValue());
 			PlayMan->AddSpeed(ItemIndex->GetSpeed());
+			if (ItemIndex->GetName() == "공격")
+			{
+				PlayMan->ChangeState(PlayerState::Attacker);
+			}
 			ItemIndex->Death();
 			break;
 		}
@@ -342,10 +364,6 @@ void PackManScreen::GameProcess()
 		if (Items[Index]->IsDeath() == true)
 		{
 			Items[Index]->ItemOff(Items[Index]->GetPos());
-			if (20 <= Index)
-			{
-				PlayMan->ChangeState(PlayerState::Attacker);
-			}
 		}
 		else if (Index < 10)
 		{
@@ -374,6 +392,14 @@ void PackManScreen::GameProcess()
 		else if (Key == '0')
 		{
 			PlayMan->AddSpeed(10);
+		}
+		else if (Key == '1')
+		{
+			PlayMan->ChangeState(PlayerState::Normal);
+		}
+		else if (Key == '2')
+		{
+			PlayMan->ChangeState(PlayerState::Attacker);
 		}
 	}
 }
@@ -404,7 +430,7 @@ void PackManScreen::ItemMade()
 		{
 			for (int j = 0; j < 2; j++)
 			{
-				MapArr[RandNumY][RandNumX] = '5';
+				MapArr[RandNumY + i][RandNumX + j] = '5';
 			}
 		}
 		Items[k]->SetPos({ RandNumX, RandNumY });
@@ -427,11 +453,6 @@ void PackManScreen::PackManUpdate()
 	{
 		GameProcess();
 
-		if (CheckCollision() == true)
-		{
-			ScreenClear();
-		}
-
 		auto CurrentTime = std::chrono::steady_clock::now();
 		if (CurrentTime - LastMonsterFindTime >= MoveInterval)
 		{
@@ -448,6 +469,11 @@ void PackManScreen::PackManUpdate()
 				Index->MoveMonsterToPlayer();
 			}
 			LastMonsterMoveTime = CurrentTime;
+		}
+
+		if (CheckCollision() == true)
+		{
+			ScreenClear();
 		}
 
 		for (auto& Monster : MonsterList)

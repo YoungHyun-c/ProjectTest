@@ -1,11 +1,8 @@
 #include "Player.h"
 
-#include <conio.h>
-#include <Windows.h>
 #include "PackManScreen.h"
-#include "GameObjectManager.h"
-#include "GameEnum.h"
 #include "Item.h"
+#include "GameEnum.h"
 
 bool Player::IsGameUpdate = true;
 
@@ -45,52 +42,63 @@ void Player::PlayerInfoPrint()
 	Handle.Gotoxy(15, 47);
 	std::cout << "Score : " << PlayerScore;
 
-	Handle.Gotoxy(45, 47);
+	Handle.Gotoxy(30, 47);
 	std::cout << "플레이어스피드 : " << 210 - PlayerSpeed ;
 
-	std::string P_State = "";
+	Handle.Gotoxy(55, 47);
 	switch (State)
 	{
 	case PlayerState::Normal:
-		P_State = "  플레이어 상태 : 노말";
+		std::cout << "플레이어 상태 : 노말                         ";
 		break;
 	case PlayerState::Attacker:
-		P_State = "  플레이어 상태 : 공격";
+		std::cout << "플레이어 상태 : 공격 !!";
 		break;
 	case PlayerState::Max:
-		P_State = "  플레이어 상태 : Zzz";
+		std::cout << "플레이어 상태 : Zzz                          ";
 		break;
 	}
-
-	std::cout << P_State;
 }
 
 void Player::ChangeState(PlayerState _State)
 {
 	if (_State != State)
 	{
-		switch (State)
+		switch (_State)
 		{
 		case PlayerState::Normal:
-
+			NormalStart();
 			break;
 		case PlayerState::Attacker:
-			
+			AttackStart();
 			break;
 		case PlayerState::Max:
-
-			break;
 		default:
 			break;
 		}
 	}
-
 	State = _State;
+}
+
+void Player::StateUpdate()
+{
+	switch (State)
+	{
+	case PlayerState::Normal:
+		return NormalUpdate();
+	case PlayerState::Attacker:
+		return AttackUpdate();
+	case PlayerState::Max:
+	default:
+		break;
+	}
 }
 
 void Player::Update()
 {
 	PlayerInfoPrint();
+
+	StateUpdate();
 
 	if (_kbhit())
 	{
@@ -124,6 +132,92 @@ void Player::Update()
 		break;
 	}
 }
+
+void Player::NormalStart()
+{
+	
+}
+
+void Player::NormalUpdate()
+{
+	
+}
+
+const std::chrono::milliseconds Player::Attackker(6000);
+void Player::AttackStart()
+{
+	AttackTime = std::chrono::steady_clock::now();
+	AttackEndTime = AttackTime + Attackker;
+}
+void Player::AttackUpdate()
+{
+	auto CurrentTime = std::chrono::steady_clock::now();
+	auto Check = CurrentTime - AttackTime;
+	if (CurrentTime - AttackTime >= Attackker)
+	{
+		AttackTime = CurrentTime;
+		ChangeState(PlayerState::Normal);
+		return;
+	}
+	else
+	{
+		auto Now = std::chrono::steady_clock::now();
+		auto RemainTime = std::chrono::duration_cast<std::chrono::seconds>(AttackEndTime - Now).count();
+
+		Handle.Gotoxy(75, 47);
+		std::cout << " 남은 시간 : " << RemainTime << " 초";
+	}
+	
+	if (Dir == LEFT || Dir == RIGHT)
+	{
+		if (Dir == LEFT && LRReverse == true)
+		{
+			FlipHorizontally(PlayerArr1);
+			FlipHorizontally(PlayerArr2);
+			LRReverse = false;
+		}
+		if (Dir == RIGHT && LRReverse == false)
+		{
+			FlipHorizontally(PlayerArr1);
+			FlipHorizontally(PlayerArr2);
+			LRReverse = true;
+		}
+		if (CheckTime < 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr1, 12, 12);
+		}
+		if (CheckTime >= 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr2, 12, 12);
+			start = clock();
+		}
+	}
+
+	if (Dir == UP || Dir == DOWN)
+	{
+		if (Dir == UP && UDReverse == false)
+		{
+			FlipVertically(PlayerArr3);
+			FlipVertically(PlayerArr4);
+			UDReverse = true;
+		}if (Dir == DOWN && UDReverse == true)
+		{
+			FlipVertically(PlayerArr3);
+			FlipVertically(PlayerArr4);
+			UDReverse = false;
+		}
+		if (CheckTime < 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr3, 12, 12);
+		}
+		if (CheckTime >= 0.3)
+		{
+			DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr4, 12, 12);
+			start = clock();
+		}
+	}
+}
+
 
 void Player::MovePlayer(int _X, int _Y)
 {
@@ -214,7 +308,7 @@ void Player::PlayerPrint()
 	}
 }
 
-void Player::DrawChar(short x, short y, const char c[][XSize])
+void Player::DrawChar(short x, short y, const char c[][XSize], int _Font, int _Back)
 {
 	for (short i = 0; i < YSize; i++)
 	{
@@ -222,7 +316,7 @@ void Player::DrawChar(short x, short y, const char c[][XSize])
 		{
 			COORD pos = { x + j, y + i};
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-			Handle.TextColor(14, 14);
+			Handle.TextColor(_Font, _Back);
 			if (c[i][j] == '2')
 			{
 				std::cout << "■";

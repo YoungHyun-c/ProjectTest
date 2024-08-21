@@ -44,7 +44,7 @@ std::vector<int2> AStartPathFinder::FindPath(const int2& _Start, const int2& _Ta
             if (neighborPos.X >= 0 && neighborPos.X < PackManScreen::GetMainScreen().GetScreenSize().X 
                 && neighborPos.Y >= 0 && neighborPos.Y < PackManScreen::GetMainScreen().GetScreenSize().Y
                 && PackManScreen::GetMainScreen().CanMove(neighborPos.X, neighborPos.Y)
-                //&& !PackManScreen::GetMainScreen().CheckTest(neighborPos)
+                && !PackManScreen::GetMainScreen().CheckMonsterCollision()
                 && closeSet.find(neighborPos) == closeSet.end()) {
 
                 int newGCost = current.G + 1;

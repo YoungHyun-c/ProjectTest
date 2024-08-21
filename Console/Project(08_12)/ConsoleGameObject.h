@@ -1,5 +1,12 @@
 #pragma once
 #include "ConsoleGameMath.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <Windows.h>
+#include <conio.h>
+#include <chrono>
+#include "Utill.h"
 
 //#define YSize 5
 //#define XSize 6
