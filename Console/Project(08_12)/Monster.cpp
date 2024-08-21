@@ -80,7 +80,7 @@ void Monster::MoveMonsterToPlayer()
 		{
 			return;
 		}
-
+		if (PackManScreen::GetMainScreen().CheckMonsterCollision());
 		PrevePos = Path[Path.size() - (IndexCount - 1)];
 		MonsterPrevePrint(MonsterPos.X, MonsterPos.Y);
 		SetPos(Path[Path.size() - IndexCount++]);

@@ -301,7 +301,7 @@ bool PackManScreen::CheckMonsterCollision()
 		{
 			if (Col.CheckCollision(MonsterList[i]->GetPos(), MonsterList[j]->GetPos()))
 			{
-				
+				//MonsterList[i]->MonsterReset();
 				return true;
 			}
 		}
@@ -324,25 +324,19 @@ bool PackManScreen::CheckTest(const int2& _Pos)
 void PackManScreen::GameProcess()
 {
 	// æ∆¿Ã≈€
-	for (int Y = 0; Y < 2; Y++)
+
+	 for (auto& ItemIndex : Items)
 	{
-		for (int X = 0; X < 2; X++)
+		if (ItemIndex->IsDeath() == false
+			&& Col.CheckCollision({ ItemIndex->GetPos().X, ItemIndex->GetPos().Y }, PlayMan->GetPos()))
 		{
-			for (auto& ItemIndex : Items)
-			{
-				if (ItemIndex->IsDeath() == false
-					&& ItemIndex->GetPos().X + X >= PlayMan->GetPos().X && ItemIndex->GetPos().X + X < PlayMan->GetPos().X + 2
-					&& ItemIndex->GetPos().Y + Y >= PlayMan->GetPos().Y && ItemIndex->GetPos().Y + Y < PlayMan->GetPos().Y + 2)
-				{
-					PlayMan->AddScore(ItemIndex->GetValue());
-					PlayMan->AddSpeed(ItemIndex->GetSpeed());
-					ItemIndex->Death();
-					break;
-				}
-			}
+			PlayMan->AddScore(ItemIndex->GetValue());
+			PlayMan->AddSpeed(ItemIndex->GetSpeed());
+			ItemIndex->Death();
+			break;
 		}
 	}
-
+	
 	for (int Index = 0; Index < ItemCount; Index++)
 	{
 		if (Items[Index]->IsDeath() == true)
@@ -406,7 +400,13 @@ void PackManScreen::ItemMade()
 				}
 			}
 		}
-		MapArr[RandNumY][RandNumX] = '5';
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				MapArr[RandNumY][RandNumX] = '5';
+			}
+		}
 		Items[k]->SetPos({ RandNumX, RandNumY });
 	}
 }
