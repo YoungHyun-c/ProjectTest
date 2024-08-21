@@ -5,7 +5,7 @@ Monster::~Monster()
 {
 }
 
-void Monster::MonsterUpdate()
+void Monster::Update()
 {
 	int2 NextPos = MonsterPos;
 
@@ -75,7 +75,7 @@ void Monster::FindMonsterToPlayer(Player* _Player)
 
 void Monster::MoveMonsterToPlayer()
 {
-	if (Path.size() > 1 && PackManScreen::GetMainScreen().CanMove(MonsterPos.X, MonsterPos.Y))
+	if (Path.size() > 1 && !PackManScreen::GetMainScreen().CheckMonsterCollision())
 	{
 		if (IndexCount > Path.size())
 		{

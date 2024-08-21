@@ -7,22 +7,33 @@ class Item : public ConsoleGameObject
 {
 public:
 	Item();
-	Item(int _Value) :
-		Value(_Value)
+	Item(int _Value, int _Speed = 0) :
+		Value(_Value), Speed(_Speed)
 	{
 	}
 	~Item();
 
 	void AppleItemPrint(int2 _Pos);
+	void BananaItemPrint(int2 _Pos);
 	void ItemOff(int2 _Pos);
 
-	void BananaItemPrint();
 	void TransItemPrint();
+
+	int GetValue()
+	{
+		return Value;
+	}
+
+	int GetSpeed()
+	{
+		return Speed;
+	}
 
 protected:
 	void Update() override;
 private:
 	int Value;
+	int Speed = 0;
 
 	char AppleItemArr[2][3] =
 	{ " 5",

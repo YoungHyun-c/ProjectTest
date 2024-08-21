@@ -4,32 +4,32 @@
     <Filter Include="Level0">
       <UniqueIdentifier>{52acc2e3-4b40-4cf8-b99c-24f530a9481d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level2">
-      <UniqueIdentifier>{6c251afd-1e60-4ae7-90e7-054501ff1f63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level1">
-      <UniqueIdentifier>{ba76810a-b646-431a-9e7f-b75e8456d23e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Level2\Item">
+    <Filter Include="Level1">
+      <UniqueIdentifier>{6c251afd-1e60-4ae7-90e7-054501ff1f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level1\Item">
       <UniqueIdentifier>{d9f306f2-bf05-45f8-83cf-b855db62200b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level2\Monster">
+    <Filter Include="Level1\Monster">
       <UniqueIdentifier>{069106e3-e8d4-4fa8-8fe8-55294fb55048}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level2\Player">
+    <Filter Include="Level1\Player">
       <UniqueIdentifier>{325ebd10-3a77-457f-8323-0566be99bbf9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level1\MainScreen">
+    <Filter Include="Level2">
+      <UniqueIdentifier>{ba76810a-b646-431a-9e7f-b75e8456d23e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level2\MainScreen">
       <UniqueIdentifier>{ac9810d3-e8e4-4aa0-a687-5fdc303875b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level1\MainScreen\1.PackMan">
+    <Filter Include="Level2\MainScreen\1.PackMan">
       <UniqueIdentifier>{89c43115-6b56-45eb-8a1d-8d2fbb0ab4b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level1\Map">
+    <Filter Include="Level2\Map">
       <UniqueIdentifier>{f9aa6649-c53d-4eef-b06a-cb78b3d4316d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -37,23 +37,20 @@
     <ClCompile Include="Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="MainScreen.cpp">
-      <Filter>Level1\MainScreen</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Level2\Player</Filter>
+      <Filter>Level1\Player</Filter>
     </ClCompile>
     <ClCompile Include="PackManScreen.cpp">
-      <Filter>Level1\MainScreen\1.PackMan</Filter>
+      <Filter>Level2\MainScreen\1.PackMan</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Level2\Monster</Filter>
+      <Filter>Level1\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>Level2\Item</Filter>
+      <Filter>Level1\Item</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Level1\Map</Filter>
+      <Filter>Level2\Map</Filter>
     </ClCompile>
     <ClCompile Include="ConsoleGameMath.cpp">
       <Filter>Level0</Filter>
@@ -74,30 +71,27 @@
       <Filter>Level0</Filter>
     </ClCompile>
     <ClCompile Include="T.cpp">
-      <Filter>Level2\Player</Filter>
+      <Filter>Level1\Player</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineRandom.cpp">
       <Filter>Level0</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainScreen.h">
-      <Filter>Level1\MainScreen</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Level2\Player</Filter>
+      <Filter>Level1\Player</Filter>
     </ClInclude>
     <ClInclude Include="PackManScreen.h">
-      <Filter>Level1\MainScreen\1.PackMan</Filter>
+      <Filter>Level2\MainScreen\1.PackMan</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Level2\Monster</Filter>
+      <Filter>Level1\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>Level2\Item</Filter>
+      <Filter>Level1\Item</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Level1\Map</Filter>
+      <Filter>Level2\Map</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleGameMath.h">
       <Filter>Level0</Filter>
@@ -115,7 +109,7 @@
       <Filter>Level0</Filter>
     </ClInclude>
     <ClInclude Include="GameEnum.h">
-      <Filter>Level2</Filter>
+      <Filter>Level1</Filter>
     </ClInclude>
     <ClInclude Include="AStartPathFinder.h">
       <Filter>Level0</Filter>

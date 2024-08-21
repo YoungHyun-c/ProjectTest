@@ -149,7 +149,6 @@
       <SDLCheck Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</SDLCheck>
       <SDLCheck Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</SDLCheck>
     </ClCompile>
-    <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="PackManScreen.cpp" />
@@ -183,7 +182,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Item.h" />
-    <ClInclude Include="MainScreen.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="PackManScreen.h" />

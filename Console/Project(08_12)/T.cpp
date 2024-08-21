@@ -319,3 +319,84 @@ int main() {
 
     return 0;
 }
+
+
+class Rectangle {
+public:
+    float x, y, width, height;
+
+    Rectangle(float x, float y, float width, float height)
+        : x(x), y(y), width(width), height(height) {}
+
+    bool intersects(const Rectangle& other) const {
+        return (x < other.x + other.width &&
+            x + width > other.x &&
+            y < other.y + other.height &&
+            y + height > other.y);
+    }
+
+    void print() const {
+        std::cout << "Rectangle(x: " << x << ", y: " << y
+            << ", width: " << width << ", height: " << height << ")\n";
+    }
+
+    void move(float dx, float dy) {
+        x += dx;
+        y += dy;
+    }
+};
+
+class Collision {
+public:
+    std::vector<class Rectangle> rectangles;
+
+    void addRectangle(const class Rectangle& rect) {
+        rectangles.push_back(rect);
+    }
+
+    void checkCollisions() const {
+        for (size_t i = 0; i < rectangles.size(); ++i) {
+            for (size_t j = i + 1; j < rectangles.size(); ++j) {
+                if (rectangles[i].intersects(rectangles[j])) {
+                    std::cout << "Collision detected between Rectangle " << i
+                        << " and Rectangle " << j << "\n";
+                }
+            }
+        }
+    }
+
+    void displayRectangles() const {
+        system("cls"); // Clear console (Windows specific)
+        for (const auto& rect : rectangles) {
+            std::cout << "Rectangle at (" << rect.x << ", " << rect.y << ")\n";
+        }
+    }
+};
+
+void updateInput(class Rectangle& rect) {
+    char ch = _getch(); // Get character input
+    switch (ch) {
+    case 'w': rect.move(0, -1); break; // Move up
+    case 's': rect.move(0, 1); break;  // Move down
+    case 'a': rect.move(-1, 0); break; // Move left
+    case 'd': rect.move(1, 0); break;  // Move right
+    case 'q': exit(0); // Quit
+    }
+}
+
+int main() {
+    class Rectangle rect1(10, 10, 5, 5);
+    class Rectangle rect2(20, 20, 5, 5);
+
+    Collision collisionManager;
+    collisionManager.addRectangle(rect1);
+    collisionManager.addRectangle(rect2);
+
+    while (true) {
+        collisionManager.displayRectangles();
+        collisionManager.checkCollisions();
+        updateInput(collisionManager.rectangles[0]);
+    }
+
+    return 0;
+}

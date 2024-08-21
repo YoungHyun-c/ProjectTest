@@ -69,6 +69,33 @@ void Item::AppleItemPrint(int2 _Pos)
 	}
 }
 
+
+void Item::BananaItemPrint(int2 _Pos)
+{
+	UtillMan;
+	for (short i = 0; i < 2; i++)
+	{
+		for (short j = 0; j < 2; j++)
+		{
+			COORD pos = { static_cast<short>(_Pos.X) + j, static_cast<short>(_Pos.Y) + i };
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+			switch (BanaanaItemArr[i][j])
+			{
+			case '5':
+				UtillMan->TextColor(14, 14);
+				std::cout << "бс";
+				break;
+			default:
+				UtillMan->TextColor(0, 0);
+				std::cout << " ";
+				break;
+			}
+		}
+		UtillMan->TextColor(0, 0);
+		std::cout << std::endl;
+	}
+}
+
 void Item::ItemOff(int2 _Pos)
 {
 	UtillMan;
@@ -91,30 +118,6 @@ void Item::ItemOff(int2 _Pos)
 	}
 }
 
-void Item::BananaItemPrint()
-{
-	UtillMan;
-
-	for (int i = 0; i < 2; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			switch (BanaanaItemArr[i][j])
-			{
-			case '5':
-				UtillMan->TextColor(14, 14);
-				std::cout << "бс";
-				break;
-			default:
-				UtillMan->TextColor(0, 0);
-				std::cout << " ";
-				break;
-			}
-		}
-		UtillMan->TextColor(0, 0);
-		std::cout << std::endl;
-	}
-}
 
 void Item::TransItemPrint()
 {

@@ -27,13 +27,18 @@ public:
 		return MonsterPos;
 	}
 
+	inline int2 GetPrevePos() const
+	{
+		return PrevePos;
+	}
+
 	void DrawChar(short _X, short _Y, const char C[YSize][XSize]);
 
 	void MonsterPrevePrint(int _X, int _Y);
 
 	void MonsterReset();
 
-	void MonsterUpdate();
+	void Update() override;
 	void MoveMonster(int _X, int _Y);
 
 	void FindMonsterToPlayer(Player* _Player);
@@ -76,6 +81,7 @@ private:
 
 	int2 InitMonsterPos = { };
 	int2 MonsterPos = {  };
+	int2 PrevePos = { };
 
 	int IndexCount = 0;
 	AStartPathFinder AStar;

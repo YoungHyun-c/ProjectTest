@@ -1,10 +1,13 @@
 #include "PackManScreen.h"
 
 #define InterFrame 1000
-#define MonsterMove 1500
+#define Monster_Find 1000
+#define Monster_Move 150
+
+#define AppleValue 100
+#define BananaValue 330
 
 PackManScreen PackManScreen::MainScreen;
-stConsole Console;
 
 PackManScreen::PackManScreen()
 {
@@ -27,110 +30,15 @@ PackManScreen::~PackManScreen()
 		}
 	}
 
-	if (!ItemList.empty())
+	if (!Items.empty())
 	{
-		for (auto& Index : ItemList)
+		for (auto& Index : Items)
 		{
 			delete Index;
 			Index = nullptr;
 		}
 	}
-}
 
-// 커서 없애기
-void PackManScreen::VoidCursor()
-{
-	HANDLE ConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO ConsoleCursor;
-	ConsoleCursor.bVisible = 0;
-	ConsoleCursor.dwSize = 1;
-	SetConsoleCursorInfo(ConsoleHandle, &ConsoleCursor);
-}
-
-void PackManScreen::InitGame(bool bInitConsole)
-{
-	if (PlayMan == nullptr)
-	{
-		PlayMan = new Player();
-	}
-
-	if (MonsterList.empty())
-	{
-		MonsterList.reserve(MonsterCount);
-	}
-	MonsterList.push_back(new Monster(9, 9, 38, 15));
-	MonsterList.push_back(new Monster(12, 12, 46, 15));
-	MonsterList.push_back(new Monster(13, 13, 54, 15));
-
-	MonsterList[0]->SetPos({38, 15 });
-	MonsterList[1]->SetPos({46, 15 });
-	MonsterList[2]->SetPos({54, 15 });
-
-	if (ItemList.empty())
-	{
-		ItemList.reserve(ItemCount);
-	}
-
-	for (int i = 0; i < ItemCount; i++)
-	{
-		ItemList.push_back(new Item(99));
-	}
-
-	srand(time(NULL));
-}
-
-void PackManScreen::ScreenClear()
-{
-	//COORD Pos{ 0, };
-	//DWORD dwWritten = 0;
-	//unsigned Size = Console.rtConsole.nWidht * Console.rtConsole.nHeight;
-
-	//FillConsoleOutputCharacter(Console.hConsole, ' ', Size, Pos, &dwWritten);
-	//SetConsoleCursorPosition(Console.hConsole, Pos);
-
-	//system("cls");
-	//for (size_t Y = 0; Y < this->Size.Y; Y++)
-	//{
-	//	for (size_t X = 0; X < this->Size.X; X++)
-	//	{
-	//		//MapArr[Y][X] = '0';
-	//	}
-	//}
-}
-
-void PackManScreen::ScreenPrint()
-{
-	Handle.Gotoxy(0, 0);
-	for (int Y = 0; Y < YScreen - 1; Y++)
-	{
-		for (int X = 0; X < XScreen; X++)
-		{
-			switch (MapArr[Y][X])
-			{
-			case '0':
-				Handle.TextColor(0, 0);
-				std::cout << " ";
-				break;
-			case '1':
-				Handle.TextColor(15, 15);
-				std::cout << "■";
-				break;
-			case 'A':
-			case 'a':
-				Handle.TextColor(2, 2);
-				std::cout << "A";
-				break;
-			case ' ':
-				Handle.TextColor(0, 0);
-				std::cout << " ";
-				break;
-			}
-		}
-		Handle.TextColor(0, 0);
-		std::cout << std::endl;
-	}
-	
-	//Sleep(1);
 }
 
 void PackManScreen::SetScreenSize(int2 _Size)
@@ -145,93 +53,14 @@ void PackManScreen::SetScreenSize(int2 _Size)
 	}
 }
 
-bool PackManScreen::IsScreenOver(const int2& _Pos) const
+// 커서 없애기
+void PackManScreen::VoidCursor()
 {
-	if (_Pos.X < 0)
-	{
-		return true;
-	}
-
-	if (_Pos.Y < 0)
-	{
-		return true;
-	}
-
-	if (_Pos.X >= this->Size.X)
-	{
-		return true;
-	}
-
-	if (_Pos.Y >= this->Size.Y)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool PackManScreen::CanMove(int _X, int _Y) const
-{
-	for (int i = 0; i < ENTITYSIZE; i++)
-	{
-		for (int j = 0; j < ENTITYSIZE; j++)
-		{
-			if (MapArr[_Y + i][_X + j] == '1')
-			{
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-int PackManScreen::IndexCount1 = 2;
-
-void PackManScreen::FindMonsterToPlayer()
-{
-	Path1 = AStar.FindPath(MonsterList[0]->GetPos(), PlayMan->GetPos());
-
-	IndexCount1 = 2;
-}
-
-void PackManScreen::MoveMonsterToPlayer()
-{
-	if (Path1.size() > 1 && CanMove(MonsterList[0]->GetPos().X, MonsterList[0]->GetPos().Y))
-	{
-		MonsterList[0]->MonsterPrevePrint(MonsterList[0]->GetPos().X, MonsterList[0]->GetPos().Y);
-		MonsterList[0]->SetPos(Path1[Path1.size() - IndexCount1++]);
-	}
-}
-	
-void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
-{
-	if (true == IsScreenOver(_Pos))
-	{
-		return;
-	}
-
-	for (int i = 0; i < 5; i++)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			MapArr[_Pos.Y + i][_Pos.X + j] = _Ch[i][j];
-		}
-	}
-}
-
-void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch)
-{
-	if (true == IsScreenOver(_Pos))
-	{
-		return;
-	}
-
-	MapArr[_Pos.Y ][_Pos.X ] = _Ch;
-}
-
-char PackManScreen::GetScreenCharacter(const int2& _Pos) const
-{
-	return MapArr[_Pos.Y][_Pos.X];
+	HANDLE ConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO ConsoleCursor;
+	ConsoleCursor.bVisible = 0;
+	ConsoleCursor.dwSize = 1;
+	SetConsoleCursorInfo(ConsoleHandle, &ConsoleCursor);
 }
 
 
@@ -266,12 +95,6 @@ void PackManScreen::GameSetList()
 			Sleep(InterFrame);
 			system("cls");
 			Done = false;
-			break;
-		case 2:
-			std::cout << "초기화면으로 돌아갑니다.." << std::endl;
-			Sleep(InterFrame);
-			system("cls");
-			Done = true;
 			break;
 		default:
 			break;
@@ -328,7 +151,112 @@ int PackManScreen::PackManSetting()
 
 void PackManScreen::GameInfoPrint()
 {
-	
+
+}
+
+void PackManScreen::InitGame(bool bInitConsole)
+{
+	if (PlayMan == nullptr)
+	{
+		PlayMan = new Player();
+	}
+
+	if (MonsterList.empty())
+	{
+		MonsterList.reserve(MonsterCount);
+	}
+	MonsterList.push_back(new Monster(9, 9, 38, 15));
+	MonsterList.push_back(new Monster(12, 12, 46, 15));
+	MonsterList.push_back(new Monster(13, 13, 54, 15));
+
+	MonsterList[0]->SetPos({38, 15 });
+	MonsterList[1]->SetPos({46, 15 });
+	MonsterList[2]->SetPos({54, 15 });
+
+	if (Items.empty())
+	{
+		Items.reserve(ItemCount);
+	}
+	for (int i = 0; i < ItemCount; i++)
+	{
+		if (i < 10)
+		{
+			Items.push_back(new Item(AppleValue));
+		}
+		else
+		{
+			Items.push_back(new Item(BananaValue, -10));
+		}
+	}
+}
+
+void PackManScreen::ScreenPrint()
+{
+	Handle.Gotoxy(0, 0);
+	for (int Y = 0; Y < YScreen - 1; Y++)
+	{
+		for (int X = 0; X < XScreen; X++)
+		{
+			switch (MapArr[Y][X])
+			{
+			case '0':
+				Handle.TextColor(0, 0);
+				std::cout << " ";
+				break;
+			case '1':
+				Handle.TextColor(15, 15);
+				std::cout << "■";
+				break;
+			case ' ':
+				Handle.TextColor(0, 0);
+				std::cout << " ";
+				break;
+			}
+		}
+		Handle.TextColor(0, 0);
+		std::cout << std::endl;
+	}
+}
+
+void PackManScreen::ScreenClear()
+{
+	Handle.TextColor(15, 0);
+	Handle.Gotoxy(0, 48);
+	std::cout << "당신은 잡혔습니다!                                           ";
+	PlayMan->SubLifeCount();
+	if (PlayMan->GetLifeCount() <= 0)
+	{
+		Handle.TextColor(15, 0);
+		Handle.Gotoxy(0, 48);
+		std::cout << " 게임이 종료됩니다...								";
+		Sleep(1000);
+		system("cls");
+	}
+
+	Sleep(2000);
+	for (auto& Monster : MonsterList)
+	{
+		Monster->MonsterReset();
+	}
+	PlayMan->PlayerReset();
+	Handle.TextColor(15, 0);
+	Handle.Gotoxy(0, 48);
+	std::cout << "초기 위치에서 다시 시작합니다.";
+}
+
+bool PackManScreen::CanMove(int _X, int _Y) const
+{
+	for (int i = 0; i < ENTITYSIZE; i++)
+	{
+		for (int j = 0; j < ENTITYSIZE; j++)
+		{
+			if (MapArr[_Y + i][_X + j] == '1')
+			{
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 bool PackManScreen::CheckCollision()
@@ -362,12 +290,11 @@ bool PackManScreen::CheckMonsterCollision()
 				if (MonsterList[Index]->GetPos().X + dX >= MonsterList[Index + 1]->GetPos().X && MonsterList[Index]->GetPos().X + dX < MonsterList[Index + 1]->GetPos().X + ENTITYSIZE
 					&& MonsterList[Index]->GetPos().Y + dY >= MonsterList[Index + 1]->GetPos().Y && MonsterList[Index]->GetPos().Y + dY < MonsterList[Index + 1]->GetPos().Y + ENTITYSIZE)
 				{
-					break;
+					return true;
 				}
 			}
 		}
 	}
-
 	return false;
 }
 
@@ -378,17 +305,34 @@ void PackManScreen::GameProcess()
 	{
 		for (int X = 0; X < 2; X++)
 		{
-			for (auto& ItemIndex : ItemList)
+			for (auto& ItemIndex : Items)
 			{
 				if (ItemIndex->IsDeath() == false
 					&& ItemIndex->GetPos().X + X >= PlayMan->GetPos().X && ItemIndex->GetPos().X + X < PlayMan->GetPos().X + 2
 					&& ItemIndex->GetPos().Y + Y >= PlayMan->GetPos().Y && ItemIndex->GetPos().Y + Y < PlayMan->GetPos().Y + 2)
 				{
-					PlayMan->AddScore(100);
+					PlayMan->AddScore(ItemIndex->GetValue());
+					PlayMan->AddSpeed(ItemIndex->GetSpeed());
 					ItemIndex->Death();
 					break;
 				}
 			}
+		}
+	}
+
+	for (int Index = 0; Index < ItemCount; Index++)
+	{
+		if (Items[Index]->IsDeath() == false && Index < 10)
+		{
+			Items[Index]->AppleItemPrint(Items[Index]->GetPos());
+		}
+		else if(Items[Index]->IsDeath() == false && Index >= 10)
+		{
+			Items[Index]->BananaItemPrint(Items[Index]->GetPos());
+		}
+		else
+		{
+			Items[Index]->ItemOff(Items[Index]->GetPos());
 		}
 	}
 	
@@ -431,7 +375,7 @@ void PackManScreen::ItemMade()
 			}
 		}
 		MapArr[RandNumY][RandNumX] = '5';
-		ItemList[k]->SetPos({ RandNumX, RandNumY });
+		Items[k]->SetPos({ RandNumX, RandNumY });
 	}
 }
 
@@ -444,41 +388,20 @@ void PackManScreen::PackManUpdate()
 
 	auto LastMonsterFindTime = std::chrono::steady_clock::now();
 	auto LastMonsterMoveTime = std::chrono::steady_clock::now();
-	const std::chrono::milliseconds MoveInterval(1000);
-	const std::chrono::milliseconds Move(150);
+	const std::chrono::milliseconds MoveInterval(Monster_Find);
+	const std::chrono::milliseconds Move(Monster_Move);
+
 	while (true)
 	{
 		GameProcess();
 
-		if (CheckCollision())
+		if (CheckCollision() == true)
 		{
-			Handle.TextColor(15, 0);
-			Handle.Gotoxy(0, 48);
-			std::cout << "당신은 잡혔습니다!                                           ";
-			PlayMan->SubLifeCount();
-			if (PlayMan->GetLifeCount() <= 0)
-			{
-				Handle.TextColor(15, 0);
-				Handle.Gotoxy(0, 48);
-				std::cout << " 게임이 종료됩니다...								";
-				Sleep(1000);
-				system("cls");
-				break;
-			}
-
-			Sleep(2000);
-			for (auto& Monster : MonsterList)
-			{
-				Monster->MonsterReset();
-			}
-			PlayMan->PlayerReset();
-			Handle.TextColor(15, 0);
-			Handle.Gotoxy(0, 48);
-			std::cout << "초기 위치에서 다시 시작합니다.";
+			ScreenClear();
 		}
 
 		auto CurrentTime = std::chrono::steady_clock::now();
-		if (CurrentTime - LastMonsterFindTime >= MoveInterval)
+		if (CurrentTime - LastMonsterFindTime >= MoveInterval && CheckMonsterCollision() == false)
 		{
 			for (auto& Index : MonsterList)
 			{
@@ -488,26 +411,11 @@ void PackManScreen::PackManUpdate()
 		}
 		if (CurrentTime - LastMonsterMoveTime >= Move)
 		{
-			if (CheckMonsterCollision() == false)
+			for (auto& Index : MonsterList)
 			{
-				for (auto& Index : MonsterList)
-				{
-					Index->MoveMonsterToPlayer();
-				}
+				Index->MoveMonsterToPlayer();
 			}
 			LastMonsterMoveTime = CurrentTime;
-		}
-		
-		for (auto& Item : ItemList)
-		{
-			if (Item->IsDeath() == false)
-			{
-				Item->AppleItemPrint(Item->GetPos());
-			}
-			else
-			{
-				Item->ItemOff(Item->GetPos());
-			}
 		}
 
 		for (auto& Monster : MonsterList)
@@ -520,4 +428,50 @@ void PackManScreen::PackManUpdate()
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	}
+}
+
+void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
+{
+	if (true == IsScreenOver(_Pos))
+	{
+		return;
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			MapArr[_Pos.Y + i][_Pos.X + j] = _Ch[i][j];
+		}
+	}
+}
+
+char PackManScreen::GetScreenCharacter(const int2& _Pos) const
+{
+	return MapArr[_Pos.Y][_Pos.X];
+}
+
+bool PackManScreen::IsScreenOver(const int2& _Pos) const
+{
+	if (_Pos.X < 0)
+	{
+		return true;
+	}
+
+	if (_Pos.Y < 0)
+	{
+		return true;
+	}
+
+	if (_Pos.X >= this->Size.X)
+	{
+		return true;
+	}
+
+	if (_Pos.Y >= this->Size.Y)
+	{
+		return true;
+	}
+
+	return false;
 }

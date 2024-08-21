@@ -46,7 +46,7 @@ void Player::PlayerInfoPrint()
 	std::cout << "Score : " << PlayerScore;
 
 	Handle.Gotoxy(60, 47);
-	std::cout << "플레이어 스피드 : " << PlayerSpeed << "    ";
+	std::cout << "플레이어 스피드 : " << 210 - PlayerSpeed << "    ";
 }
 
 void Player::Update()
