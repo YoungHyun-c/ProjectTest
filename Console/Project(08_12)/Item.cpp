@@ -43,7 +43,7 @@ void Item::Update()
 }
 
 
-void Item::AppleItemPrint(int2 _Pos)
+void Item::AppleItemPrint(const int2& _Pos)
 {
 	UtillMan;
 	for (short i = 0; i < 2; i++)
@@ -70,7 +70,7 @@ void Item::AppleItemPrint(int2 _Pos)
 }
 
 
-void Item::BananaItemPrint(int2 _Pos)
+void Item::BananaItemPrint(const int2& _Pos)
 {
 	UtillMan;
 	for (short i = 0; i < 2; i++)
@@ -96,7 +96,7 @@ void Item::BananaItemPrint(int2 _Pos)
 	}
 }
 
-void Item::ItemOff(int2 _Pos)
+void Item::ItemOff(const int2& _Pos)
 {
 	UtillMan;
 	if (ItemRender)
@@ -119,7 +119,28 @@ void Item::ItemOff(int2 _Pos)
 }
 
 
-void Item::TransItemPrint()
+void Item::TransItemPrint(const int2& _Pos)
 {
-
+	UtillMan;
+	for (short i = 0; i < 2; i++)
+	{
+		for (short j = 0; j < 2; j++)
+		{
+			COORD pos = { static_cast<short>(_Pos.X) + j, static_cast<short>(_Pos.Y) + i };
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+			switch (TransItemArr[i][j])
+			{
+			case '5':
+				UtillMan->TextColor(4, 8);
+				std::cout << "бс";
+				break;
+			default:
+				UtillMan->TextColor(0, 0);
+				std::cout << " ";
+				break;
+			}
+		}
+		UtillMan->TextColor(0, 0);
+		std::cout << std::endl;
+	}
 }

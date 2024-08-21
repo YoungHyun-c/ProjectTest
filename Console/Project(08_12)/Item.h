@@ -13,11 +13,11 @@ public:
 	}
 	~Item();
 
-	void AppleItemPrint(int2 _Pos);
-	void BananaItemPrint(int2 _Pos);
-	void ItemOff(int2 _Pos);
+	void AppleItemPrint(const int2& _Pos);
+	void BananaItemPrint(const int2& _Pos);
+	void TransItemPrint(const int2& _Pos);
+	void ItemOff(const int2& _Pos);
 
-	void TransItemPrint();
 
 	int GetValue()
 	{
@@ -44,10 +44,9 @@ private:
 	{ "5 ",
 	  "55" };
 
-	char TransItemArr[3][4] =
-	{ " 5 ",
-	  "555",
-	  " 5 " };
+	char TransItemArr[2][3] =
+	{ "55",
+	  "55"};
 
 	Utill* UtillMan;
 	bool ItemRender = true;

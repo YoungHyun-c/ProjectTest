@@ -6,6 +6,12 @@
 #include <time.h>
 #include "Utill.h"
 
+enum class PlayerState
+{
+	Normal,
+	Attacker,
+	Max,
+};
 
 class Player : public ConsoleGameObject
 {
@@ -78,6 +84,12 @@ public:
 
 	void PlayerReset();
 
+	void ChangeState(PlayerState _State);
+
+	PlayerState GetState()
+	{
+		return State;
+	}
 
 protected:
 	void DrawChar(short x, short y, const char c[][XSize]);
@@ -102,6 +114,7 @@ protected:
 
 	void PlayerInfoPrint();
 	bool MonsterCheck(int _X, int _Y) override;
+
 
 private:
 	/*char PlayerArr1[YSize][XSize] =
@@ -191,5 +204,7 @@ private:
 
 	int PlayerScore = 0;
 	int PlayerLifeCount = 3;
+
+	PlayerState State = PlayerState::Max;
 };
 

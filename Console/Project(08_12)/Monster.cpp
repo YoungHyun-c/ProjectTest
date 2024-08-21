@@ -69,18 +69,19 @@ void Monster::MoveMonster(int _X, int _Y)
 void Monster::FindMonsterToPlayer(Player* _Player)
 {
 	Path = AStar.FindPath(MonsterPos, _Player->GetPos());
-
 	IndexCount = 2;
 }
 
 void Monster::MoveMonsterToPlayer()
 {
-	if (Path.size() > 1 && !PackManScreen::GetMainScreen().CheckMonsterCollision())
+	if (Path.size() > 1)
 	{
 		if (IndexCount > Path.size())
 		{
 			return;
 		}
+
+		PrevePos = Path[Path.size() - (IndexCount - 1)];
 		MonsterPrevePrint(MonsterPos.X, MonsterPos.Y);
 		SetPos(Path[Path.size() - IndexCount++]);
 	}

@@ -76,6 +76,9 @@
     <ClCompile Include="GameEngineRandom.cpp">
       <Filter>Level0</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp">
+      <Filter>Level0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -115,6 +118,9 @@
       <Filter>Level0</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineRandom.h">
+      <Filter>Level0</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCollision.h">
       <Filter>Level0</Filter>
     </ClInclude>
   </ItemGroup>

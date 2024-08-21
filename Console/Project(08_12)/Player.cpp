@@ -42,11 +42,50 @@ void Player::PlayerInfoPrint()
 	Handle.TextColor(15, 0);
 	std::cout << "Life : " << PlayerLifeCount;
 
-	Handle.Gotoxy(45, 47);
+	Handle.Gotoxy(15, 47);
 	std::cout << "Score : " << PlayerScore;
 
-	Handle.Gotoxy(60, 47);
-	std::cout << "플레이어 스피드 : " << 210 - PlayerSpeed << "    ";
+	Handle.Gotoxy(45, 47);
+	std::cout << "플레이어스피드 : " << 210 - PlayerSpeed ;
+
+	std::string P_State = "";
+	switch (State)
+	{
+	case PlayerState::Normal:
+		P_State = "  플레이어 상태 : 노말";
+		break;
+	case PlayerState::Attacker:
+		P_State = "  플레이어 상태 : 공격";
+		break;
+	case PlayerState::Max:
+		P_State = "  플레이어 상태 : Zzz";
+		break;
+	}
+
+	std::cout << P_State;
+}
+
+void Player::ChangeState(PlayerState _State)
+{
+	if (_State != State)
+	{
+		switch (State)
+		{
+		case PlayerState::Normal:
+
+			break;
+		case PlayerState::Attacker:
+			
+			break;
+		case PlayerState::Max:
+
+			break;
+		default:
+			break;
+		}
+	}
+
+	State = _State;
 }
 
 void Player::Update()
@@ -55,7 +94,6 @@ void Player::Update()
 
 	if (_kbhit())
 	{
-		//Key = _getch();
 		do { Key = _getch(); }
 		while (Key == 224);
 	}

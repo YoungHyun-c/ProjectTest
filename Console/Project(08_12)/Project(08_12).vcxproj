@@ -137,6 +137,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp" />
     <ClCompile Include="GameEngineRandom.cpp" />
     <ClCompile Include="GameObjectManager.cpp">
       <SubType>
@@ -168,6 +169,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineCollision.h" />
     <ClInclude Include="GameEngineRandom.h" />
     <ClInclude Include="GameEnum.h">
       <SubType>

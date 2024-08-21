@@ -42,8 +42,10 @@ std::vector<int2> AStartPathFinder::FindPath(const int2& _Start, const int2& _Ta
             int2 neighborPos = { current.Pos.X + dx[i], current.Pos.Y + dy[i] };
 
             if (neighborPos.X >= 0 && neighborPos.X < PackManScreen::GetMainScreen().GetScreenSize().X 
-                && neighborPos.Y >= 0 && neighborPos.Y < PackManScreen::GetMainScreen().GetScreenSize().Y &&
-               PackManScreen::GetMainScreen().CanMove(neighborPos.X, neighborPos.Y) && closeSet.find(neighborPos) == closeSet.end()) {
+                && neighborPos.Y >= 0 && neighborPos.Y < PackManScreen::GetMainScreen().GetScreenSize().Y
+                && PackManScreen::GetMainScreen().CanMove(neighborPos.X, neighborPos.Y)
+                && !PackManScreen::GetMainScreen().CheckTest(neighborPos)
+                && closeSet.find(neighborPos) == closeSet.end()) {
 
                 int newGCost = current.G + 1;
                 Node neighborNode{ neighborPos, newGCost, Heuristic(neighborPos, _Target), new Node(current) };

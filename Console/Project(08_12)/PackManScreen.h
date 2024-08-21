@@ -10,6 +10,7 @@
 #include "GameEngineRandom.h"
 #include "Utill.h"
 
+#include "GameEngineCollision.h"
 #include "GameObjectManager.h"
 #include "Player.h"
 #include "Monster.h"
@@ -49,6 +50,8 @@ public:
 	void ScreenClear();
 
 	bool CheckMonsterCollision();
+	bool CheckTest(const int2& _Pos);
+
 private:
 	int PackManSetting();
 	void PackManStartScreen();
@@ -137,10 +140,10 @@ private:
 	
 	std::vector<class Monster*> MonsterList;
 	int MonsterCount = 3;
-
+	GameEngineCollision Col;
 
 	std::vector<class Item*> Items;
-	int ItemCount = 20;
+	int ItemCount = 22;
 
 	/*enum struct ItemList
 	{

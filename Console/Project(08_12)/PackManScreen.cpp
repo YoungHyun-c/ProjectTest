@@ -1,8 +1,10 @@
 #include "PackManScreen.h"
 
+#include <cmath>
+
 #define InterFrame 1000
-#define Monster_Find 1000
-#define Monster_Move 150
+#define Monster_Find 600
+#define Monster_Move 200
 
 #define AppleValue 100
 #define BananaValue 330
@@ -165,13 +167,13 @@ void PackManScreen::InitGame(bool bInitConsole)
 	{
 		MonsterList.reserve(MonsterCount);
 	}
-	MonsterList.push_back(new Monster(9, 9, 38, 15));
-	MonsterList.push_back(new Monster(12, 12, 46, 15));
-	MonsterList.push_back(new Monster(13, 13, 54, 15));
+	MonsterList.push_back(new Monster(9, 9, 42, 20));
+	MonsterList.push_back(new Monster(12, 12, 45, 20));
+	MonsterList.push_back(new Monster(13, 13, 54, 20));
 
-	MonsterList[0]->SetPos({38, 15 });
-	MonsterList[1]->SetPos({46, 15 });
-	MonsterList[2]->SetPos({54, 15 });
+	MonsterList[0]->SetPos({35, 23 });
+	MonsterList[1]->SetPos({45, 22 });
+	MonsterList[2]->SetPos({55, 23 });
 
 	if (Items.empty())
 	{
@@ -182,6 +184,10 @@ void PackManScreen::InitGame(bool bInitConsole)
 		if (i < 10)
 		{
 			Items.push_back(new Item(AppleValue));
+		}
+		else if (i >= 20)
+		{
+			Items.push_back(new Item(50, + 20));
 		}
 		else
 		{
@@ -238,6 +244,7 @@ void PackManScreen::ScreenClear()
 	{
 		Monster->MonsterReset();
 	}
+
 	PlayMan->PlayerReset();
 	Handle.TextColor(15, 0);
 	Handle.Gotoxy(0, 48);
@@ -268,31 +275,47 @@ bool PackManScreen::CheckCollision()
 			for (auto& Index : MonsterList)
 			{
 				if (Index->GetPos().X + dX >= PlayMan->GetPos().X && Index->GetPos().X + dX < PlayMan->GetPos().X + ENTITYSIZE
-					&& Index->GetPos().Y + dY >= PlayMan->GetPos().Y && Index->GetPos().Y + dY < PlayMan->GetPos().Y + ENTITYSIZE)
+						&& Index->GetPos().Y + dY >= PlayMan->GetPos().Y && Index->GetPos().Y + dY < PlayMan->GetPos().Y + ENTITYSIZE)
 				{
-					return true;
+					if (PlayMan->GetState() == PlayerState::Attacker)
+					{
+						Index->MonsterReset();
+						return false;
+					}
+					else
+					{
+						return true;
+					}
 				}
 			}
 		}
 	}
-
 	return false;
 }
 
 bool PackManScreen::CheckMonsterCollision()
 {
-	for (int dY = 0; dY < ENTITYSIZE; dY++)
+	for (int i = 0; i < MonsterCount - 1; i++)
 	{
-		for (int dX = 0; dX < ENTITYSIZE; dX++)
+		for (int j = i + 1; j < MonsterCount; j++)
 		{
-			for (int Index = 0; Index < MonsterList.size() - 1; Index++)
+			if (Col.CheckCollision(MonsterList[i]->GetPos(), MonsterList[j]->GetPos()))
 			{
-				if (MonsterList[Index]->GetPos().X + dX >= MonsterList[Index + 1]->GetPos().X && MonsterList[Index]->GetPos().X + dX < MonsterList[Index + 1]->GetPos().X + ENTITYSIZE
-					&& MonsterList[Index]->GetPos().Y + dY >= MonsterList[Index + 1]->GetPos().Y && MonsterList[Index]->GetPos().Y + dY < MonsterList[Index + 1]->GetPos().Y + ENTITYSIZE)
-				{
-					return true;
-				}
+				
+				return true;
 			}
+		}
+	}
+	return false;
+}
+
+bool PackManScreen::CheckTest(const int2& _Pos)
+{
+	for (const auto& Monster : MonsterList)
+	{
+		if ( int2{Monster->GetPos().X + 1, Monster->GetPos().Y + 1} == _Pos)
+		{
+			return true;
 		}
 	}
 	return false;
@@ -322,18 +345,27 @@ void PackManScreen::GameProcess()
 
 	for (int Index = 0; Index < ItemCount; Index++)
 	{
-		if (Items[Index]->IsDeath() == false && Index < 10)
+		if (Items[Index]->IsDeath() == true)
+		{
+			Items[Index]->ItemOff(Items[Index]->GetPos());
+			if (20 <= Index)
+			{
+				PlayMan->ChangeState(PlayerState::Attacker);
+			}
+		}
+		else if (Index < 10)
 		{
 			Items[Index]->AppleItemPrint(Items[Index]->GetPos());
 		}
-		else if(Items[Index]->IsDeath() == false && Index >= 10)
+		else if (20 <= Index)
+		{
+			Items[Index]->TransItemPrint(Items[Index]->GetPos());
+		}
+		else if (10 <= Index)
 		{
 			Items[Index]->BananaItemPrint(Items[Index]->GetPos());
 		}
-		else
-		{
-			Items[Index]->ItemOff(Items[Index]->GetPos());
-		}
+
 	}
 	
 	// 플레이어 관련
@@ -401,7 +433,7 @@ void PackManScreen::PackManUpdate()
 		}
 
 		auto CurrentTime = std::chrono::steady_clock::now();
-		if (CurrentTime - LastMonsterFindTime >= MoveInterval && CheckMonsterCollision() == false)
+		if (CurrentTime - LastMonsterFindTime >= MoveInterval)
 		{
 			for (auto& Index : MonsterList)
 			{
