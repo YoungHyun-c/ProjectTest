@@ -130,6 +130,18 @@ void Player::Update()
 		NextPos.Y += 1;
 		MovePlayer(NextPos.X, NextPos.Y);
 		break;
+	case '9' :
+		AddSpeed(-10);
+		break;
+	case '0':
+		AddSpeed(10);
+		break;
+	case '1' :
+		ChangeState(PlayerState::Normal);
+		break;
+	case '2':
+		ChangeState(PlayerState::Attacker);
+		break;
 	}
 }
 

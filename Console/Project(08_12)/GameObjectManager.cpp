@@ -23,7 +23,7 @@ void GameObjectManager::ConsoleAllObjectUpdate()
 		for (; Start != End; Start++)
 		{
 			ConsoleGameObject* Object = *Start;
-
+			
 			if (nullptr == Object || false == Object->IsUpdate())
 			{
 				continue;

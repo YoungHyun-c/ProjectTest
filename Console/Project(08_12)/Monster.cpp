@@ -42,6 +42,8 @@ void Monster::StateUpdate()
 		return AttackUpdate();
 	case MonsterState::Run:
 		return RunUpdate();
+	case MonsterState::Max:
+		return MaxUpdate();
 	default:
 		break;
 	}
@@ -70,6 +72,7 @@ void Monster::MonsterInfoPrint()
 		std::cout << "몬스터 상태 : 도망! 비상!                   ";
 		break;
 	case MonsterState::Max:
+		std::cout << "몬스터 상태 : Zzzz                         ";
 		break;
 	default:
 		break;
@@ -146,6 +149,15 @@ void Monster::AttackUpdate()
 	{
 		LastMonsterMoveTime = CurrentTime;
 		MoveMonsterToPlayer();
+	}
+}
+
+void Monster::MaxUpdate()
+{
+	if (Col.CheckMonsterCollision(MonsterColPos, pPlayer->GetPos()))
+	{
+		ChangeState(MonsterState::Attack);
+		return;
 	}
 }
 
@@ -258,6 +270,27 @@ void Monster::MonsterColPrint()
 	}
 }
 
+void Monster::MonsterColOff()
+{
+	for (short i = 0; i < 18; i++)
+	{
+		for (short j = 0; j < 40; j++)
+		{
+			COORD Pos = { static_cast<short>(MonsterColPos.X) + j, static_cast<short>(MonsterColPos.Y) + i };
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
+			switch (MonsterColOffArr[i][j])
+			{
+			case ' ':
+				Handle.TextColor(0, 0);
+				std::cout << "■";
+				break;
+			}
+		}
+		Handle.TextColor(0, 0);
+		std::cout << std::endl;
+	}
+}
+
 void Monster::MoveMonster(int _X, int _Y)
 {
 	if (PackManScreen::GetMainScreen().CanMove(_X, _Y))
@@ -266,8 +299,8 @@ void Monster::MoveMonster(int _X, int _Y)
 
 		MonsterPos.X = _X;
 		MonsterPos.Y = _Y;
-		MonsterColPos.X = _X - 14;
-		MonsterColPos.Y = _Y - 8;
+		MonsterColPos.X = _X - ColStartX;
+		MonsterColPos.Y = _Y - ColStartY;
 	}
 	else
 	{
@@ -350,13 +383,13 @@ void Monster::MonsterPrevePrint(int _X, int _Y)
 
 	MonsterPos.X = _X;
 	MonsterPos.Y = _Y;
-	MonsterColPos.X = _X - 14;
-	MonsterColPos.Y = _Y - 8;
+	MonsterColPos.X = _X - ColStartX;
+	MonsterColPos.Y = _Y - ColStartY;
 }
 
 void Monster::MonsterReset()
 {
 	DrawChar(MonsterPos.X, MonsterPos.Y, MonsterPreveArr);
 	MonsterPos = InitMonsterPos;
-	MonsterColPos = MonsterPos;
+	MonsterColPos = { MonsterPos.X - ColStartX, MonsterPos.Y - ColStartY };
 }

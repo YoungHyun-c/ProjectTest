@@ -52,6 +52,11 @@ public:
 		DeathValue = true;
 	}
 
+	void Resolve()
+	{
+		DeathValue = false;
+	}
+
 	bool IsUpdate()
 	{
 		return UpdateValue && false == IsDeath();

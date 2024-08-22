@@ -8,6 +8,7 @@
 
 #define AppleValue 100
 #define BananaValue 330
+#define TransValue 200
 
 PackManScreen PackManScreen::MainScreen;
 
@@ -64,7 +65,6 @@ void PackManScreen::VoidCursor()
 	SetConsoleCursorInfo(ConsoleHandle, &ConsoleCursor);
 }
 
-
 void PackManScreen::Start()
 {
 	InitGame();
@@ -73,14 +73,14 @@ void PackManScreen::Start()
 	GameSetList();
 
 	// 바로 겜 가서 테스트용
-	PackManUpdate();
+	//PackManUpdate();
 }
 
 void PackManScreen::GameSetList()
 {
 	while (Done)
 	{
-		PackManStartScreen();
+		PackManTitleScreen();
 		int Num = PackManSetting();
 		switch (Num)
 		{
@@ -94,8 +94,9 @@ void PackManScreen::GameSetList()
 		case 1:
 			std::cout << "게임 정보를 확인합니다..." << std::endl;
 			Sleep(InterFrame);
-			
-			Done = false;
+			system("cls");
+			PackManInfo();
+			Done = true;
 			break;
 		case 2:
 			std::cout << "종료합니다..." << std::endl;
@@ -109,8 +110,7 @@ void PackManScreen::GameSetList()
 	}
 }
 
-
-void PackManScreen::PackManStartScreen()
+void PackManScreen::PackManTitleScreen()
 {
 	Y = 3;
 	Handle.Gotoxy(X, Y++);
@@ -126,7 +126,7 @@ void PackManScreen::PackManStartScreen()
 	Handle.Gotoxy(X, Y++);
 	std::cout << "||                           *                   *      ||" << std::endl;
 	Handle.Gotoxy(X, Y++);
-	std::cout << "||        *     팩맨게임에 오신걸 환영합니다.    *    * ||" << std::endl;
+	std::cout << "||        *   ~ 팩맨게임에 오신걸 환영합니다 ~   *    * ||" << std::endl;
 	Handle.Gotoxy(X, Y++);
 	std::cout << "||                                                      ||" << std::endl;
 	Handle.Gotoxy(X, Y++);
@@ -159,7 +159,6 @@ int PackManScreen::PackManSetting()
 
 void PackManScreen::GameInfoPrint()
 {
-	
 	for (int i = 0; i < MonsterCount; i++)
 	{
 		Handle.Gotoxy((i * 30), 48);
@@ -176,6 +175,7 @@ void PackManScreen::GameInfoPrint()
 			std::cout << "몬스터 상태 : 비상!!!!                ";
 			break;
 		case MonsterState::Max:
+			std::cout << "몬스터 상태 : Zzz...                 ";
 			break;
 		default:
 			break;
@@ -198,9 +198,6 @@ void PackManScreen::InitGame(bool bInitConsole)
 	MonsterList.push_back(new Monster(12, 12, 45, 20));
 	MonsterList.push_back(new Monster(13, 13, 54, 20));
 
-	MonsterList[0]->SetPos({35, 23 });
-	MonsterList[1]->SetPos({45, 22 });
-	MonsterList[2]->SetPos({55, 23 });
 
 	for (auto& Monster : MonsterList)
 	{
@@ -219,7 +216,7 @@ void PackManScreen::InitGame(bool bInitConsole)
 		}
 		else if (i >= 20)
 		{
-			Items.push_back(new Item(50, + 20));
+			Items.push_back(new Item(TransValue, + 20));
 		}
 		else
 		{
@@ -238,7 +235,7 @@ void PackManScreen::ScreenPrint()
 	{
 		for (int X = 0; X < XScreen; X++)
 		{
-			switch (MapArr[Y][X])
+			switch (MapArr[Stage][Y][X])
 			{
 			case '0':
 				Handle.TextColor(0, 0);
@@ -269,9 +266,10 @@ void PackManScreen::ScreenClear()
 	{
 		Handle.TextColor(15, 0);
 		Handle.Gotoxy(0, 49);
-		std::cout << " 게임이 종료됩니다...								";
+		std::cout << " 처음으로 돌아갑니다....								";
 		Sleep(1000);
 		system("cls");
+		GameSetList();
 	}
 
 	Sleep(2000);
@@ -292,7 +290,7 @@ bool PackManScreen::CanMove(int _X, int _Y) const
 	{
 		for (int j = 0; j < ENTITYSIZE; j++)
 		{
-			if (MapArr[_Y + i][_X + j] == '1')
+			if (MapArr[Stage][_Y + i][_X + j] == '1')
 			{
 				return false;
 			}
@@ -336,7 +334,6 @@ bool PackManScreen::CheckMonsterCol()
 		{
 			if (Col.CheckCollision(MonsterList[i]->GetPos(), MonsterList[j]->GetPos()))
 			{
-				//MonsterList[i]->MonsterReset();
 				return true;
 			}
 		}
@@ -357,10 +354,53 @@ bool PackManScreen::CheckTest(const int2& _Pos)
 	return false;
 }
 
+void PackManScreen::StageClear()
+{
+	int Y = 15;
+	if (Stage + 1 < MaxStageNum)
+	{
+		Stage++;
+		Handle.TextColor(15, 0);
+		Handle.Gotoxy(30, Y++); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
+		Handle.Gotoxy(30, Y++); printf("▤                              ▤");
+		Handle.Gotoxy(30, Y++); printf("▤       Stage C L E A R !      ▤");
+		Handle.Gotoxy(30, Y++); printf("▤                              ▤");
+		Handle.Gotoxy(30, Y++); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
+		Handle.Gotoxy(30, Y++);
+
+		if (_getch())
+		{
+			system("cls");
+		}
+	}
+	else
+	{
+		Handle.TextColor(15, 0);
+		Handle.Gotoxy(30, Y++); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
+		Handle.Gotoxy(30, Y++); printf("▤                              ▤");
+		Handle.Gotoxy(30, Y++); printf("▤       A L L C L E A R !      ▤");
+		Handle.Gotoxy(30, Y++); printf("▤                              ▤");
+		Handle.Gotoxy(30, Y++); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
+		Handle.Gotoxy(30, Y++);
+		if (_getch())
+		{
+			system("cls");
+		}
+	}
+
+	for (auto& ItemIndex : Items)
+	{
+		if (ItemIndex->IsDeath())
+		{
+			ItemIndex->Resolve();
+		}
+	}
+}
+
 void PackManScreen::GameProcess()
 {
 	// 아이템
-	 for (auto& ItemIndex : Items)
+	for (auto& ItemIndex : Items)
 	{
 		if (ItemIndex->IsDeath() == false
 			&& Col.CheckItemCollision({ ItemIndex->GetPos().X, ItemIndex->GetPos().Y }, PlayMan->GetPos()))
@@ -380,50 +420,39 @@ void PackManScreen::GameProcess()
 			break;
 		}
 	}
-	
-	for (int Index = 0; Index < ItemCount; Index++)
-	{
-		if (Items[Index]->IsDeath() == true)
-		{
-			Items[Index]->ItemOff(Items[Index]->GetPos());
-		}
-		else if (Index < 10)
-		{
-			Items[Index]->AppleItemPrint(Items[Index]->GetPos());
-		}
-		else if (20 <= Index)
-		{
-			Items[Index]->TransItemPrint(Items[Index]->GetPos());
-		}
-		else if (10 <= Index)
-		{
-			Items[Index]->BananaItemPrint(Items[Index]->GetPos());
-		}
 
+	if (Stage == 2)
+	{
+		for (int Index = 0; Index < ItemCount; Index++)
+		{
+			if (Items[Index]->IsDeath() == true)
+			{
+				Items[Index]->ItemOff(Items[Index]->GetPos());
+			}
+			else if (Index < 10)
+			{
+				Items[Index]->AppleItemPrint(Items[Index]->GetPos());
+			}
+			else if (20 <= Index)
+			{
+				Items[Index]->TransItemPrint(Items[Index]->GetPos());
+			}
+			else if (10 <= Index)
+			{
+				Items[Index]->BananaItemPrint(Items[Index]->GetPos());
+			}
+		}
 	}
 	
-	// 플레이어 관련
+	PlayMan->Update();
+	PlayMan->PlayerPrint();
+
+
+	// 플레이어, 몬스터 관련
 	if (_kbhit())
 	{
 		Key = _getch();
-
-		if (Key == '9')
-		{
-			PlayMan->AddSpeed(-10);
-		}
-		else if (Key == '0')
-		{
-			PlayMan->AddSpeed(10);
-		}
-		else if (Key == '1')
-		{
-			PlayMan->ChangeState(PlayerState::Normal);
-		}
-		else if (Key == '2')
-		{
-			PlayMan->ChangeState(PlayerState::Attacker);
-		}
-		else if (Key == '3')
+		if (Key == '3')
 		{
 			MonsterList[0]->ChangeState(MonsterState::Normal);
 		}
@@ -435,12 +464,14 @@ void PackManScreen::GameProcess()
 		{
 			MonsterList[0]->ChangeState(MonsterState::Run);
 		}
-		else if (Key == '8')
+		else if (Key == '7')
 		{
 			MonsterList[0]->MonsterColPrint();
 		}
-
-
+		else if (Key == '8')
+		{
+			MonsterList[0]->MonsterColOff();
+		}
 	}
 }
 
@@ -457,7 +488,7 @@ void PackManScreen::ItemMade()
 		{
 			for (int j = 0; j < 2; j++)
 			{
-				while(MapArr[RandNumY + i][RandNumX + j] == '1' || MapArr[RandNumY + i][RandNumX + j] == '5')
+				while(MapArr[Stage][RandNumY + i][RandNumX + j] == '1' || MapArr[Stage][RandNumY + i][RandNumX + j] == '5')
 				{
 					RandNumX = Rand.RandNum(5, 95);
 					RandNumY = Rand.RandNum(5, 40);
@@ -470,7 +501,7 @@ void PackManScreen::ItemMade()
 		{
 			for (int j = 0; j < 2; j++)
 			{
-				MapArr[RandNumY + i][RandNumX + j] = '5';
+				MapArr[Stage][RandNumY + i][RandNumX + j] = '5';
 			}
 		}
 		Items[k]->SetPos({ RandNumX, RandNumY });
@@ -479,55 +510,177 @@ void PackManScreen::ItemMade()
 
 void PackManScreen::PackManUpdate()
 {
-	ScreenPrint();
-	ItemMade();
+	StageProcess();
+}
 
-	PlayMan->PlayerPrint();
-
-	//auto LastMonsterFindTime = std::chrono::steady_clock::now();
-	//auto LastMonsterMoveTime = std::chrono::steady_clock::now();
-	//const std::chrono::milliseconds MoveInterval(Monster_Find);
-	//const std::chrono::milliseconds Move(Monster_Move);
-
-	while (true)
+void PackManScreen::StageProcess()
+{
+	if (Stage == 0)
 	{
-		GameProcess();
-
-		/*auto CurrentTime = std::chrono::steady_clock::now();
-		if (CurrentTime - LastMonsterFindTime >= MoveInterval)
+		ScreenPrint();
+		PlayMan->SetPos({ 10, 10 });
+		PlayMan->PlayerPrint();
+		Items[0]->SetPos({ 25, 10 });
+		Items[0]->AppleItemPrint({ 25,10 });
+		while (true)
 		{
-			for (auto& Index : MonsterList)
+			GameProcess();
+			if (Items[0]->IsDeath() == true)
 			{
-				Index->FindMonsterToPlayer(PlayMan);
+				StageClear();
+				break;
 			}
-			LastMonsterFindTime = CurrentTime;
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
-		if (CurrentTime - LastMonsterMoveTime >= Move)
+	}
+	if (Stage == 1)
+	{
+		ScreenPrint();
+		Items[20]->SetPos({ 40, 5 });
+		PlayMan->SetPos({ 10, 10 });
+		PlayMan->SetInitPos({ 10, 10 });
+		PlayMan->PlayerPrint();
+		PlayMan->SetSpeed(20);
+		MonsterList[0]->SetPos({ 50, 10 });
+		MonsterList[0]->SetInitPos({ 50, 10 });
+		MonsterList[0]->SetColPos({ 50, 10 });
+		MonsterList[0]->ChangeState(MonsterState::Max);
+		while (true)
 		{
-			for (auto& Index : MonsterList)
+			if (Stage1Clear())
 			{
-				Index->MoveMonsterToPlayer();
+				break;
 			}
-			LastMonsterMoveTime = CurrentTime;
-		}*/
-
-		if (CheckCollision() == true)
-		{
-			ScreenClear();
 		}
+	}
+	if (Stage == 2)
+	{
+		ScreenPrint();
+		ItemMade();
+
+		PlayMan->SetInitPos({ 50, 40 });
+		PlayMan->SetPos({ 50, 40 });
+		PlayMan->ChangeState(PlayerState::Normal);
+		PlayMan->SetSpeed(100);
+
+		MonsterList[0]->SetPos({ 35, 23 });
+		MonsterList[0]->SetInitPos({ 35, 23 });
+		MonsterList[0]->SetColPos({ 35, 23 });
+		MonsterList[1]->SetPos({ 45, 22 });
+		MonsterList[2]->SetPos({ 55, 23 });
 
 		for (auto& Monster : MonsterList)
 		{
-			Monster->Update();
-			Monster->MonsterPrint();
+			Monster->ChangeState(MonsterState::Normal);
 		}
-		GameInfoPrint();
 
-		PlayMan->Update();
+		PlayMan->PlayerReset();
 		PlayMan->PlayerPrint();
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		while (true)
+		{
+			GameProcess();
+			if (CheckCollision() == true)
+			{
+				ScreenClear();
+			}
+
+			for (auto& Monster : MonsterList)
+			{
+				Monster->Update();
+				Monster->MonsterPrint();
+			}
+			GameInfoPrint();
+
+			PlayMan->Update();
+			PlayMan->PlayerPrint();
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		}
 	}
+}
+
+bool PackManScreen::Stage1Clear()
+{
+	if (Items[20]->IsDeath() == true)
+	{
+		Items[20]->ItemOff(Items[20]->GetPos());
+	}
+	else
+	{
+		Items[20]->TransItemPrint({ 40, 5 });
+	}
+
+	MonsterList[0]->Update();
+	MonsterList[0]->MonsterPrint();
+
+	for (int dY = 0; dY < ENTITYSIZE; dY++)
+	{
+		for (int dX = 0; dX < ENTITYSIZE; dX++)
+		{
+			if (MonsterList[0]->GetPos().X + dX >= PlayMan->GetPos().X && MonsterList[0]->GetPos().X + dX < PlayMan->GetPos().X + ENTITYSIZE
+				&& MonsterList[0]->GetPos().Y + dY >= PlayMan->GetPos().Y && MonsterList[0]->GetPos().Y + dY < PlayMan->GetPos().Y + ENTITYSIZE)
+			{
+				if (PlayMan->GetState() == PlayerState::Attacker)
+				{
+					StageClear();
+					return true;
+				}
+				else
+				{
+					Handle.TextColor(15, 0);
+					Handle.Gotoxy(0, 49);
+					std::cout << "당신은 잡혔습니다!                                           ";
+					PlayMan->SubLifeCount();
+					Sleep(2000);
+
+					MonsterList[0]->ChangeState(MonsterState::Max);
+					MonsterList[0]->MonsterReset();
+					PlayMan->PlayerReset();
+					Handle.TextColor(15, 0);
+					Handle.Gotoxy(0, 49);
+					std::cout << "초기 위치에서 다시 시작합니다.";
+				}
+			}
+		}
+	}
+
+	GameProcess();
+	GameInfoPrint();
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	return false;
+}
+
+void PackManScreen::PackManInfo()
+{
+	Handle.Gotoxy(3, 4);
+	std::cout << "게임 키 정보 : " << std::endl;
+	Handle.Gotoxy(3, 5); printf("  △   : Up");
+	Handle.Gotoxy(3, 6); printf("◁   ▷ : Left | Right");
+	Handle.Gotoxy(3, 7); printf("  ▽   : Down");
+
+	Items[0]->AppleItemPrint({ 3, 11 });
+	Handle.TextColor(15, 0);
+	Handle.Gotoxy(6, 11); printf("사과 아이템! 먹으면 Player의 Score가 100점이 올라갑니다!");
+	Items[1]->BananaItemPrint({ 3, 14 });
+	Handle.TextColor(15, 0);
+	Handle.Gotoxy(6, 14); printf("바나나 아이템! 먹으면 Player의 Score가 330점이 올라가며, 플레이어 스피드가 10 올라갑니다.");
+	Items[2]->TransItemPrint({ 3, 17 });
+	Handle.TextColor(15, 0);
+	Handle.Gotoxy(6, 17); printf("변신 아이템! 먹으면 Player의 Score가 200점이 오르지만, 플레이어의 스피드는 20줄어듭니다. ");
+	Handle.Gotoxy(6, 18); printf("대신 몬스터를 잡을 수 있는 상태가 되며, 잡은 몬스터의 위치는 초기화 됩니다.");
+
+	Handle.Gotoxy(6, 19); printf("모든 아이템을 먹을시, 게임을 클리어 할 수 있습니다!");
+
+	Handle.Gotoxy(3, 25);
+	std::cout << "초기화면으로 돌아가시려면, 아무키나 눌러주세요~" << std::endl;
+	if (_getch())
+	{
+		std::cout << "초기 화면으로 이동합니다...." << std::endl;
+	}
+	Sleep(3000);
+	system("cls");
 }
 
 void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
@@ -541,14 +694,14 @@ void PackManScreen::SetScreenCharacter(const int2& _Pos, char _Ch[][6])
 	{
 		for (int j = 0; j < 5; j++)
 		{
-			MapArr[_Pos.Y + i][_Pos.X + j] = _Ch[i][j];
+			MapArr[Stage][_Pos.Y + i][_Pos.X + j] = _Ch[i][j];
 		}
 	}
 }
 
 char PackManScreen::GetScreenCharacter(const int2& _Pos) const
 {
-	return MapArr[_Pos.Y][_Pos.X];
+	return MapArr[Stage][_Pos.Y][_Pos.X];
 }
 
 bool PackManScreen::IsScreenOver(const int2& _Pos) const

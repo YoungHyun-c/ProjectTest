@@ -30,6 +30,11 @@ public:
 		PlayerPos = _Value;
 	}
 
+	inline void SetInitPos(const int2& _Value)
+	{
+		InitPlayerPos = _Value;
+	}
+
 	inline int2 GetPos() const override
 	{
 		return PlayerPos;

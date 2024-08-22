@@ -6,6 +6,9 @@
 #include "PackManScreen.h"
 #include "Player.h"
 
+#define ColStartX 14
+#define ColStartY 8
+
 enum class MonsterState
 {
 	Normal,
@@ -23,8 +26,8 @@ public:
 	Monster(int _FontColor, int _BackColor, int _X, int _Y)
 		: FontColor(_FontColor), BackColor(_BackColor) , InitMonsterPos(_X, _Y)
 	{
-		MonsterColPos.X = _X - 14;
-		MonsterColPos.Y = _Y - 8;
+		MonsterColPos.X = _X - ColStartX;
+		MonsterColPos.Y = _Y - ColStartY;
 	}
 
 	void MonsterPrint();
@@ -33,6 +36,16 @@ public:
 	inline void SetPos(const int2& _Value) override
 	{
 		MonsterPos = _Value;
+	}
+	inline void SetInitPos(const int2& _Value)
+	{
+		InitMonsterPos = _Value;
+	}
+
+	void SetColPos(const int2& _Value)
+	{
+		MonsterColPos.X = _Value.X - 16;
+		MonsterColPos.Y = _Value.Y - 8;
 	}
 
 	inline int2 GetPos() const override
@@ -65,6 +78,7 @@ public:
 	}
 
 	void MonsterColPrint();
+	void MonsterColOff();
 
 	void RecievepPlayer(Player* _pPlayer)
 	{
@@ -84,6 +98,8 @@ protected:
 
 	void RunStart();
 	void RunUpdate();
+
+	void MaxUpdate();
 
 
 private:
@@ -128,6 +144,27 @@ private:
 								"8888888888888888888888888888888888888888",
 								"8888888888888888888888888888888888888888",
 							};
+	char MonsterColOffArr[18][41] =
+	{
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+		"                                        ",
+	};
 
 
 
