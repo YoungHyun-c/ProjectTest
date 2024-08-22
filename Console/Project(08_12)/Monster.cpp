@@ -164,6 +164,31 @@ void Monster::RunUpdate()
 		return;
 	}
 
+	// 방향 반대로 만들어놓음.
+	int2 NextPos = MonsterPos;
+	switch (Dir) {
+	case 0:
+		NextPos = MonsterPos;
+		NextPos.X += 1;
+		MoveMonster(NextPos.X, NextPos.Y);
+		break;
+	case 1:
+		NextPos = MonsterPos;
+		NextPos.X -= 1;
+		MoveMonster(NextPos.X, NextPos.Y);
+		break;
+	case 2:
+		NextPos = MonsterPos;
+		NextPos.Y += 1;
+		MoveMonster(NextPos.X, NextPos.Y);
+		break;
+	case 3:
+		NextPos = MonsterPos;
+		NextPos.Y -= 1;
+		MoveMonster(NextPos.X, NextPos.Y);
+		break;
+	}
+
 	for (short i = 0; i < YSize; i++)
 	{
 		for (short j = 0; j < XSize - 1; j++)
@@ -265,20 +290,26 @@ void Monster::MoveMonsterToPlayer()
 		{
 			return;
 		}
-		/*if (PackManScreen::GetMainScreen().CheckMonsterCollision())
-		{
-			MonsterPrevePrint(PrevePos.X, PrevePos.Y);
-			SetPos(PrevePos);
-			return;
-		}*/
 		const size_t HomeIndex = Path.size() - (IndexCount - 1);
 		PrevePos = Path[HomeIndex];
 		int2 NextPos = { Path[Path.size() - IndexCount].X - PrevePos.X, Path[Path.size() - IndexCount].Y - PrevePos.Y };
-
-		/*if (PackManScreen::GetMainScreen().CheckMonsterCollision())
+		if (NextPos.X == -1)
 		{
-			return;
-		}*/
+			Dir = 0;
+		}
+		else if (NextPos.X == 1)
+		{
+			Dir = 1;
+		}
+		else if (NextPos.Y == -1)
+		{
+			Dir = 2;
+		}
+		else if (NextPos.Y == 1)
+		{
+			Dir = 3;
+		}
+
 		MonsterPrevePrint(MonsterPos.X, MonsterPos.Y);
 		SetPos(Path[Path.size() - IndexCount++]);
 	}

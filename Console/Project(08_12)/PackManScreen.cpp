@@ -40,7 +40,6 @@ PackManScreen::~PackManScreen()
 			Index = nullptr;
 		}
 	}
-
 }
 
 void PackManScreen::SetScreenSize(int2 _Size)
@@ -70,8 +69,8 @@ void PackManScreen::Start()
 {
 	InitGame();
 	VoidCursor();
-	//PackManSetList();
-	//GameSetList();
+	PackManSetList();
+	GameSetList();
 
 	// 바로 겜 가서 테스트용
 	PackManUpdate();
@@ -93,6 +92,12 @@ void PackManScreen::GameSetList()
 			Done = true;
 			break;
 		case 1:
+			std::cout << "게임 정보를 확인합니다..." << std::endl;
+			Sleep(InterFrame);
+			
+			Done = false;
+			break;
+		case 2:
 			std::cout << "종료합니다..." << std::endl;
 			Sleep(InterFrame);
 			system("cls");
@@ -143,7 +148,8 @@ void PackManScreen::PackManStartScreen()
 void PackManScreen::PackManSetList()
 {
 	List.push_back("1. 게임을 시작한다.");
-	List.push_back("2. 게임을 종료한다.");
+	List.push_back("2. 게임 정보 확인");
+	List.push_back("3. 게임을 종료한다.");
 }
 
 int PackManScreen::PackManSetting()
