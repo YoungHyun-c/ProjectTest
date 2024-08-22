@@ -55,22 +55,3 @@ int main()
 
     return 0;
 }
-
-
-// 바깥에서 시간
-// clock_t start = clock();
- //void Player::PlayerPrint(clock_t _Start)
-    //{*/
-    //    /*clock_t current = clock() - _Start;
-    //    int sec;
-    //    sec = current / CLOCKS_PER_SEC;
-    //    if (sec < 0.5)
-    //    {
-    //        DrawChar(PlayerPos.X, PlayerPos.Y , PlayerArr1);
-    //    }
-    //    if (1 < sec)
-    //    {
-    //        DrawChar(PlayerPos.X, PlayerPos.Y, PlayerArr2);
-    //        sec = 0;
-    //    }*/
-    //}

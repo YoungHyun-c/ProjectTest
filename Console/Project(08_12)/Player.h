@@ -52,6 +52,10 @@ public:
 			PlayerLifeCount -= _Value;
 		}
 	}
+	void SetLifeCount(int _Value)
+	{
+		PlayerLifeCount = _Value;
+	}
 
 	int GetLifeCount()
 	{

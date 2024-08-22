@@ -71,9 +71,6 @@ void PackManScreen::Start()
 	VoidCursor();
 	PackManSetList();
 	GameSetList();
-
-	// 바로 겜 가서 테스트용
-	//PackManUpdate();
 }
 
 void PackManScreen::GameSetList()
@@ -238,6 +235,7 @@ void PackManScreen::ScreenPrint()
 			switch (MapArr[Stage][Y][X])
 			{
 			case '0':
+			case '5':
 				Handle.TextColor(0, 0);
 				std::cout << " ";
 				break;
@@ -269,6 +267,11 @@ void PackManScreen::ScreenClear()
 		std::cout << " 처음으로 돌아갑니다....								";
 		Sleep(1000);
 		system("cls");
+		Stage = 0;
+		for (auto& Item : Items)
+		{
+			Item->IsDeath();
+		}
 		GameSetList();
 	}
 
@@ -382,19 +385,20 @@ void PackManScreen::StageClear()
 		Handle.Gotoxy(30, Y++); printf("▤                              ▤");
 		Handle.Gotoxy(30, Y++); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
 		Handle.Gotoxy(30, Y++);
+		Stage = 0;
 		if (_getch())
 		{
 			system("cls");
 		}
 	}
 
-	for (auto& ItemIndex : Items)
+	/*for (auto& ItemIndex : Items)
 	{
 		if (ItemIndex->IsDeath())
 		{
 			ItemIndex->Resolve();
 		}
-	}
+	}*/
 }
 
 void PackManScreen::GameProcess()
@@ -421,7 +425,7 @@ void PackManScreen::GameProcess()
 		}
 	}
 
-	if (Stage == 2)
+	/*if (Stage == 2)
 	{
 		for (int Index = 0; Index < ItemCount; Index++)
 		{
@@ -442,7 +446,7 @@ void PackManScreen::GameProcess()
 				Items[Index]->BananaItemPrint(Items[Index]->GetPos());
 			}
 		}
-	}
+	}*/
 	
 	PlayMan->Update();
 	PlayMan->PlayerPrint();
@@ -480,6 +484,23 @@ void PackManScreen::ItemMade()
 	GameEngineRandom Rand;
 	int RandNumX, RandNumY;
 
+
+	for (auto& Item : Items)
+	{
+		if (MapArr[Stage][Item->GetPos().Y][Item->GetPos().X] == '5')
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < 2; j++)
+				{
+					MapArr[Stage][Item->GetPos().Y + i][Item->GetPos().X + j] = '0';
+					Item->ItemOff(Item->GetPos());
+					Item->IsDeath();
+				}
+			}
+		}
+	}
+
 	for (int k = 0; k < ItemCount; k++)
 	{
 		RandNumX = Rand.RandNum(5, 95);
@@ -505,6 +526,8 @@ void PackManScreen::ItemMade()
 			}
 		}
 		Items[k]->SetPos({ RandNumX, RandNumY });
+		Items[k]->Resolve();
+		Items[k]->SetItemRender(true);
 	}
 }
 
@@ -518,10 +541,13 @@ void PackManScreen::StageProcess()
 	if (Stage == 0)
 	{
 		ScreenPrint();
+		PlayMan->SetLifeCount(3);
 		PlayMan->SetPos({ 10, 10 });
+		PlayMan->ChangeState(PlayerState::Normal);
 		PlayMan->PlayerPrint();
 		Items[0]->SetPos({ 25, 10 });
 		Items[0]->AppleItemPrint({ 25,10 });
+		Items[0]->Resolve();
 		while (true)
 		{
 			GameProcess();
@@ -537,6 +563,7 @@ void PackManScreen::StageProcess()
 	{
 		ScreenPrint();
 		Items[20]->SetPos({ 40, 5 });
+		Items[20]->Resolve();
 		PlayMan->SetPos({ 10, 10 });
 		PlayMan->SetInitPos({ 10, 10 });
 		PlayMan->PlayerPrint();
@@ -595,6 +622,32 @@ void PackManScreen::StageProcess()
 			PlayMan->Update();
 			PlayMan->PlayerPrint();
 
+			for (int Index = 0; Index < ItemCount; Index++)
+			{
+				if (Items[Index]->IsDeath() == true)
+				{
+					Items[Index]->ItemOff(Items[Index]->GetPos());
+				}
+				else if (Index < 10)
+				{
+					Items[Index]->AppleItemPrint(Items[Index]->GetPos());
+				}
+				else if (20 <= Index)
+				{
+					Items[Index]->TransItemPrint(Items[Index]->GetPos());
+				}
+				else if (10 <= Index)
+				{
+					Items[Index]->BananaItemPrint(Items[Index]->GetPos());
+				}
+			}
+
+			if (Stage2Clear())
+			{
+				StageClear();
+				break;
+			}
+
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
 	}
@@ -652,6 +705,18 @@ bool PackManScreen::Stage1Clear()
 	return false;
 }
 
+bool PackManScreen::Stage2Clear()
+{
+	for (Item* item : Items)
+	{
+		if (item->IsDeath() == false)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 void PackManScreen::PackManInfo()
 {
 	Handle.Gotoxy(3, 4);
@@ -662,13 +727,13 @@ void PackManScreen::PackManInfo()
 
 	Items[0]->AppleItemPrint({ 3, 11 });
 	Handle.TextColor(15, 0);
-	Handle.Gotoxy(6, 11); printf("사과 아이템! 먹으면 Player의 Score가 100점이 올라갑니다!");
+	Handle.Gotoxy(6, 11); printf("사과 아이템! 먹으면 Player의 Score가 %d점이 올라갑니다!", AppleValue);
 	Items[1]->BananaItemPrint({ 3, 14 });
 	Handle.TextColor(15, 0);
-	Handle.Gotoxy(6, 14); printf("바나나 아이템! 먹으면 Player의 Score가 330점이 올라가며, 플레이어 스피드가 10 올라갑니다.");
+	Handle.Gotoxy(6, 14); printf("바나나 아이템! 먹으면 Player의 Score가 %d점이 올라가며, 플레이어 스피드가 10 올라갑니다.", BananaValue);
 	Items[2]->TransItemPrint({ 3, 17 });
 	Handle.TextColor(15, 0);
-	Handle.Gotoxy(6, 17); printf("변신 아이템! 먹으면 Player의 Score가 200점이 오르지만, 플레이어의 스피드는 20줄어듭니다. ");
+	Handle.Gotoxy(6, 17); printf("변신 아이템! 먹으면 Player의 Score가 %d점이 오르지만, 플레이어의 스피드는 20줄어듭니다. ", TransValue);
 	Handle.Gotoxy(6, 18); printf("대신 몬스터를 잡을 수 있는 상태가 되며, 잡은 몬스터의 위치는 초기화 됩니다.");
 
 	Handle.Gotoxy(6, 19); printf("모든 아이템을 먹을시, 게임을 클리어 할 수 있습니다!");

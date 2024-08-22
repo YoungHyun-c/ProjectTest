@@ -67,6 +67,7 @@ private:
 	void StageProcess();
 	void StageClear();
 	bool Stage1Clear();
+	bool Stage2Clear();
 
 	void ItemMade();
 

@@ -39,6 +39,11 @@ public:
 		ItemName = _Name;
 	}
 
+	void SetItemRender(bool _Render)
+	{
+		ItemRender = _Render;
+	}
+
 protected:
 	void Update() override;
 private:
