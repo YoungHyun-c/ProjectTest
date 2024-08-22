@@ -271,43 +271,43 @@ bool PackManScreen::CanMove(int _X, int _Y) const
 
 bool PackManScreen::CheckCollision()
 {
-	//for (int dY = 0; dY < ENTITYSIZE; dY++)
-	//{
-	//	for (int dX = 0; dX < ENTITYSIZE; dX++)
-	//	{
-	//		for (auto& Monster : MonsterList)
-	//		{
-	//			if (Monster->GetPos().X + dX >= PlayMan->GetPos().X && Monster->GetPos().X + dX < PlayMan->GetPos().X + ENTITYSIZE
-	//					&& Monster->GetPos().Y + dY >= PlayMan->GetPos().Y && Monster->GetPos().Y + dY < PlayMan->GetPos().Y + ENTITYSIZE)
-	//			{
-	//				if (PlayMan->GetState() == PlayerState::Attacker)
-	//				{
-	//					Monster->MonsterReset();
-	//					return false;
-	//				}
-	//				else
-	//				{
-	//					//return true;
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-	for (auto& Monster : MonsterList)
+	for (int dY = 0; dY < ENTITYSIZE; dY++)
 	{
-		if (Col.CheckCollision(Monster->GetPos(), PlayMan->GetPos()))
+		for (int dX = 0; dX < ENTITYSIZE; dX++)
 		{
-			if (PlayMan->GetState() == PlayerState::Attacker)
+			for (auto& Monster : MonsterList)
 			{
-				Monster->MonsterReset();
-				return false;
-			}
-			else
-			{
-				//return true;
+				if (Monster->GetPos().X + dX >= PlayMan->GetPos().X && Monster->GetPos().X + dX < PlayMan->GetPos().X + ENTITYSIZE
+						&& Monster->GetPos().Y + dY >= PlayMan->GetPos().Y && Monster->GetPos().Y + dY < PlayMan->GetPos().Y + ENTITYSIZE)
+				{
+					if (PlayMan->GetState() == PlayerState::Attacker)
+					{
+						Monster->MonsterReset();
+						return false;
+					}
+					else
+					{
+						//return true;
+					}
+				}
 			}
 		}
 	}
+	//for (auto& Monster : MonsterList)
+	//{
+	//	if (Col.CheckCollision(Monster->GetPos(), PlayMan->GetPos()))
+	//	{
+	//		if (PlayMan->GetState() == PlayerState::Attacker)
+	//		{
+	//			Monster->MonsterReset();
+	//			return false;
+	//		}
+	//		else
+	//		{
+	//			//return true;
+	//		}
+	//	}
+	//}
 	return false;
 }
 
