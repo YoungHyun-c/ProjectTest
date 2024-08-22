@@ -49,7 +49,7 @@ public:
 	void ScreenPrint();
 	void ScreenClear();
 
-	bool CheckMonsterCollision();
+	bool CheckMonsterCol();
 	bool CheckTest(const int2& _Pos);
 	bool CheckCollision();
 

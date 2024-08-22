@@ -2,7 +2,7 @@
 #include "GameEngineRandom.h"
 
 #define MonsterChase 3000
-#define Monster_Find 1500
+#define Monster_Find 600
 #define Monster_Move 100
 
 Monster::~Monster()
@@ -134,8 +134,6 @@ void Monster::AttackUpdate()
 	if (!Col.CheckMonsterCollision(MonsterColPos, pPlayer->GetPos()) && CurrentTime - LastMonsterChaseTime >= MoveChase)
 	{
 		LastMonsterChaseTime = CurrentTime;
-		LastMonsterFindTime = CurrentTime;
-		LastMonsterMoveTime = CurrentTime;
 		ChangeState(MonsterState::Normal);
 		return;
 	}

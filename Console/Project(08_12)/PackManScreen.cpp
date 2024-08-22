@@ -322,7 +322,7 @@ bool PackManScreen::CheckCollision()
 	return false;
 }
 
-bool PackManScreen::CheckMonsterCollision()
+bool PackManScreen::CheckMonsterCol()
 {
 	for (int i = 0; i < MonsterCount - 1; i++)
 	{
@@ -330,7 +330,7 @@ bool PackManScreen::CheckMonsterCollision()
 		{
 			if (Col.CheckCollision(MonsterList[i]->GetPos(), MonsterList[j]->GetPos()))
 			{
-				MonsterList[i]->MonsterReset();
+				//MonsterList[i]->MonsterReset();
 				return true;
 			}
 		}
