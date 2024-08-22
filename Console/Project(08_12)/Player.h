@@ -121,29 +121,12 @@ protected:
 
 
 private:
-	/*char PlayerArr1[YSize][XSize] =
-	{
-		 " 222 ",
-		 "22222",
-		 "222  ",
-		 "22222",
-		 " 222 "
-	};*/
 	char PlayerArr1[YSize][XSize] =
 	{
 		 "222",
 		 "22 ",
 		 "222",
 	};
-
-	/*char PlayerArr2[YSize][XSize] =
-	{
-		 " 2222",
-		 "222  ",
-		 "22   ",
-		 "222  ",
-		 " 2222"
-	};*/
 	char PlayerArr2[YSize][XSize] =
 	{
 		 "223",
@@ -151,14 +134,6 @@ private:
 		 "223",
 	};
 
-	/*char PlayerArr3[YSize][XSize] =
-	{
-		 " 2 2 ",
-		 "22 22",
-		 "22222",
-		 "22222",
-		 " 222 "
-	};*/
 
 	char PlayerArr3[YSize][XSize] =
 	{
@@ -174,14 +149,6 @@ private:
 		 "222"
 	};
 
-	/*char PlayerPreveArr[YSize][XSize] =
-	{
-		 "     ",
-		 "     ",
-		 "     ",
-		 "     ",
-		 "     "
-	};*/
 	char PlayerPreveArr[YSize][XSize] =
 	{
 		 "   ",

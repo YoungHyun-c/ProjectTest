@@ -141,6 +141,7 @@ private:
 	std::vector<class Monster*> MonsterList;
 	int MonsterCount = 3;
 	GameEngineCollision Col;
+	int IndexCount = 0;
 
 	std::vector<class Item*> Items;
 	int ItemCount = 22;

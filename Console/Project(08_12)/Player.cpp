@@ -52,7 +52,7 @@ void Player::PlayerInfoPrint()
 		std::cout << "플레이어 상태 : 노말                         ";
 		break;
 	case PlayerState::Attacker:
-		std::cout << "플레이어 상태 : 공격 !!";
+		std::cout << "플레이어 상태 : 공격!!";
 		break;
 	case PlayerState::Max:
 		std::cout << "플레이어 상태 : Zzz                          ";
@@ -152,7 +152,6 @@ void Player::AttackStart()
 void Player::AttackUpdate()
 {
 	auto CurrentTime = std::chrono::steady_clock::now();
-	auto Check = CurrentTime - AttackTime;
 	if (CurrentTime - AttackTime >= Attackker)
 	{
 		AttackTime = CurrentTime;
@@ -164,7 +163,7 @@ void Player::AttackUpdate()
 		auto Now = std::chrono::steady_clock::now();
 		auto RemainTime = std::chrono::duration_cast<std::chrono::seconds>(AttackEndTime - Now).count();
 
-		Handle.Gotoxy(75, 47);
+		Handle.Gotoxy(78, 47);
 		std::cout << " 남은 시간 : " << RemainTime << " 초";
 	}
 	

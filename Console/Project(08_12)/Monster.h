@@ -4,6 +4,16 @@
 #include "AStartPathFinder.h"
 #include "ConsoleGameObject.h"
 #include "PackManScreen.h"
+#include "Player.h"
+
+enum class MonsterState
+{
+	Normal,
+	Attack,
+	Run,
+	Max,
+};
+
 
 class Monster : public ConsoleGameObject
 {
@@ -13,9 +23,12 @@ public:
 	Monster(int _FontColor, int _BackColor, int _X, int _Y)
 		: FontColor(_FontColor), BackColor(_BackColor) , InitMonsterPos(_X, _Y)
 	{
+		MonsterColPos.X = _X - 14;
+		MonsterColPos.Y = _Y - 8;
 	}
 
 	void MonsterPrint();
+	void MonsterInfoPrint();
 
 	inline void SetPos(const int2& _Value) override
 	{
@@ -44,6 +57,35 @@ public:
 	void FindMonsterToPlayer(Player* _Player);
 	void MoveMonsterToPlayer();
 
+	void ChangeState(MonsterState _State);
+	void StateUpdate();
+	MonsterState GetState()
+	{
+		return State;
+	}
+
+	void MonsterColPrint();
+
+	void RecievepPlayer(Player* _pPlayer)
+	{
+		pPlayer = _pPlayer;
+	}
+
+protected:
+	/*Normal,
+	Attack,
+	Run,*/
+
+	void NormalStart();
+	void NormalUpdate();
+
+	void AttackStart();
+	void AttackUpdate();
+
+	void RunStart();
+	void RunUpdate();
+
+
 private:
 	/*char MonsterArr[5][6] = { " 222 ",
 							  "23332",
@@ -65,26 +107,63 @@ private:
 							 {"   ",
 							  "   ",
 							  "   " };
+	char MonsterColArr[18][41] =
+							{
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+								"8888888888888888888888888888888888888888",
+							};
+
+
 
 
 	int FontColor = 0;
 	int BackColor = 0;
 
-	int MonsterSpeed = 100;
 	int Dir = 0;
+	int Key = -1;
 
 	double CheckTime;
 	clock_t start = clock();
 	clock_t end;
+	std::chrono::steady_clock::time_point LastMonsterChaseTime;
+	std::chrono::steady_clock::time_point LastMonsterFindTime;
+	std::chrono::steady_clock::time_point LastMonsterMoveTime;
+	static const std::chrono::milliseconds MoveChase;
+	static const std::chrono::milliseconds MoveInterval;
+	static const std::chrono::milliseconds Move;
+	std::chrono::steady_clock::time_point RunTime;
+	static const std::chrono::milliseconds Runner;
 
 	class Utill Handle;
 
 	int2 InitMonsterPos = { };
 	int2 MonsterPos = {  };
 	int2 PrevePos = { };
+	int2 MonsterColPos = {};
+	GameEngineCollision Col;
 
 	int IndexCount = 0;
 	AStartPathFinder AStar;
 	std::vector<int2> Path;
+
+	MonsterState State = MonsterState::Normal;
+
+	Player* pPlayer;
 };
 

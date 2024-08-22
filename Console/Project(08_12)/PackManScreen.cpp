@@ -3,8 +3,8 @@
 #include <cmath>
 
 #define InterFrame 1000
-#define Monster_Find 600
-#define Monster_Move 200
+//#define Monster_Find 600
+//#define Monster_Move 200
 
 #define AppleValue 100
 #define BananaValue 330
@@ -153,7 +153,28 @@ int PackManScreen::PackManSetting()
 
 void PackManScreen::GameInfoPrint()
 {
-
+	
+	for (int i = 0; i < MonsterCount; i++)
+	{
+		Handle.Gotoxy((i * 30), 48);
+		Handle.TextColor(15, 0);
+		switch (MonsterList[i]->GetState())
+		{
+		case MonsterState::Normal:
+			std::cout << "몬스터 상태 : 노말                      ";
+			break;
+		case MonsterState::Attack:
+			std::cout << "몬스터 상태 : 공격! 찾았다!!           ";
+			break;
+		case MonsterState::Run:
+			std::cout << "몬스터 상태 : 비상!!!!                ";
+			break;
+		case MonsterState::Max:
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void PackManScreen::InitGame(bool bInitConsole)
@@ -174,6 +195,11 @@ void PackManScreen::InitGame(bool bInitConsole)
 	MonsterList[0]->SetPos({35, 23 });
 	MonsterList[1]->SetPos({45, 22 });
 	MonsterList[2]->SetPos({55, 23 });
+
+	for (auto& Monster : MonsterList)
+	{
+		Monster->RecievepPlayer(PlayMan);
+	}
 
 	if (Items.empty())
 	{
@@ -230,13 +256,13 @@ void PackManScreen::ScreenPrint()
 void PackManScreen::ScreenClear()
 {
 	Handle.TextColor(15, 0);
-	Handle.Gotoxy(0, 48);
+	Handle.Gotoxy(0, 49);
 	std::cout << "당신은 잡혔습니다!                                           ";
 	PlayMan->SubLifeCount();
 	if (PlayMan->GetLifeCount() <= 0)
 	{
 		Handle.TextColor(15, 0);
-		Handle.Gotoxy(0, 48);
+		Handle.Gotoxy(0, 49);
 		std::cout << " 게임이 종료됩니다...								";
 		Sleep(1000);
 		system("cls");
@@ -250,7 +276,7 @@ void PackManScreen::ScreenClear()
 
 	PlayMan->PlayerReset();
 	Handle.TextColor(15, 0);
-	Handle.Gotoxy(0, 48);
+	Handle.Gotoxy(0, 49);
 	std::cout << "초기 위치에서 다시 시작합니다.";
 }
 
@@ -287,27 +313,12 @@ bool PackManScreen::CheckCollision()
 					}
 					else
 					{
-						//return true;
+						return true;
 					}
 				}
 			}
 		}
 	}
-	//for (auto& Monster : MonsterList)
-	//{
-	//	if (Col.CheckCollision(Monster->GetPos(), PlayMan->GetPos()))
-	//	{
-	//		if (PlayMan->GetState() == PlayerState::Attacker)
-	//		{
-	//			Monster->MonsterReset();
-	//			return false;
-	//		}
-	//		else
-	//		{
-	//			//return true;
-	//		}
-	//	}
-	//}
 	return false;
 }
 
@@ -353,6 +364,11 @@ void PackManScreen::GameProcess()
 			if (ItemIndex->GetName() == "공격")
 			{
 				PlayMan->ChangeState(PlayerState::Attacker);
+				
+				for (auto& Monster : MonsterList)
+				{
+					Monster->ChangeState(MonsterState::Run);
+				}
 			}
 			ItemIndex->Death();
 			break;
@@ -401,6 +417,24 @@ void PackManScreen::GameProcess()
 		{
 			PlayMan->ChangeState(PlayerState::Attacker);
 		}
+		else if (Key == '3')
+		{
+			MonsterList[0]->ChangeState(MonsterState::Normal);
+		}
+		else if (Key == '4')
+		{
+			MonsterList[0]->ChangeState(MonsterState::Attack);
+		}
+		else if (Key == '5')
+		{
+			MonsterList[0]->ChangeState(MonsterState::Run);
+		}
+		else if (Key == '8')
+		{
+			MonsterList[0]->MonsterColPrint();
+		}
+
+
 	}
 }
 
@@ -444,16 +478,16 @@ void PackManScreen::PackManUpdate()
 
 	PlayMan->PlayerPrint();
 
-	auto LastMonsterFindTime = std::chrono::steady_clock::now();
-	auto LastMonsterMoveTime = std::chrono::steady_clock::now();
-	const std::chrono::milliseconds MoveInterval(Monster_Find);
-	const std::chrono::milliseconds Move(Monster_Move);
+	//auto LastMonsterFindTime = std::chrono::steady_clock::now();
+	//auto LastMonsterMoveTime = std::chrono::steady_clock::now();
+	//const std::chrono::milliseconds MoveInterval(Monster_Find);
+	//const std::chrono::milliseconds Move(Monster_Move);
 
 	while (true)
 	{
 		GameProcess();
 
-		auto CurrentTime = std::chrono::steady_clock::now();
+		/*auto CurrentTime = std::chrono::steady_clock::now();
 		if (CurrentTime - LastMonsterFindTime >= MoveInterval)
 		{
 			for (auto& Index : MonsterList)
@@ -469,7 +503,7 @@ void PackManScreen::PackManUpdate()
 				Index->MoveMonsterToPlayer();
 			}
 			LastMonsterMoveTime = CurrentTime;
-		}
+		}*/
 
 		if (CheckCollision() == true)
 		{
@@ -478,8 +512,10 @@ void PackManScreen::PackManUpdate()
 
 		for (auto& Monster : MonsterList)
 		{
+			Monster->Update();
 			Monster->MonsterPrint();
 		}
+		GameInfoPrint();
 
 		PlayMan->Update();
 		PlayMan->PlayerPrint();
