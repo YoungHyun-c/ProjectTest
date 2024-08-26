@@ -70,9 +70,6 @@
     <ClCompile Include="AStartPathFinder.cpp">
       <Filter>Level0</Filter>
     </ClCompile>
-    <ClCompile Include="T.cpp">
-      <Filter>Level1\Player</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngineRandom.cpp">
       <Filter>Level0</Filter>
     </ClCompile>

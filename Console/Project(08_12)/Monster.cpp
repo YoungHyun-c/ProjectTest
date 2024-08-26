@@ -323,9 +323,12 @@ void Monster::MoveMonsterToPlayer()
 		{
 			return;
 		}
-		const size_t HomeIndex = Path.size() - (IndexCount - 1);
-		PrevePos = Path[HomeIndex];
-		int2 NextPos = { Path[Path.size() - IndexCount].X - PrevePos.X, Path[Path.size() - IndexCount].Y - PrevePos.Y };
+		const size_t PreveIndex = Path.size() - (IndexCount - 1);
+		const size_t NextIndex = Path.size() - IndexCount;
+
+
+		PrevePos = Path[PreveIndex];
+		int2 NextPos = { Path[NextIndex].X - PrevePos.X, Path[NextIndex].Y - PrevePos.Y };
 		if (NextPos.X == -1)
 		{
 			Dir = 0;

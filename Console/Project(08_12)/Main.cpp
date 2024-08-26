@@ -7,11 +7,6 @@
 #include "PackManScreen.h"
 #include "Utill.h"
 
-#include "Map.h"
-#include "Player.h"
-#include "Monster.h"
-#include "Item.h"
-
 #include "AStartPathFinder.h"
 
 

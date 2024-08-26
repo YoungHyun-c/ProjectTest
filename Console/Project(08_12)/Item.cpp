@@ -1,6 +1,5 @@
 #include "Item.h"
 #include "PackManScreen.h"
-#include "PackManScreen.h"
 
 Item::Item()
 {

@@ -3,9 +3,6 @@
 #include <cmath>
 
 #define InterFrame 1000
-//#define Monster_Find 600
-//#define Monster_Move 200
-
 #define AppleValue 100
 #define BananaValue 330
 #define TransValue 200
@@ -391,14 +388,6 @@ void PackManScreen::StageClear()
 			system("cls");
 		}
 	}
-
-	/*for (auto& ItemIndex : Items)
-	{
-		if (ItemIndex->IsDeath())
-		{
-			ItemIndex->Resolve();
-		}
-	}*/
 }
 
 void PackManScreen::GameProcess()
@@ -425,29 +414,6 @@ void PackManScreen::GameProcess()
 		}
 	}
 
-	/*if (Stage == 2)
-	{
-		for (int Index = 0; Index < ItemCount; Index++)
-		{
-			if (Items[Index]->IsDeath() == true)
-			{
-				Items[Index]->ItemOff(Items[Index]->GetPos());
-			}
-			else if (Index < 10)
-			{
-				Items[Index]->AppleItemPrint(Items[Index]->GetPos());
-			}
-			else if (20 <= Index)
-			{
-				Items[Index]->TransItemPrint(Items[Index]->GetPos());
-			}
-			else if (10 <= Index)
-			{
-				Items[Index]->BananaItemPrint(Items[Index]->GetPos());
-			}
-		}
-	}*/
-	
 	PlayMan->Update();
 	PlayMan->PlayerPrint();
 
