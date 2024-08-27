@@ -62,6 +62,9 @@
     <Filter Include="Lesson\16.LinkedList\SLL">
       <UniqueIdentifier>{215e586b-260a-4283-8e5c-ce4a4cc9dca1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lesson\17.디자인패턴">
+      <UniqueIdentifier>{0e0f3826-3f05-4017-8dce-c96a58edf89f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -233,6 +236,9 @@
     </ClCompile>
     <ClCompile Include="2.Recursive.cpp">
       <Filter>Lesson\16.LinkedList</Filter>
+    </ClCompile>
+    <ClCompile Include="1.Example.cpp">
+      <Filter>Lesson\17.디자인패턴</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
